@@ -1,6 +1,6 @@
 package fr.annuaire5000.Model;
 
-public class Etudiant {
+public class Etudiant implements Comparable<Etudiant>{
 
 	private String nom;
 	private String prenom;
@@ -114,6 +114,12 @@ public class Etudiant {
 	public String toString() {
 		return "Etudiant [nom=" + nom + ", prenom=" + prenom + ", departement=" + departement + ", promotion="
 				+ promotion + ", annee=" + annee + "]";
+	}
+
+	@Override
+	public int compareTo(Etudiant o) {
+		// TODO Auto-generated method stub
+		return this.getNom().compareTo(o.getNom());
 	}
 	
 	

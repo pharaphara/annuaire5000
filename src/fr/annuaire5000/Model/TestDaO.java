@@ -3,6 +3,8 @@ package fr.annuaire5000.Model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -18,9 +20,14 @@ public class TestDaO {
 			EtudiantDAO dao = new EtudiantDAO();
 			List<Etudiant> etudiants = dao.importExtern(file);
 			
-			System.out.println(etudiants);
+			for (Etudiant etudiant : etudiants) {
+				System.out.println(etudiant);
+			}
+			Collections.sort(etudiants);
 			
-			
+			for (Etudiant etudiant : etudiants) {
+				System.out.println(etudiant);
+			}
 			
 
 		}
