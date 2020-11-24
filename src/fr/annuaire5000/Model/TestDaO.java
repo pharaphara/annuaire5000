@@ -8,8 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 
 public class TestDaO {
 
@@ -23,15 +22,24 @@ public class TestDaO {
 			for (Etudiant etudiant : etudiants) {
 				System.out.println(etudiant);
 			}
-			Collections.sort(etudiants);
+				
 			
-			for (Etudiant etudiant : etudiants) {
-				System.out.println(etudiant);
-			}
+			System.out.println(etudiants.get(2).compareTo(etudiants.get(1)));
+			
+			ArbreBinaire ab = new ArbreBinaire();
+			ab=dao.initialisationArbre(etudiants);
+			
+					
+			ab.affichageOrdre(ab.root);
+			
+			
+			
 			
 
+			
 		}
-
-	}
+}
+	
+	
 
 

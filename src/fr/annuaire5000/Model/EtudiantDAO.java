@@ -1,15 +1,10 @@
 package fr.annuaire5000.Model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
-
 
 
 public class EtudiantDAO {
@@ -58,4 +53,27 @@ public class EtudiantDAO {
 		return etudiants;
 	}
 
+
+	public ArbreBinaire initialisationArbre(List<Etudiant> etudiants) {
+		ArbreBinaire ab = new ArbreBinaire();
+		for (Etudiant etudiant : etudiants) {
+			ab.add(etudiant);
+		};
+
+	   
+
+	    return ab;
+
+	}
+	
+	public void enregistrerAbre (Noeud noeud) {
+		
+		
+		if (noeud != null) {
+	 	    System.out.println(noeud.getEtudiant().toString());
+	 	   enregistrerAbre(noeud.gauche);
+	 	  enregistrerAbre(noeud.droite);
+	    }
+	}
 }
+
