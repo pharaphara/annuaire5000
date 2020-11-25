@@ -7,7 +7,7 @@ public class Etudiant implements Comparable<Etudiant>{
 	private String departement;
 	private String promotion;
 	private String annee;
-	
+
 	public Etudiant() {
 		super();
 	}
@@ -19,6 +19,10 @@ public class Etudiant implements Comparable<Etudiant>{
 		this.departement = departement;
 		this.promotion = promotion;
 		this.annee = annee;
+	}
+	public Etudiant(String nom) {
+		super();
+		this.nom = nom;
 	}
 
 	public String getNom() {
@@ -118,17 +122,41 @@ public class Etudiant implements Comparable<Etudiant>{
 
 	@Override
 	public int compareTo(Etudiant o) {
-		// TODO Auto-generated method stub
-		return this.getNom().compareTo(o.getNom());
+		
+		return this.getNom().compareToIgnoreCase(o.getNom());
 	}
 
 	public String toLargeurFixe() {
-		// TODO Auto-generated method stub
-		return null;
+       
+       String esp1="";
+       String esp2="";
+       String esp3="";
+       String esp4="";
+       String esp5="";
+       
+     for (int i = 0; i < 30 -nom.length(); i++) {
+		
+	       esp1 = esp1+" ";
+		}
+     
+     for (int i = 0; i < 30 -prenom.length(); i++) {
+ 		
+	       esp2 = esp2+" ";
+		}
+     for (int i = 0; i < 3 -departement.length(); i++) {
+ 		
+	       esp3 = esp3+" ";
+		}
+     for (int i = 0; i < 10 -promotion.length(); i++) {
+ 		
+	       esp4 = esp4+" ";
+		}
+     for (int i = 0; i < 4 -annee.length(); i++) {
+ 		
+	       esp5 = esp5+" ";
+		}
+		return  nom + esp1 + prenom +esp2 + departement+esp3 + promotion +esp4 + annee + esp5;
 	}
-	
-	
-	
-	
-	
+
+
 }

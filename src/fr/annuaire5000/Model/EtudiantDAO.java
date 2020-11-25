@@ -15,15 +15,15 @@ public class EtudiantDAO {
 
 
 		List<Etudiant> etudiants = new ArrayList<Etudiant>();
-		
+
 		RandomAccessFile raf = null;
-		
+
 		List<String> liststringEtudiants = new ArrayList<>();
 		String lecture="";
 		try {
 			raf = new RandomAccessFile(file, "r");
 			while(raf.getFilePointer()<file.length()) {
-				
+
 				for (int i = 0; i < 5; i++) {//5= nombre de ligne avec des information dans le fichier d'import
 					lecture = lecture+raf.readLine()+";";
 				}
@@ -31,24 +31,24 @@ public class EtudiantDAO {
 				liststringEtudiants.add(lecture);
 				lecture="";
 			}
-			
+
 			for (String string : liststringEtudiants) {
 				String[] info= string.split(";");
 				Etudiant etudiant = new Etudiant(info[0],info[1],info[2],info[3],info[4]);
 				etudiants.add(etudiant);
 
 			}
-				
-				
-			
-			
-			
+
+
+
+
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 
 
 		return etudiants;
@@ -61,60 +61,71 @@ public class EtudiantDAO {
 			ab.add(etudiant);
 		};
 
-	   
 
-	    return ab;
+
+		return ab;
 
 	}
-	
+
 	public void enregistrerAbre (Noeud noeud) {
-		
-		
+
+
 		if (noeud != null) {
-	 	    System.out.println(noeud.getEtudiant().toString());
-	 	   enregistrerAbre(noeud.gauche);
-	 	  enregistrerAbre(noeud.droite);
-	    }
+			System.out.println(noeud.getEtudiant().toString());
+			enregistrerAbre(noeud.gauche);
+			enregistrerAbre(noeud.droite);
+		}
 	}
 
 
 	public void sauvegarderArbre(ArbreBinaire ab) {
 		parcourArbre(ab.root);
-		
+
 	}
-	
-public void parcourArbre(Noeud noeud) {
-	
-		
-	    if (noeud != null) {
-	 	    ecrireNoeud(noeud);
-	 	   ecrireNoeud(noeud.gauche);
-	 	  ecrireNoeud(noeud.droite);
-	    }
+
+	public void parcourArbre(Noeud noeud) {
+
+
+		if (noeud != null) {
+			ecrireNoeud(noeud);
+			ecrireNoeud(noeud.gauche);
+			ecrireNoeud(noeud.droite);
+		}
 	}
 
 
-private void ecrireNoeud(Noeud noeud) {
+	//static chercherI(int x, Arbre a)
+	//{
+	//  while(a != null && x != a.contenu)
+	//    if (x < a.contenu)
+	//      a = a.filsG;
+	//    else
+	//      a = a.filsD;
+	//  return a;
+	//}
 	
-	File file = new File ("./data.bin");
 	
-	RandomAccessFile raf = null;
-	
-	try {
-		raf= new RandomAccessFile(file, "w");
-		raf.writeBytes(noeud.getEtudiant().toLargeurFixe());
-		raf.writeBytes(noeud.getGauche().toLargeurFixe());
-		raf.writeBytes(noeud.getDroite().toLargeurFixe());
-		
-		
-		
-		
-		
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	private void ecrireNoeud(Noeud noeud) {
+
+		File file = new File ("./data.bin");
+
+		RandomAccessFile raf = null;
+
+		try {
+			raf= new RandomAccessFile(file, "w");
+			raf.writeBytes(noeud.getEtudiant().toLargeurFixe());
+			raf.writeBytes(noeud.getGauche().toLargeurFixe());
+			raf.writeBytes(noeud.getDroite().toLargeurFixe());
+
+
+
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
-	
-}
 }
 

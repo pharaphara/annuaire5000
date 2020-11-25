@@ -23,6 +23,7 @@ public class ArbreBinaire {
         return current;
     }
 
+
 	public ArbreBinaire(Noeud root) {
 		super();
 		this.root = root;
