@@ -33,6 +33,9 @@ public class TestDaO {
 			ab.affichageOrdre(ab.root);
 			
 			
+			dao.sauvegarderArbre(ab);
+			
+			
 			
 			
 

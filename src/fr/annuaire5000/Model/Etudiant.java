@@ -121,6 +121,11 @@ public class Etudiant implements Comparable<Etudiant>{
 		// TODO Auto-generated method stub
 		return this.getNom().compareTo(o.getNom());
 	}
+
+	public String toLargeurFixe() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

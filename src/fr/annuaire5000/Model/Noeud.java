@@ -63,6 +63,11 @@ public class Noeud implements Comparable<Noeud>{
 		// TODO Auto-generated method stub
 		return this.getEtudiant().getNom().compareTo(o.getEtudiant().getNom());
 	}
+
+	public String toLargeurFixe() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
     

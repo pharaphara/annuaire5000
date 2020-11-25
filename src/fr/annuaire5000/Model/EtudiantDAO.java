@@ -1,6 +1,7 @@
 package fr.annuaire5000.Model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -75,5 +76,45 @@ public class EtudiantDAO {
 	 	  enregistrerAbre(noeud.droite);
 	    }
 	}
+
+
+	public void sauvegarderArbre(ArbreBinaire ab) {
+		parcourArbre(ab.root);
+		
+	}
+	
+public void parcourArbre(Noeud noeud) {
+	
+		
+	    if (noeud != null) {
+	 	    ecrireNoeud(noeud);
+	 	   ecrireNoeud(noeud.gauche);
+	 	  ecrireNoeud(noeud.droite);
+	    }
+	}
+
+
+private void ecrireNoeud(Noeud noeud) {
+	
+	File file = new File ("./data.bin");
+	
+	RandomAccessFile raf = null;
+	
+	try {
+		raf= new RandomAccessFile(file, "w");
+		raf.writeBytes(noeud.getEtudiant().toLargeurFixe());
+		raf.writeBytes(noeud.getGauche().toLargeurFixe());
+		raf.writeBytes(noeud.getDroite().toLargeurFixe());
+		
+		
+		
+		
+		
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
 }
 
