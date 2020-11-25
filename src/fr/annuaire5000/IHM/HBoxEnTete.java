@@ -20,17 +20,13 @@ public class HBoxEnTete extends HBox {
 		super();
 		
 		btn1 = new Button("Importer");
-		//btn1.setStyle("-fx-border-color: black");
 		btn1.setStyle("-fx-background-radius: 5");
 		btn2 = new Button("Exporter");
-		//btn2.setStyle("-fx-border-color: black");
 		btn2.setStyle("-fx-background-radius: 5");
 		btn3 = new Button("Connecter");
-		//btn3.setStyle("-fx-border-color: red");
 		btn3.setStyle("-fx-background-radius: 5");
 		btn3.setStyle("-fx-background-color: gold");
 		btn4 = new Button("Help");
-		//btn4.setStyle("-fx-border-color: black");
 		btn4.setStyle("-fx-background-radius: 5");
 		
 //		HBox pane = new HBox(15);

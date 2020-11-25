@@ -5,7 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-
+//Class du panneau droit en attendant les tableaux, remplacés par les tf1 et tf2
 public class RightVBox extends VBox {
 	
 	private Label lbl1;

@@ -34,44 +34,40 @@ public class LeftGridPane extends GridPane {
 		addRow(0, lblNom, tfNom);
 		lblNom.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
-		lblPrenom = new Label("PrÃ©nom : ");
+		lblPrenom = new Label("Prénom : ");
 		tfPrenom = new TextField();
 		addRow(1, lblPrenom, tfPrenom);
 		lblPrenom.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
-		lblDepartement = new Label("DÃ©partement : ");
+		lblDepartement = new Label("Département : ");
 		tfDepartement = new TextField();
 		addRow(2, lblDepartement, tfDepartement);
 		lblDepartement.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
-		lblAnnee = new Label("AnnÃ©e : ");
-		tfAnnee = new TextField();
-		addRow(3, lblAnnee, tfAnnee);
-		lblAnnee.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
-		
-		lblPromotion = new Label("NumÃ©ro de promotion : ");
+		lblPromotion = new Label("Numéro de promotion : ");
 		tfPromotion = new TextField();
-		addRow(4, lblPromotion, tfPromotion);
+		addRow(3, lblPromotion, tfPromotion);
 		lblPromotion.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
+		
+		lblAnnee = new Label("Année : ");
+		tfAnnee = new TextField();
+		addRow(4, lblAnnee, tfAnnee);
+		lblAnnee.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
 		btnAjouter = new Button("Ajouter");
 		btnAjouter.setPrefSize(100, 50);
-		//btnAjouter.setStyle("-fx-border-color:black");
 		btnAjouter.setStyle("-fx-background-radius: 5");
 		
 		btnRechercher = new Button("Rechercher");
 		btnRechercher.setPrefSize(100, 50);
-		//btnRechercher.setStyle("-fx-border-color:black");
 		btnRechercher.setStyle("-fx-background-radius: 5");
 		
 		btnModifier = new Button("Modifier");
 		btnModifier.setPrefSize(100, 50);
-		//btnModifier.setStyle("-fx-border-color: red");
 		btnModifier.setStyle("-fx-background-radius: 5 ; -fx-background-color: gold");
 		
 		btnSupprimer = new Button("Supprimer");
 		btnSupprimer.setPrefSize(100, 50);
-		//btnSupprimer.setStyle("-fx-border-color: red");
 		btnSupprimer.setStyle("-fx-background-radius: 5 ; -fx-background-color: gold");
 		
 		

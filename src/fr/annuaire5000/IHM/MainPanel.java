@@ -6,7 +6,7 @@ public class MainPanel extends BorderPane {
 	
 	private LeftGridPane leftGridPane = new LeftGridPane();
 	private HBoxEnTete hboxEnTete = new HBoxEnTete();
-	private RightVBox rightVBox = new RightVBox();
+	private RightVBoxTableViews rightVBox = new RightVBoxTableViews();
 	
 	public MainPanel() {
 		super();
@@ -17,7 +17,7 @@ public class MainPanel extends BorderPane {
 		
 	}
 
-	public MainPanel(LeftGridPane leftGridPane, HBoxEnTete hboxEnTete, RightVBox rightVBox) {
+	public MainPanel(LeftGridPane leftGridPane, HBoxEnTete hboxEnTete, RightVBoxTableViews rightVBox) {
 		super();
 		this.leftGridPane = leftGridPane;
 		this.hboxEnTete = hboxEnTete;
@@ -40,11 +40,11 @@ public class MainPanel extends BorderPane {
 		this.hboxEnTete = hboxEnTete;
 	}
 
-	public RightVBox getRightVBox() {
+	public RightVBoxTableViews getRightVBox() {
 		return rightVBox;
 	}
 
-	public void setRightVBox(RightVBox rightVBox) {
+	public void setRightVBox(RightVBoxTableViews rightVBox) {
 		this.rightVBox = rightVBox;
 	}
 
