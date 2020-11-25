@@ -1,9 +1,13 @@
 package fr.annuaire5000.Model;
 
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.List;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
 
 public class TestDaO {
 
@@ -44,6 +48,25 @@ public class TestDaO {
 		
 		racine.supprimerNom("abcd", racine);
 		racine.affichageOrdre(racine);
+		
+		NoeudDao daoN = new NoeudDao();
+		
+		
+		File fileArbre = new File("./arbreTest.bin");
+		RandomAccessFile raf;
+		try {
+			raf = new RandomAccessFile(fileArbre, "rw");
+			daoN.initialisation(raf);
+			for (Etudiant etudiant : etudiants) {
+				daoN.inserer(etudiant, 0l, raf);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 
 
 	}
