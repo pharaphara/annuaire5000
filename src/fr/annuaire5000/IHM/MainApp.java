@@ -16,7 +16,6 @@ public class MainApp extends Application {
 		primaryStage.setTitle("Annuaire5000");
 		primaryStage.sizeToScene();
 		primaryStage.show();
-
 	}
 
 	public static void main(String[] args) {
