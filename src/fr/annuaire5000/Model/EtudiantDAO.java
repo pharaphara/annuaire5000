@@ -28,7 +28,8 @@ public class EtudiantDAO {
 					lecture = lecture+raf.readLine()+";";
 				}
 				raf.readLine();//pour sauter la ligne de l'étoile
-				liststringEtudiants.add(lecture);
+				String strUtf8 = new String(lecture.getBytes("ISO-8859-1"), "UTF-8");
+				liststringEtudiants.add(strUtf8);
 				lecture="";
 			}
 
