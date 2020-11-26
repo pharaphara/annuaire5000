@@ -1,45 +1,53 @@
 package fr.annuaire5000.IHM;
 
+
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class HBoxEnTete extends HBox {
 
 	private Button btn1;
 	private Button btn2;
-	private Button btn3;
+
 	private Button btn4;
 	private Image img;
 	private ImageView img2;
-	
-	
+
+	private Button btn3 = new Button("Connecter");
+
 	public HBoxEnTete() {
 		super();
-		
+
 		btn1 = new Button("Importer");
 		btn1.setStyle("-fx-background-radius: 5");
 		btn2 = new Button("Exporter");
 		btn2.setStyle("-fx-background-radius: 5");
-		btn3 = new Button("Connecter");
-		btn3.setStyle("-fx-background-radius: 5");
-		btn3.setStyle("-fx-background-color: gold");
+		
+		//btn3.setStyle("-fx-background-radius: 5");
+		//btn3.setStyle("-fx-background-color: gold");
 		btn4 = new Button("Help");
 		btn4.setStyle("-fx-background-radius: 5");
-		
-//		HBox pane = new HBox(15);
-//		img = new Image("EQL.png");
-//		pane.setPrefSize(50, 50);
-//		img2 = new ImageView(img);
-		
+
+
 		setSpacing(50);
 		setAlignment(Pos.CENTER);
 		setStyle("-fx-background-color: teal");
 		setPrefSize(1200, 100);
 		getChildren().addAll(btn1, btn2, btn3, btn4);
-		
+
+
+
+
+
 	}
 
 
@@ -176,5 +184,28 @@ public class HBoxEnTete extends HBox {
 		return "HBoxEnTete [btn1=" + btn1 + ", btn2=" + btn2 + ", btn3=" + btn3 + ", btn4=" + btn4 + ", img=" + img
 				+ ", img2=" + img2 + "]";
 	}
-	
+
+
+	//Creation une classe interne Button handler pour connecter
+	//on peut le sortir aprés comme classe externe
+
+	private class ButtonHandler1 implements EventHandler<ActionEvent>{
+
+		@Override
+		public void handle(ActionEvent e) {
+			//On instancie notre mot de passe pane
+			MotPassePanel root = new MotPassePanel();
+
+			//On instancie une nouvelle scene
+			Scene scene = new Scene(root);
+			//Récupérer le stage en cours pour lui transmettre la nouvelle scene
+			Stage stage = (Stage) getScene().getWindow();
+			stage.setScene(scene);
+		}
+
+	}
+	//	
+	//	
+
+
 }

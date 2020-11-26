@@ -1,6 +1,13 @@
 package fr.annuaire5000.IHM;
 
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class MainPanel extends BorderPane {
 	
@@ -14,6 +21,8 @@ public class MainPanel extends BorderPane {
 		setLeft(leftGridPane);
 		setTop(hboxEnTete);
 		setRight(rightVBox);
+	
+		hboxEnTete.getBtn3().setOnAction(e->ActionButton.modeAdmin());
 		
 	}
 
