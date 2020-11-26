@@ -14,6 +14,7 @@ public class MainPanel extends BorderPane {
 		setLeft(leftGridPane);
 		setTop(hboxEnTete);
 		setRight(rightVBox);
+		leftGridPane.getBtnAjouter().setOnAction(e -> ActionButton.Ajouter(leftGridPane, rightVBox));
 		
 	}
 

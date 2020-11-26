@@ -34,22 +34,22 @@ public class LeftGridPane extends GridPane {
 		addRow(0, lblNom, tfNom);
 		lblNom.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
-		lblPrenom = new Label("Prénom : ");
+		lblPrenom = new Label("Prï¿½nom : ");
 		tfPrenom = new TextField();
 		addRow(1, lblPrenom, tfPrenom);
 		lblPrenom.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
-		lblDepartement = new Label("Département : ");
+		lblDepartement = new Label("Dï¿½partement : ");
 		tfDepartement = new TextField();
 		addRow(2, lblDepartement, tfDepartement);
 		lblDepartement.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
-		lblPromotion = new Label("Numéro de promotion : ");
+		lblPromotion = new Label("Numï¿½ro de promotion : ");
 		tfPromotion = new TextField();
 		addRow(3, lblPromotion, tfPromotion);
 		lblPromotion.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
 		
-		lblAnnee = new Label("Année : ");
+		lblAnnee = new Label("Annï¿½e : ");
 		tfAnnee = new TextField();
 		addRow(4, lblAnnee, tfAnnee);
 		lblAnnee.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
@@ -127,7 +127,7 @@ public class LeftGridPane extends GridPane {
 		this.lblPrenom = lblPrenom;
 	}
 
-	public TextField getThPrenom() {
+	public TextField getTfPrenom() {
 		return tfPrenom;
 	}
 
