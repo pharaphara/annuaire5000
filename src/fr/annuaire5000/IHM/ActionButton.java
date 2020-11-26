@@ -21,7 +21,7 @@ public class ActionButton {
 
 		popupwindow.initModality(Modality.APPLICATION_MODAL);
 		popupwindow.setTitle("Window Admin");
-		
+
 		try {
 
 			GridPane root = new GridPane();
@@ -33,37 +33,37 @@ public class ActionButton {
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 			//Label UserName
-			userName = new Label("UserName: ");
+			Label userName = new Label("UserName: ");
 			root.add(userName, 0,0);
-            userName.getStyleClass().add("lb");
-			
-			
+			userName.getStyleClass().add("lb");
+
+
 			//TextField UserName
-			userNametf = new TextField();
+			TextField userNametf = new TextField();
 			root.add(userNametf, 1,0);
 			userNametf.getStyleClass().add("tf");
 
 			//Label Password
-			password = new Label("Password: ");
+			Label password = new Label("Password: ");
 			root.add(password, 0, 1);
 			password.getStyleClass().add("lb");
-			
-			
+
+
 			//Password Field
-			passwordField = new PasswordField();
+			PasswordField passwordField = new PasswordField();
 			root.add(passwordField, 1, 1);
-             passwordField.getStyleClass().add("tf");
+			passwordField.getStyleClass().add("tf");
 
 
 			//TextField pour afficher le password
-			pass_text = new TextField();
+			TextField pass_text = new TextField();
 			pass_text.setVisible(false);
 			root.add(pass_text, 1, 1);
 			pass_text.getStyleClass().add("tf");
-			
-			
+
+
 			//CheckBox (Affichage de mot passe)
-			pass_Toggle = new CheckBox("Show Password");
+			CheckBox pass_Toggle = new CheckBox("Show Password");
 			root.add(pass_Toggle, 2, 1);
 			pass_Toggle.getStyleClass().add("lb");
 
@@ -86,18 +86,18 @@ public class ActionButton {
 
 
 			//Label pour afficher le message
-			label = new Label("");
+			Label label = new Label("");
 			root.add(label, 0, 3);
 			GridPane.setColumnSpan(label,2);
 			label.getStyleClass().add("lb");
-			
-			
+
+
 			//Button Login
-			login = new Button ("Login");
+			Button  login = new Button ("Login");
 			root.add(login, 1, 2);
 			label.getStyleClass().add("lb");
 			login.getStyleClass().add("btn");
-			
+
 			//show
 			login.setOnAction(e->{
 				if((userName.getText() !=null && !passwordField.getText().isEmpty() ))
@@ -121,18 +121,16 @@ public class ActionButton {
 
 
 			});
+			//ajouter le gird pane
+			Scene scene1= new Scene(root, 650, 450);
 
+			popupwindow.setScene(scene1);
+
+			popupwindow.showAndWait();	
 
 		}catch (Exception e) {
 			e.printStackTrace();		
 		}
 	}
-		//ajouter le gird pane
-		Scene scene1= new Scene(root, 650, 450);
-
-		popupwindow.setScene(scene1);
-
-		popupwindow.showAndWait();	
-		
-	}
 }
+
