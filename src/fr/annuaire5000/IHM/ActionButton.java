@@ -26,7 +26,7 @@ public class ActionButton {
 		try {
 
 			GridPane root = new GridPane();
-			root.setStyle("-fx-background-color: CORNSILK");
+			
 			root.setPadding(new Insets(20));
 			root.setHgap(25);
 			root.setVgap(15);
@@ -37,40 +37,34 @@ public class ActionButton {
 			Label userName = new Label("UserName: ");
 			root.add(userName, 0,0);
 			//userName.getStyleClass().add("lb");
-			userName.setStyle("-fx-text-fill:#32343f; -fx-font: bold 13pt \"Book Antiqua\"");
+			
 
 			//TextField UserName
 			TextField userNametf = new TextField();
 			root.add(userNametf, 1,0);
 			//userNametf.getStyleClass().add("tf");
-			userNametf.setStyle("-fx-text-fill: #ffaa19;\r\n"
-					+ "	-fx-font: bold 13pt \"Avenir\";\r\n"
-					+ "	-fx-background-color: #32343f;");
+
 			//Label Password
 			Label password = new Label("Password: ");
 			root.add(password, 0, 1);
 			//password.getStyleClass().add("lb");
-			password.setStyle("-fx-text-fill:#32343f; -fx-font: bold 13pt \"Book Antiqua\"");
 
 
 			//Password Field
 			PasswordField passwordField = new PasswordField();
 			root.add(passwordField, 1, 1);
 			//passwordField.getStyleClass().add("tf");
-			passwordField.setStyle("-fx-text-fill: #ffaa19; -fx-font: bold 13pt \"Avenir\"; -fx-background-color: #32343f");
 
 			//TextField pour afficher le password
 			TextField pass_text = new TextField();
 			pass_text.setVisible(false);
 			root.add(pass_text, 1, 1);
 			//pass_text.getStyleClass().add("tf");
-			pass_text.setStyle("-fx-text-fill: #ffaa19; -fx-font: bold 13pt \"Avenir\"; -fx-background-color: #32343f");
 
 			//CheckBox (Affichage de mot passe)
 			CheckBox pass_Toggle = new CheckBox("Show Password");
 			root.add(pass_Toggle, 2, 1);
 			//pass_Toggle.getStyleClass().add("lb");
-			pass_Toggle.setStyle("-fx-text-fill:#32343f; -fx-font: bold 13pt \"Book Antiqua\"");
 
 			//Evenement (je vais le sortir dans un classe tout seul juste pour un test)
 
@@ -95,19 +89,14 @@ public class ActionButton {
 			root.add(label, 0, 3);
 			GridPane.setColumnSpan(label,2);
 			//label.getStyleClass().add("lb");
-			label.setStyle("-fx-text-fill:#32343f; -fx-font: bold 13pt \"Book Antiqua\"");
 
 
 			//Button Login
 			Button  login = new Button ("Login");
 			root.add(login, 1, 2);
 			//label.getStyleClass().add("lb");
-			label.setStyle("-fx-text-fill:#32343f; -fx-font: bold 13pt \"Book Antiqua\"");
 
 			//login.getStyleClass().add("btn");
-			login.setStyle("	-fx-text-fill: #32343f;\r\n"
-					+ "	-fx-font: bold 15pt \"Book Antiqua\";\r\n"
-					+ "	-fx-background-color: #ffaa19;");
 
 			//show
 			login.setOnAction(e->{

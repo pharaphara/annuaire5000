@@ -22,7 +22,7 @@ public class MainPanel extends BorderPane {
 		setTop(hboxEnTete);
 		setRight(rightVBox);
 
-		
+		leftGridPane.getBtnAjouter().setOnAction(e -> ActionButton.Ajouter(leftGridPane, rightVBox));
 	}
 
 	public MainPanel(LeftGridPane leftGridPane, HBoxEnTete hboxEnTete, RightVBoxTableViews rightVBox) {

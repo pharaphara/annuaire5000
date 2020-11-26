@@ -28,14 +28,13 @@ public class HBoxEnTete extends HBox {
 		super();
 
 		btn1 = new Button("Importer");
-		btn1.setStyle("-fx-background-radius: 5");
+
 		btn2 = new Button("Exporter");
-		btn2.setStyle("-fx-background-radius: 5");
 		
-		//btn3.setStyle("-fx-background-radius: 5");
-		//btn3.setStyle("-fx-background-color: gold");
+		
+
 		btn4 = new Button("Help");
-		btn4.setStyle("-fx-background-radius: 5");
+
 
 
 		setSpacing(50);
@@ -184,28 +183,5 @@ public class HBoxEnTete extends HBox {
 		return "HBoxEnTete [btn1=" + btn1 + ", btn2=" + btn2 + ", btn3=" + btn3 + ", btn4=" + btn4 + ", img=" + img
 				+ ", img2=" + img2 + "]";
 	}
-
-
-	//Creation une classe interne Button handler pour connecter
-	//on peut le sortir aprés comme classe externe
-
-	private class ButtonHandler1 implements EventHandler<ActionEvent>{
-
-		@Override
-		public void handle(ActionEvent e) {
-			//On instancie notre mot de passe pane
-			MotPassePanel root = new MotPassePanel();
-
-			//On instancie une nouvelle scene
-			Scene scene = new Scene(root);
-			//Récupérer le stage en cours pour lui transmettre la nouvelle scene
-			Stage stage = (Stage) getScene().getWindow();
-			stage.setScene(scene);
-		}
-
-	}
-	//	
-	//	
-
 
 }
