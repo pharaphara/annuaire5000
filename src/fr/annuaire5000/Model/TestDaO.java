@@ -57,16 +57,21 @@ public class TestDaO {
 		try {
 			raf = new RandomAccessFile(fileArbre, "rw");
 
-//			daoN.initialisation(raf);
-//
-//			Etudiant Etudiant1 = new Etudiant("Etudiant1", "1", "2", "3", "4");
-//			Etudiant Etudiant2 = new Etudiant("Etudiant2", "1", "2", "3", "4");
-//			NoeudDao.insererBin(Etudiant1, 0l, raf);
-//			NoeudDao.insererBin(Etudiant2, 0l, raf);
-//			for (Etudiant etudiant : etudiants) {
-//				NoeudDao.insererBin(etudiant, 0l, raf);
-//			}
+			daoN.initialisation(raf);
+
+			Etudiant Etudiant1 = new Etudiant("Etudiant1", "1", "2", "3", "4");
+			Etudiant Etudiant2 = new Etudiant("Etudiant2", "1", "2", "3", "4");
+			NoeudDao.insererBin(Etudiant1, 0l, raf);
+			NoeudDao.insererBin(Etudiant2, 0l, raf);
+			for (Etudiant etudiant : etudiants) {
+				NoeudDao.insererBin(etudiant, 0l, raf);
+			}
+			NoeudDao.supprimerNomBin("ZARA", 0l, raf);
+			
 			NoeudDao.affichageOrdreBin(0l, raf);
+			
+			
+			
 
 
 

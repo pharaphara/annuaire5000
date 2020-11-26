@@ -132,7 +132,7 @@ public class NoeudDao {
 	static void affichageOrdreBin(Long noeud, RandomAccessFile raf) throws IOException {
 
 		raf.seek(noeud);
-		System.out.println(noeud);
+
 		byte[] nom = new byte[30];
 		raf.read(nom);
 		raf.seek(raf.getFilePointer()+47);
@@ -142,16 +142,105 @@ public class NoeudDao {
 
 		String lenom= new String(nom, StandardCharsets.UTF_8);
 
-		if (gauche<raf.length()) {
+		if (gauche!=Long.MAX_VALUE) {
 			affichageOrdreBin(gauche,raf);
 		}
-		
-		System.out.println(lenom);
-		
-		if (droite<raf.length()) {
-		affichageOrdreBin(droite,raf);
+
+		System.out.print(lenom.trim());
+
+		if (droite!=Long.MAX_VALUE) {
+			affichageOrdreBin(droite,raf);
 		}
 	}
+
+	static Long dernierDescendantBin(Long noeud, RandomAccessFile raf) throws IOException 
+	{
+		System.out.println("dans dernier desandant");
+		raf.seek(noeud);
+		byte[] nomBin = new byte[30];
+		raf.read(nomBin);
+		raf.seek(raf.getFilePointer()+47);
+		Long gauche = raf.readLong();
+		Long droite = raf.readLong();
+
+
+		if (droite == Long.MAX_VALUE)
+			return noeud;
+		return dernierDescendantBin(droite,raf);
+	}
+
+
+	static Long supprimerNomBin(String nom, Long noeud, RandomAccessFile raf) throws IOException
+	{
+
+		System.out.println("dans supprimer nom");
+		if (noeud == Long.MAX_VALUE)
+			return noeud;
+
+		raf.seek(noeud);
+		byte[] nomBin = new byte[30];
+		raf.read(nomBin);
+		raf.seek(raf.getFilePointer()+47);
+		Long gauche = raf.readLong();
+		Long droite = raf.readLong();
+		String nomNoeud= new String(nomBin, StandardCharsets.UTF_8);
+		System.out.println(nom+" = "+nomNoeud.trim());
+		System.out.println(nom.equals(nomNoeud.trim()));
+		System.out.println(nom.compareTo(nomNoeud.trim())<0);
+		System.out.println(nom.compareTo(nomNoeud.trim())>0);
+		System.out.println();
+		if (nom.equals(nomNoeud.trim())) {
+			System.out.println("si égal noeud = "+noeud);
+		return supprimerRacineNomBin(noeud, raf);
+		}
+		if (nom.compareTo(nomNoeud.trim())<0)
+			supprimerNomBin(nom, gauche, raf);
+		else 
+			supprimerNomBin(nom, droite, raf);
+		return noeud;
+	}
+
+
+
+	static Long supprimerRacineNomBin( Long noeud, RandomAccessFile raf) throws IOException 
+	{
+		System.out.println("dans supprimer racine noeud = "+noeud);
+		raf.seek(noeud);
+		byte[] nomBin = new byte[30];
+		raf.read(nomBin);
+		raf.seek(raf.getFilePointer()+47);
+		Long gauche = raf.readLong();
+		Long droite = raf.readLong();
+		String nomNoeud= new String(nomBin, StandardCharsets.UTF_8);
+System.out.println("gauche = "+gauche);
+System.out.println("droite = "+droite);
+		if (gauche == Long.MAX_VALUE) {
+			System.out.println("retour droite");
+			return droite;
+		}
+		if (droite == Long.MAX_VALUE) {
+			System.out.println("retour gauche");
+			
+			return gauche;
+		}
+		System.out.println("apres le if");
+		
+		Long f = dernierDescendantBin(gauche, raf);
+		raf.seek(f);
+		byte[] fnomBin = new byte[30];
+		raf.read(nomBin);
+		raf.seek(raf.getFilePointer()+47);
+		Long fgauche = raf.readLong();
+		Long fdroite = raf.readLong();
+		String fnomNoeud= new String(fnomBin, StandardCharsets.UTF_8);
+
+		raf.seek(noeud);
+		raf.write(fnomBin);
+
+		gauche=supprimerNomBin(fnomNoeud.trim(), gauche, raf);
+		return null; // attention a ce retour f ou null
+	}
+
 }
 
 
