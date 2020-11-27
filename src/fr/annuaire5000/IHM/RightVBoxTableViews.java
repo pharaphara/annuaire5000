@@ -34,16 +34,16 @@ public class RightVBoxTableViews extends VBox {
 		TableColumn<Etudiant, String> colNom = new TableColumn<>("Nom");
 		colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
 		
-		TableColumn<Etudiant, String> colPrenom = new TableColumn<>("Prénom");
+		TableColumn<Etudiant, String> colPrenom = new TableColumn<>("Prï¿½nom");
 		colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 		
-		TableColumn<Etudiant, String> colDepartement = new TableColumn<>("Département");
+		TableColumn<Etudiant, String> colDepartement = new TableColumn<>("Dï¿½partement");
 		colDepartement.setCellValueFactory(new PropertyValueFactory<>("departement"));
 		
 		TableColumn<Etudiant, String> colPromotion = new TableColumn<>("Promotion");
 		colPromotion.setCellValueFactory(new PropertyValueFactory<>("promotion"));
 		
-		TableColumn<Etudiant, String> colAnnee = new TableColumn<>("Année");
+		TableColumn<Etudiant, String> colAnnee = new TableColumn<>("Annï¿½e");
 		colAnnee.setCellValueFactory(new PropertyValueFactory<>("annee"));
 		
 		tableEtudiants.getColumns().addAll(colNom, colPrenom, colDepartement, colPromotion, colAnnee);
@@ -51,10 +51,10 @@ public class RightVBoxTableViews extends VBox {
 		
 		
 		lbl1 = new Label("Liste de stagiaire :");
-		lbl1.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
+		
 		
 		lbl2 = new Label("RÃ©sultat :");
-		lbl2.setStyle("-fx-font-size: 16 ; -fx-font-weight: bold");
+	
 		tf2 = new TextField();
 		tf2.setAlignment(Pos.CENTER);
 		tf2.setPrefSize(150, 400);
@@ -63,7 +63,7 @@ public class RightVBoxTableViews extends VBox {
 		getChildren().addAll(lbl1, tableEtudiants, lbl2, tf2);
 		setAlignment(Pos.TOP_CENTER);
 		setPrefSize(600, 300);
-		setStyle("-fx-background-color: teal");
+	
 		
 	}
 
