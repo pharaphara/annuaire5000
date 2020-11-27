@@ -19,23 +19,9 @@ public class MainPanel extends BorderPane {
 		setTop(hboxEnTete);
 		setRight(rightVBox);
 
-		Label lblerreur = new Label ();
-		leftGridPane.add(lblerreur, 0, 5);
 		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftGridPane));
-		leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));
-		
-		leftGridPane.getBtnAjouter().setOnAction(q ->{ 
-
-			if( !leftGridPane.getTfNom().getText().isEmpty()&&!leftGridPane.getTfPrenom().getText().isEmpty()
-					&&!leftGridPane.getTfAnnee().getText().isEmpty()&&!leftGridPane.getTfPromotion().getText().isEmpty()
-					&&!leftGridPane.getTfAnnee().getText().isEmpty()) {
-				ActionButtonAjouter.Ajouter(leftGridPane, rightVBox);
-				lblerreur.setText("");
-			}else {
-				lblerreur.setText("Veuillez remplir tout les champs SVP");
-				
-			}
-		});
+		leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));		
+	
 	}
 
 	public MainPanel(LeftGridPane leftGridPane, HBoxEnTete hboxEnTete, RightVBoxTableViews rightVBox) {

@@ -130,8 +130,8 @@ public class LeftGridPane extends GridPane {
 		return tfPrenom;
 	}
 
-	public void setThPrenom(TextField thPrenom) {
-		this.tfPrenom = thPrenom;
+	public void setTfPrenom(TextField tfPrenom) {
+		this.tfPrenom = tfPrenom;
 	}
 
 	public Label getLblDepartement() {
@@ -324,5 +324,13 @@ public class LeftGridPane extends GridPane {
 				+ ", lblPromotion=" + lblPromotion + ", tfPromotion=" + tfPromotion + ", lblAnnee=" + lblAnnee
 				+ ", tfAnnee=" + tfAnnee + ", btnAjouter=" + btnAjouter + ", btnRechercher=" + btnRechercher
 				+ ", btnModifier=" + btnModifier + ", btnSupprimer=" + btnSupprimer + "]";
+	}
+
+	public HBox getBtnBox() {
+		return btnBox;
+	}
+
+	public void setBtnBox(HBox btnBox) {
+		this.btnBox = btnBox;
 	}
 }

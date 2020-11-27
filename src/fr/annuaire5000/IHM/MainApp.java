@@ -1,9 +1,5 @@
 package fr.annuaire5000.IHM;
 
-
-
-import com.sun.javafx.util.*;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,7 +8,6 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//com.sun.javafx.util.Logging.getCSSLogger().setLevel(sun.util.logging.PlatformLogger.Level.OFF);
 		
 		MainPanel root = new MainPanel();
 		
