@@ -1,5 +1,6 @@
 package fr.annuaire5000.IHM;
 
+import fr.annuaire5000.Model.NoeudDao;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ public class LeftGridPane extends GridPane {
 	private TextField tfPromotion;
 	private Label lblAnnee;
 	private TextField tfAnnee;
+	private Label lblErreur;
 	private Button btnAjouter;
 	private Button btnRechercher;
 	private Button btnModifier;
@@ -53,6 +55,9 @@ public class LeftGridPane extends GridPane {
 		tfAnnee = new TextField();
 		addRow(4, lblAnnee, tfAnnee);
 
+		lblErreur = new Label("Veuillez saisir les champs");
+		lblErreur.setVisible(false);
+		addRow(5, lblErreur);
 
 		btnAjouter = new Button("Ajouter");
 		btnAjouter.setPrefSize(100, 50);
@@ -73,7 +78,8 @@ public class LeftGridPane extends GridPane {
 		btnBox.getChildren().addAll(btnAjouter, btnRechercher, btnModifier, btnSupprimer);
 		btnBox.setAlignment(Pos.CENTER);
 
-		add(btnBox, 0, 7, 2, 1);
+		addRow(6, btnBox);
+		//add(btnBox, 0, 7, 2, 1);
 
 		setPrefSize(600, 300);
 		setVgap(50);
@@ -332,5 +338,13 @@ public class LeftGridPane extends GridPane {
 
 	public void setBtnBox(HBox btnBox) {
 		this.btnBox = btnBox;
+	}
+
+	public Label getLblErreur() {
+		return lblErreur;
+	}
+
+	public void setLblErreur(Label lblErreur) {
+		this.lblErreur = lblErreur;
 	}
 }

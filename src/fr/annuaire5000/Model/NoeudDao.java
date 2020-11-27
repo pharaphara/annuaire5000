@@ -13,7 +13,7 @@ public class NoeudDao {
 
 
 
-	static void inserer(Etudiant etudiant, File file) 
+	public static void inserer(Etudiant etudiant, File file) 
 	{
 
 		RandomAccessFile raf = null;
@@ -406,6 +406,12 @@ public class NoeudDao {
 		}
 		return null;
 
+	}
+	public File getFileArbre() {
+		return fileArbre;
+	}
+	public void setFileArbre(File fileArbre) {
+		this.fileArbre = fileArbre;
 	}
 
 
