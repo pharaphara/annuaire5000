@@ -52,8 +52,9 @@ public class RightVBoxTableViews extends VBox {
 		
 		lbl1 = new Label("Liste de stagiaire :");
 		
+		
 		lbl2 = new Label("Résultat :");
-
+	
 		tf2 = new TextField();
 		tf2.setAlignment(Pos.CENTER);
 		tf2.setPrefSize(150, 400);
@@ -62,7 +63,7 @@ public class RightVBoxTableViews extends VBox {
 		getChildren().addAll(lbl1, tableEtudiants, lbl2, tf2);
 		setAlignment(Pos.TOP_CENTER);
 		setPrefSize(600, 300);
-
+	
 		
 	}
 

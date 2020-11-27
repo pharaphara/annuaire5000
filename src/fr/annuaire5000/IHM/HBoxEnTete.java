@@ -1,17 +1,10 @@
 package fr.annuaire5000.IHM;
 
-
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 public class HBoxEnTete extends HBox {
 
@@ -28,24 +21,12 @@ public class HBoxEnTete extends HBox {
 		super();
 
 		btn1 = new Button("Importer");
-
 		btn2 = new Button("Exporter");
-		
-		
-
 		btn4 = new Button("Help");
-
-
-
 		setSpacing(50);
 		setAlignment(Pos.CENTER);
-		setStyle("-fx-background-color: teal");
 		setPrefSize(1200, 100);
 		getChildren().addAll(btn1, btn2, btn3, btn4);
-
-
-
-
 
 	}
 
@@ -183,5 +164,4 @@ public class HBoxEnTete extends HBox {
 		return "HBoxEnTete [btn1=" + btn1 + ", btn2=" + btn2 + ", btn3=" + btn3 + ", btn4=" + btn4 + ", img=" + img
 				+ ", img2=" + img2 + "]";
 	}
-
 }

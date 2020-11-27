@@ -1,0 +1,18 @@
+.tf{
+	-fx-text-fill: #ffaa19;
+	-fx-font: bold 13pt "Avenir";
+	-fx-background-color: #32343f;
+}
+.lb{
+	-fx-text-fill:#32343f;
+	-fx-font: bold 13pt "Book Antiqua";
+	
+}
+.btn{
+	-fx-text-fill: #32343f;
+	-fx-font: bold 15pt "Book Antiqua";
+	-fx-background-color: #ffaa19;
+}
+.root{
+	-fx-background-colo: #fff;
+}

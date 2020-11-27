@@ -33,43 +33,52 @@ public class LeftGridPane extends GridPane {
 		tfNom = new TextField();
 		addRow(0, lblNom, tfNom);
 		
+		
 		lblPrenom = new Label("Pr�nom : ");
 		tfPrenom = new TextField();
 		addRow(1, lblPrenom, tfPrenom);
 		
+		
 		lblDepartement = new Label("D�partement : ");
 		tfDepartement = new TextField();
 		addRow(2, lblDepartement, tfDepartement);
+	
 		
 		lblPromotion = new Label("Num�ro de promotion : ");
 		tfPromotion = new TextField();
 		addRow(3, lblPromotion, tfPromotion);
 		
+		
 		lblAnnee = new Label("Ann�e : ");
 		tfAnnee = new TextField();
 		addRow(4, lblAnnee, tfAnnee);
+	
 		
 		btnAjouter = new Button("Ajouter");
 		btnAjouter.setPrefSize(100, 50);
 		
 		btnRechercher = new Button("Rechercher");
 		btnRechercher.setPrefSize(100, 50);
-		
+	
 		btnModifier = new Button("Modifier");
 		btnModifier.setPrefSize(100, 50);
 		
+		
 		btnSupprimer = new Button("Supprimer");
 		btnSupprimer.setPrefSize(100, 50);
+
 		
 		
 		btnBox = new HBox(20);
 		btnBox.getChildren().addAll(btnAjouter, btnRechercher, btnModifier, btnSupprimer);
 		btnBox.setAlignment(Pos.CENTER);
+		
 		add(btnBox, 0, 7, 2, 1);
 		
 		setPrefSize(600, 300);
 		setVgap(50);
 		setPadding(new Insets(80));
+	
 	}
 
 	public LeftGridPane(Label lblNom, TextField tfNom, Label lblPrenom, TextField thPrenom, Label lblDepartement,
