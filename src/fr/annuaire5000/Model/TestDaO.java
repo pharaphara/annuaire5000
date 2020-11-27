@@ -45,9 +45,15 @@ public class TestDaO {
 			}
 			NoeudDao.affichageOrdreBin(0l, raf);
 			System.out.println();
-			NoeudDao.supprimerNomBin("ABBI", 0l, raf);
+			NoeudDao.supprimerNomBin("ABDENNEBI", 0l, raf);
 			
 			NoeudDao.affichageOrdreBin(0l, raf);
+			
+			String[] criteres = new String[] {"NGUY",null,null,null,null};
+			System.out.println();
+			
+			NoeudDao.recherche(criteres, raf);
+			
 			
 			
 

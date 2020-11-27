@@ -19,6 +19,12 @@ public class MainPanel extends BorderPane {
 		setTop(hboxEnTete);
 		setRight(rightVBox);
 
+<<<<<<< HEAD
+=======
+		Label lblerreur = new Label ();
+		
+		leftGridPane.add(lblerreur, 0, 5);
+>>>>>>> cf2fc2498e191b2bed045f877ed710e46c36de6d
 		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftGridPane));
 		leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));		
 	

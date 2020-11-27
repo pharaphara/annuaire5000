@@ -35,7 +35,7 @@ public class EtudiantDAO {
 
 			for (String string : liststringEtudiants) {
 				String[] info= string.split(";");
-				Etudiant etudiant = new Etudiant(info[0],info[1],info[2],info[3],info[4]);
+				Etudiant etudiant = new Etudiant(info[0].trim(),info[1].trim(),info[2].trim(),info[3].trim(),info[4].trim());
 				etudiants.add(etudiant);
 
 			}
