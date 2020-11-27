@@ -56,7 +56,7 @@ public class NoeudDao {
 		byte[] init = new byte[93];
 		raf.readFully(init);
 
-		
+
 
 
 	}
@@ -69,7 +69,7 @@ public class NoeudDao {
 		raf.read(nom);
 
 		String lenom= new String(nom, StandardCharsets.UTF_8);
-		
+
 
 
 		if (nom[0]==35||nom[0]==42) {
@@ -77,11 +77,11 @@ public class NoeudDao {
 			raf.writeBytes(etudiant.toLargeurFixe());
 			raf.writeLong(Long.MAX_VALUE);
 			raf.writeLong(Long.MAX_VALUE);
-			
+
 
 			return index;
 		}
-		
+
 		if ((etudiant.getNom().compareTo(lenom)<0)) {
 			raf.seek(raf.getFilePointer()+47);
 			index=raf.readLong();
@@ -92,13 +92,13 @@ public class NoeudDao {
 			if (index>fin) {
 
 
-				
+
 				raf.seek(pointer);
 				raf.writeLong((fin));
 				index=fin;
 				raf.seek(index);
 				raf.writeBytes("******************************");
-				
+
 			}
 			insererBin(etudiant, index, raf);
 		} else if ((etudiant.getNom().compareTo(lenom)>0)) {
@@ -109,13 +109,13 @@ public class NoeudDao {
 			Long fin =raf.length();
 			if (index>fin) {
 
-				
+
 				raf.seek(pointer);
 				raf.writeLong((fin));
 				index=fin;
 				raf.seek(index);
 				raf.writeBytes("##############################");
-				
+
 			}
 			insererBin(etudiant, index, raf);
 
@@ -141,7 +141,7 @@ public class NoeudDao {
 			affichageOrdreBin(gauche,raf);
 		}
 
-		System.out.print(lenom.trim());
+		System.out.print(lenom.trim()+" - ");
 
 		if (droite!=Long.MAX_VALUE) {
 			affichageOrdreBin(droite,raf);
@@ -151,14 +151,9 @@ public class NoeudDao {
 	static Long dernierDescendantBin(Long noeud, RandomAccessFile raf) throws IOException 
 	{
 		System.out.println("dans dernier desandant");
-		raf.seek(noeud);
-		byte[] nomBin = new byte[30];
-		raf.read(nomBin);
-		raf.seek(raf.getFilePointer()+47);
-		Long gauche = raf.readLong();
+
+		raf.seek(noeud+85);
 		Long droite = raf.readLong();
-
-
 		if (droite == Long.MAX_VALUE)
 			return noeud;
 		return dernierDescendantBin(droite,raf);
@@ -175,23 +170,30 @@ public class NoeudDao {
 		raf.seek(noeud);
 		byte[] nomBin = new byte[30];
 		raf.read(nomBin);
-		raf.seek(raf.getFilePointer()+47);
+		raf.seek(noeud+77);
 		Long gauche = raf.readLong();
 		Long droite = raf.readLong();
 		String nomNoeud= new String(nomBin, StandardCharsets.UTF_8);
-		System.out.println(nom+" = "+nomNoeud.trim());
-		System.out.println(nom.equals(nomNoeud.trim()));
-		System.out.println(nom.compareTo(nomNoeud.trim())<0);
-		System.out.println(nom.compareTo(nomNoeud.trim())>0);
-		System.out.println();
+		System.out.println(nom+" compate to "+nomNoeud.trim());
+		
 		if (nom.equals(nomNoeud.trim())) {
 			System.out.println("si égal noeud = "+noeud);
-		return supprimerRacineNomBin(noeud, raf);
+			return supprimerRacineNomBin(noeud, raf);
 		}
-		if (nom.compareTo(nomNoeud.trim())<0)
-			supprimerNomBin(nom, gauche, raf);
-		else 
-			supprimerNomBin(nom, droite, raf);
+		if (nom.compareTo(nomNoeud.trim())<0) {
+			gauche=supprimerNomBin(nom, gauche, raf);
+			raf.seek(noeud+77);
+			raf.writeLong(gauche);
+			System.out.println("noeud = "+gauche+" gauche = "+gauche);
+			
+		}
+		else {
+			droite=supprimerNomBin(nom, droite, raf);
+			raf.seek(noeud+85);
+			raf.writeLong(droite);
+			System.out.println("noeud = "+droite+" gauche = "+droite);
+			
+		}
 		return noeud;
 	}
 
@@ -203,10 +205,10 @@ public class NoeudDao {
 		raf.seek(noeud);
 		byte[] nomBin = new byte[30];
 		raf.read(nomBin);
-		raf.seek(raf.getFilePointer()+47);
+		raf.seek(noeud+77);
 		Long gauche = raf.readLong();
 		Long droite = raf.readLong();
-		String nomNoeud= new String(nomBin, StandardCharsets.UTF_8);
+
 
 		if (gauche == Long.MAX_VALUE)
 			return droite;
@@ -215,17 +217,17 @@ public class NoeudDao {
 		Long f = dernierDescendantBin(gauche, raf);
 		raf.seek(f);
 		byte[] fnomBin = new byte[30];
-		raf.read(nomBin);
-		raf.seek(raf.getFilePointer()+47);
-		Long fgauche = raf.readLong();
-		Long fdroite = raf.readLong();
+		raf.read(fnomBin);
+		raf.seek(noeud+77);
 		String fnomNoeud= new String(fnomBin, StandardCharsets.UTF_8);
-
 		raf.seek(noeud);
 		raf.write(fnomBin);
 
 		gauche=supprimerNomBin(fnomNoeud.trim(), gauche, raf);
-		return null; // attention a ce retour f ou null
+		raf.seek(raf.getFilePointer()+47);
+		raf.writeLong(gauche);
+		System.out.println("noeud = "+noeud+" gauche = "+gauche);
+		return noeud; // attention a ce retour f ou null
 	}
 
 }

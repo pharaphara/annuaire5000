@@ -56,77 +56,8 @@ public class EtudiantDAO {
 	}
 
 
-	public ArbreBinaire initialisationArbre(List<Etudiant> etudiants) {
-		ArbreBinaire ab = new ArbreBinaire();
-		for (Etudiant etudiant : etudiants) {
-			ab.add(etudiant);
-		};
-
-
-
-		return ab;
-
-	}
-
-	public void enregistrerAbre (Noeud noeud) {
-
-
-		if (noeud != null) {
-			System.out.println(noeud.getEtudiant().toString());
-			enregistrerAbre(noeud.gauche);
-			enregistrerAbre(noeud.droite);
-		}
-	}
-
-
-	public void sauvegarderArbre(ArbreBinaire ab) {
-		parcourArbre(ab.root);
-
-	}
-
-	public void parcourArbre(Noeud noeud) {
-
-
-		if (noeud != null) {
-			ecrireNoeud(noeud);
-			ecrireNoeud(noeud.gauche);
-			ecrireNoeud(noeud.droite);
-		}
-	}
-
-
-	//static chercherI(int x, Arbre a)
-	//{
-	//  while(a != null && x != a.contenu)
-	//    if (x < a.contenu)
-	//      a = a.filsG;
-	//    else
-	//      a = a.filsD;
-	//  return a;
-	//}
 	
+
 	
-	private void ecrireNoeud(Noeud noeud) {
-
-		File file = new File ("./data.bin");
-
-		RandomAccessFile raf = null;
-
-		try {
-			raf= new RandomAccessFile(file, "w");
-			raf.writeBytes(noeud.getEtudiant().toLargeurFixe());
-			raf.writeBytes(noeud.getGauche().toLargeurFixe());
-			raf.writeBytes(noeud.getDroite().toLargeurFixe());
-
-
-
-
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 }
 
