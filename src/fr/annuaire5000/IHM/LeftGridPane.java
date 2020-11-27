@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class LeftGridPane extends GridPane {
-	
+
 	private HBox btnBox;
 	private Label lblNom;
 	private TextField tfNom;
@@ -25,60 +25,60 @@ public class LeftGridPane extends GridPane {
 	private Button btnRechercher;
 	private Button btnModifier;
 	private Button btnSupprimer;
-	
+
 	public LeftGridPane() {
 		super();
-		
+
 		lblNom = new Label("Nom : ");
 		tfNom = new TextField();
 		addRow(0, lblNom, tfNom);
-		
-		
+
+
 		lblPrenom = new Label("Pr�nom : ");
 		tfPrenom = new TextField();
 		addRow(1, lblPrenom, tfPrenom);
-		
-		
+
+
 		lblDepartement = new Label("D�partement : ");
 		tfDepartement = new TextField();
 		addRow(2, lblDepartement, tfDepartement);
-	
-		
+
+
 		lblPromotion = new Label("Num�ro de promotion : ");
 		tfPromotion = new TextField();
 		addRow(3, lblPromotion, tfPromotion);
-		
-		
+
+
 		lblAnnee = new Label("Ann�e : ");
 		tfAnnee = new TextField();
 		addRow(4, lblAnnee, tfAnnee);
-	
-		
+
+
 		btnAjouter = new Button("Ajouter");
 		btnAjouter.setPrefSize(100, 50);
-		
+
 		btnRechercher = new Button("Rechercher");
 		btnRechercher.setPrefSize(100, 50);
-	
+
 		btnModifier = new Button("Modifier");
 		btnModifier.setPrefSize(100, 50);
-		
-		
+
+
 		btnSupprimer = new Button("Supprimer");
 		btnSupprimer.setPrefSize(100, 50);
 
-		
-		
+
+
 		btnBox = new HBox(20);
 		btnBox.getChildren().addAll(btnAjouter, btnRechercher, btnModifier, btnSupprimer);
 		btnBox.setAlignment(Pos.CENTER);
-		
+
 		add(btnBox, 0, 7, 2, 1);
-		
+
 		setPrefSize(600, 300);
 		setVgap(50);
 		setPadding(new Insets(80));
-	
+
 	}
 
 	public LeftGridPane(Label lblNom, TextField tfNom, Label lblPrenom, TextField thPrenom, Label lblDepartement,
@@ -95,6 +95,7 @@ public class LeftGridPane extends GridPane {
 		this.tfPromotion = tfPromotion;
 		this.lblAnnee = lblAnnee;
 		this.tfAnnee = tfAnnee;
+		
 		this.btnAjouter = btnAjouter;
 		this.btnRechercher = btnRechercher;
 		this.btnModifier = btnModifier;
@@ -324,6 +325,4 @@ public class LeftGridPane extends GridPane {
 				+ ", tfAnnee=" + tfAnnee + ", btnAjouter=" + btnAjouter + ", btnRechercher=" + btnRechercher
 				+ ", btnModifier=" + btnModifier + ", btnSupprimer=" + btnSupprimer + "]";
 	}
-	
-	
 }
