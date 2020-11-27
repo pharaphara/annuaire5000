@@ -22,7 +22,8 @@ public class MainPanel extends BorderPane {
 		Label lblerreur = new Label ();
 		leftGridPane.add(lblerreur, 0, 5);
 		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftGridPane));
-
+		leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));
+		
 		leftGridPane.getBtnAjouter().setOnAction(q ->{ 
 
 			if( !leftGridPane.getTfNom().getText().isEmpty()&&!leftGridPane.getTfPrenom().getText().isEmpty()
