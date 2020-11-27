@@ -136,24 +136,24 @@ public class Etudiant implements Comparable<Etudiant>{
        
      for (int i = 0; i < 30 -nom.length(); i++) {
 		
-	       esp1 = esp1+"_";
+	       esp1 = esp1+" ";
 		}
      
      for (int i = 0; i < 30 -prenom.length(); i++) {
  		
-	       esp2 = esp2+"_";
+	       esp2 = esp2+" ";
 		}
      for (int i = 0; i < 3 -departement.length(); i++) {
  		
-	       esp3 = esp3+"_";
+	       esp3 = esp3+" ";
 		}
      for (int i = 0; i < 10 -promotion.length(); i++) {
  		
-	       esp4 = esp4+"_";
+	       esp4 = esp4+" ";
 		}
      for (int i = 0; i < 4 -annee.length(); i++) {
  		
-	       esp5 = esp5+"_";
+	       esp5 = esp5+" ";
 		}
 		return  nom + esp1 + prenom +esp2 + departement+esp3 + promotion +esp4 + annee + esp5;
 	}
