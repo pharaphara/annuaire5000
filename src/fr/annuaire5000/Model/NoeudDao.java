@@ -1,6 +1,7 @@
 package fr.annuaire5000.Model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class NoeudDao {
 
-	public File fileArbre = new File("./arbreTest.bin");
+	public static File fileArbre = new File("./arbreTest.bin");
 
 
 
@@ -27,40 +28,18 @@ public class NoeudDao {
 		this.fileArbre = fileArbre;
 	}
 
-	public static void inserer(Etudiant etudiant, File file) 
+	public static void inserer(Etudiant etudiant) 
 	{
-
-		RandomAccessFile raf = null;
-		String lenom = null;
-		Long gauche = null;
-		Long droite = null;
-
-
-
+		System.out.println("dans inserer");
 		try {
-			raf = new RandomAccessFile(file, "rw");
-			byte[] nom = new byte[30];
-			raf.seek(0);
-			raf.read(nom);
-			lenom=nom.toString();
-
-			if(lenom.compareToIgnoreCase(etudiant.getNom())>0) {
-				raf.seek(raf.getFilePointer()+47);
-				gauche=raf.readLong();
-			}
-
-
-
-			raf.seek(77);
-
-
-			raf.writeBytes(etudiant.toString());
-
+			RandomAccessFile raf = new RandomAccessFile(fileArbre, "rw");
+			insererBin(etudiant, 0l, raf);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		
 
 	}
 	static void initialisation (RandomAccessFile raf) throws IOException {
@@ -78,7 +57,7 @@ public class NoeudDao {
 	}
 
 
-	static Long insererBin(Etudiant etudiant, Long index, RandomAccessFile raf) throws IOException 
+	public static Long insererBin(Etudiant etudiant, Long index, RandomAccessFile raf) throws IOException 
 	{
 		raf.seek(index);
 		byte[] nom = new byte[30];

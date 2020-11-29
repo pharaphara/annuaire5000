@@ -34,20 +34,20 @@ public class RightVBoxTableViews extends VBox {
 		TableColumn<Etudiant, String> colNom = new TableColumn<>("Nom");
 		colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
 		
-		TableColumn<Etudiant, String> colPrenom = new TableColumn<>("Pr�nom");
+		TableColumn<Etudiant, String> colPrenom = new TableColumn<>("Prénom");
 		colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 		
-		TableColumn<Etudiant, String> colDepartement = new TableColumn<>("D�partement");
+		TableColumn<Etudiant, String> colDepartement = new TableColumn<>("Département");
 		colDepartement.setCellValueFactory(new PropertyValueFactory<>("departement"));
 		
 		TableColumn<Etudiant, String> colPromotion = new TableColumn<>("Promotion");
 		colPromotion.setCellValueFactory(new PropertyValueFactory<>("promotion"));
 		
-		TableColumn<Etudiant, String> colAnnee = new TableColumn<>("Ann�e");
+		TableColumn<Etudiant, String> colAnnee = new TableColumn<>("Année");
 		colAnnee.setCellValueFactory(new PropertyValueFactory<>("annee"));
 		
 		tableEtudiants.getColumns().addAll(colNom, colPrenom, colDepartement, colPromotion, colAnnee);
-		tableEtudiants.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		//tableEtudiants.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		
 		lbl1 = new Label("Liste de stagiaire :");

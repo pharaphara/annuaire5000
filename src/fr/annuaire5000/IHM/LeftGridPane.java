@@ -36,22 +36,22 @@ public class LeftGridPane extends GridPane {
 		addRow(0, lblNom, tfNom);
 
 
-		lblPrenom = new Label("Pr�nom : ");
+		lblPrenom = new Label("Prénom : ");
 		tfPrenom = new TextField();
 		addRow(1, lblPrenom, tfPrenom);
 
 
-		lblDepartement = new Label("D�partement : ");
+		lblDepartement = new Label("Département : ");
 		tfDepartement = new TextField();
 		addRow(2, lblDepartement, tfDepartement);
 
 
-		lblPromotion = new Label("Num�ro de promotion : ");
+		lblPromotion = new Label("Numéro de promotion : ");
 		tfPromotion = new TextField();
 		addRow(3, lblPromotion, tfPromotion);
 
 
-		lblAnnee = new Label("Ann�e : ");
+		lblAnnee = new Label("Année : ");
 		tfAnnee = new TextField();
 		addRow(4, lblAnnee, tfAnnee);
 

@@ -2,43 +2,38 @@ package fr.annuaire5000.IHM;
 
 
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 
 public class MainPanel extends BorderPane {
 
-	private LeftGridPane leftGridPane = new LeftGridPane();
+	
 	private HBoxEnTete hboxEnTete = new HBoxEnTete();
 	private RightVBoxTableViews rightVBox = new RightVBoxTableViews();
+	private LeftVBox leftVBox = new LeftVBox();
+	private int numBtn=0;
 
 	public MainPanel() {
 		super();
 
-		setLeft(leftGridPane);
+		setLeft(leftVBox);
 		setTop(hboxEnTete);
 		setRight(rightVBox);
 
-		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftGridPane));
-		leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));
-		leftGridPane.getBtnAjouter().setOnAction(e-> ActionButtonAjouter.Ajouter(leftGridPane, rightVBox));
+		
+		
+		//hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftGridPane));
+		//leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));
+		ButtonHandler handler = new ButtonHandler(this);
+		leftVBox.getBtnAjouter().setOnAction(handler);
+		
 	
 	}
 
-	public MainPanel(LeftGridPane leftGridPane, HBoxEnTete hboxEnTete, RightVBoxTableViews rightVBox) {
-		super();
-		this.leftGridPane = leftGridPane;
-		this.hboxEnTete = hboxEnTete;
-		this.rightVBox = rightVBox;
-	}
-
-	public LeftGridPane getLeftGridPane() {
-		return leftGridPane;
-	}
-
-	public void setLeftGridPane(LeftGridPane leftGridPane) {
-		this.leftGridPane = leftGridPane;
-	}
+	
 
 	public HBoxEnTete getHboxEnTete() {
 		return hboxEnTete;
@@ -56,48 +51,13 @@ public class MainPanel extends BorderPane {
 		this.rightVBox = rightVBox;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((hboxEnTete == null) ? 0 : hboxEnTete.hashCode());
-		result = prime * result + ((leftGridPane == null) ? 0 : leftGridPane.hashCode());
-		result = prime * result + ((rightVBox == null) ? 0 : rightVBox.hashCode());
-		return result;
+	public LeftVBox getLeftVBox() {
+		return leftVBox;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MainPanel other = (MainPanel) obj;
-		if (hboxEnTete == null) {
-			if (other.hboxEnTete != null)
-				return false;
-		} else if (!hboxEnTete.equals(other.hboxEnTete))
-			return false;
-		if (leftGridPane == null) {
-			if (other.leftGridPane != null)
-				return false;
-		} else if (!leftGridPane.equals(other.leftGridPane))
-			return false;
-		if (rightVBox == null) {
-			if (other.rightVBox != null)
-				return false;
-		} else if (!rightVBox.equals(other.rightVBox))
-			return false;
-		return true;
+	public void setLeftVBox(LeftVBox leftVBox) {
+		this.leftVBox = leftVBox;
 	}
 
-	@Override
-	public String toString() {
-		return "MainPanel [leftGridPane=" + leftGridPane + ", hboxEnTete=" + hboxEnTete + ", rightVBox=" + rightVBox
-				+ "]";
-	}
-
-
+	
 }
