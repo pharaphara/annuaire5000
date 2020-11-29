@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NoeudDao {
@@ -12,6 +13,19 @@ public class NoeudDao {
 	public File fileArbre = new File("./arbreTest.bin");
 
 
+
+	//Tableau contenant les longeurs de chaque information d'un noeud
+	//exprimées en octet. Ces valeurs sont arbitraires. chaque noeud fait 93 octets
+	//Avec dans l'ordre : 0=le nom, 1=le prénom, 2=le département, 3=la promotion, 4=l'année,5=fils gauche, 
+	//6=fils droit,7=taille d'un noeud sans enfant, 8=taille d'un noeud avec enfant
+	public static int[] structure = {30,30,3,10,4,8,8,77,93};
+
+	public File getFileArbre() {
+		return fileArbre;
+	}
+	public void setFileArbre(File fileArbre) {
+		this.fileArbre = fileArbre;
+	}
 
 	public static void inserer(Etudiant etudiant, File file) 
 	{
@@ -233,185 +247,130 @@ public class NoeudDao {
 	static List<Etudiant> recherche (String[] criteres, RandomAccessFile raf) throws IOException{
 
 		List<Etudiant> resultats = new ArrayList<Etudiant>();
-		List<Integer> indexMatch = new ArrayList<Integer>();
+		int i=0;
 
-		for (String str : criteres) {
-			System.out.println(str);
+		while (criteres[i]==null) {
+			i++;	
+		}
+		System.out.println("après le while i= "+i);
+		resultats = rechercheCol(criteres[i], i, raf);
+
+		for (i=i+1 ; i < criteres.length; i++) {
+			System.out.println("après le for i= "+i);
+			if (criteres[i]!=null) {
+				for (int j = 0; j < resultats.size(); j++) {
+					if (!resultats.get(j).getField(i).contains(criteres[i])) {
+						resultats.remove(j);
+					}
+				}
+			}
 		}
 
-		if (criteres[0]!=null) {
+		System.out.println("nb de resultat = "+resultats.size());
+		for (Etudiant etudiant : resultats) {
+			System.out.println(etudiant);
+		}
 
-			System.out.println("dans 0");
-			long taillefichier = raf.length();
-			byte[] nomBin = new byte[30];//la colonne nom fait 30 octets de large
-			int pointeur = 0;
+		return resultats;
+
+	}
+
+	private static List<Etudiant> rechercheCol(String critere,int numCol, RandomAccessFile raf) throws IOException {
+
+		List<Etudiant> resultats = new ArrayList<Etudiant>();
+		byte[] colBin = new byte[structure[numCol]];
+		raf.seek(0);
+
+		System.out.println("dans rechCol");
+		System.out.println("recherche = "+critere );
+		while (raf.getFilePointer()<raf.length()) {
+			//premier switch pour placer le pointeur sur la colonne choisie
+			switch (numCol) {
+
+			case 1:
+				raf.seek(raf.getFilePointer()+structure[0]);
+				System.out.println("1pointeur = "+raf.getFilePointer());
+				break;
+			case 2:
+				raf.seek(raf.getFilePointer()+structure[0]+structure[1]);
+				System.out.println("2pointeur = "+raf.getFilePointer());
+				break;
+			case 3:
+				raf.seek(raf.getFilePointer()+structure[0]+structure[1]+structure[2]);
+				System.out.println("3pointeur = "+raf.getFilePointer());
+				break;
+			case 4:
+				raf.seek(raf.getFilePointer()+structure[0]+structure[1]+structure[2]+structure[3]);
+				System.out.println("4pointeur = "+raf.getFilePointer());
+				break;
+			case 5:
+				raf.seek(raf.getFilePointer()+structure[0]+structure[1]+structure[2]+structure[3]+structure[4]);
+				System.out.println("5pointeur = "+raf.getFilePointer());
+				break;
+			default : 
+				break;
+
+			}
+			raf.read(colBin);
+			//deuxieme swicth pour replacer le pointeur en début de ligne
+			switch (numCol) {
+
+			case 0:
+				raf.seek(raf.getFilePointer()-structure[0]);
+				break;
+			case 1:
+				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]));
+				
+				break;
+			case 2:
+				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]+structure[2]));
+				
+				break;
+			case 3:
+				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]+structure[2]+structure[3]));
+				
+				break;
+			case 4:
+				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]+structure[2]+structure[3]+structure[4]));
+				
+				break;
+			case 5:
+				raf.seek(raf.getFilePointer()-structure[7]);
+				
+				break;
+			default : 
+				break;
+			}
+			String colonne = new String(colBin, StandardCharsets.UTF_8).trim();
 			
-			while (raf.getFilePointer()<taillefichier) {
-				raf.seek(93*pointeur);//chaque etudiant fait 92 octets
-				raf.read(nomBin);
-				String nom= new String(nomBin, StandardCharsets.UTF_8).trim();
-				//System.out.println("lenom = "+nom);
-				if (nom.contains(criteres[0])) {
-					System.out.println(" nom = "+nom);
-					System.out.println("quand pointeur = "+pointeur);
-					indexMatch.add(pointeur);
+			System.out.print(colonne);
 
-				}
-				pointeur++;//chaque etudiant fait 92 octet
+			if (colonne.contains(critere)) {
+				System.out.println("si comp ok col = "+colonne);
+				String[] etudiant =new String[5];
+				//switch permétant le retour en début de ligne en fonction de la collone dans laqullle on recherche
+				
+				for (int i = 0; i < etudiant.length; i++) {
+					byte[] temp = new byte[structure[i]];
+					raf.read(temp);
+					System.out.println();
+					etudiant[i]=new String (temp, StandardCharsets.UTF_8).trim();
+					System.out.println(etudiant[i]);
+
+				}//déplacement du poiteur en début de ligne 
+				raf.seek(raf.getFilePointer()-structure[7]);
+				Etudiant match = new Etudiant(etudiant[0], etudiant[1], etudiant[2], etudiant[3], etudiant[4]);
+				resultats.add(match);
+
+
 			}
-
-		}
-		System.out.println("sortie de 0");
-		if (criteres[1]!=null) {
-
-			long taillefichier = raf.length();
-			byte[] prenomBin = new byte[30];//la colonne nom fait 30 octets de large
-			int pointeur = 0;
-			String resultat = "";
-
-
-			if (!indexMatch.isEmpty()) {
-				for (Integer integer : indexMatch) {
-					raf.seek(92*integer+30);//chaque etudiant fait 92 octets et le prénom se trouve à +30 octet
-					raf.read(prenomBin);
-					String prenom= new String(prenomBin, StandardCharsets.UTF_8).trim();
-					if (!prenom.contains(criteres[1])) {
-						indexMatch.remove(prenom);
-					}
-				}
-			}else {
-				raf.seek(0);
-				while (raf.getFilePointer()<taillefichier) {
-					raf.seek(92*pointeur+30);//chaque etudiant fait 92 octets
-					raf.read(prenomBin);
-					String prenom = new String(prenomBin, StandardCharsets.UTF_8).trim();
-					if (prenom.contains(criteres[1])) {
-						indexMatch.add(pointeur);
-					}
-					pointeur++;//chaque etudiant fait 92 octet
-				}
-			}
-
-
-		}
-		;
-		if (criteres[2]!=null) {
-
-			long taillefichier = raf.length();
-			byte[] depBin = new byte[3];//la colonne dep fait 3 octets de large
-			int pointeur = 0;
-			String resultat = "";
-
-
-			if (!indexMatch.isEmpty()) {
-
-				for (Integer integer : indexMatch) {
-					raf.seek(92*integer+60);//chaque etudiant fait 92 octets et le prénom se trouve à +60 octet
-					raf.read(depBin);
-					String dep= new String(depBin, StandardCharsets.UTF_8).trim();
-					if (!dep.contains(criteres[2])) {
-						indexMatch.remove(dep);
-					}
-				}
-			}else {
-				raf.seek(0);
-				while (raf.getFilePointer()<taillefichier) {
-					raf.seek(92*pointeur+30);//chaque etudiant fait 92 octets
-					raf.read(depBin);
-					String prenom = new String(depBin, StandardCharsets.UTF_8).trim();
-					if (prenom.contains(criteres[2])) {
-						indexMatch.add(pointeur);
-					}
-					pointeur++;//chaque etudiant fait 92 octet
-				}
-			}
-
-
-		}
-		if (criteres[3]!=null) {
-
-			long taillefichier = raf.length();
-			byte[] promoBin = new byte[10];//la colonne promo fait 10 octets de large
-			int pointeur = 0;
-
-
-
-			if (!indexMatch.isEmpty()) {
-
-				for (Integer integer : indexMatch) {
-					raf.seek(92*integer+63);//chaque etudiant fait 92 octets et le prénom se trouve à +60 octet
-					raf.read(promoBin);
-					String promo= new String(promoBin, StandardCharsets.UTF_8).trim();
-					if (!promo.contains(criteres[3])) {
-						indexMatch.remove(promo);
-					}
-				}
-			}else {
-				raf.seek(0);
-				while (raf.getFilePointer()<taillefichier) {
-					raf.seek(92*pointeur+30);//chaque etudiant fait 92 octets
-					raf.read(promoBin);
-					String promo = new String(promoBin, StandardCharsets.UTF_8).trim();
-					if (promo.contains(criteres[3])) {
-						indexMatch.add(pointeur);
-					}
-					pointeur++;//chaque etudiant fait 92 octet
-				}
-			}
-
-
-		}
-		if (criteres[4]!=null) {
-
-			long taillefichier = raf.length();
-			byte[] depBin = new byte[4];//la col année  fait 4 octets de large
-			int pointeur = 0;
-
-
-
-			if (!indexMatch.isEmpty()) {
-
-				for (Integer integer : indexMatch) {
-					raf.seek(92*integer+73);//chaque etudiant fait 92 octets et le prénom se trouve à +60 octet
-					raf.read(depBin);
-					String dep= new String(depBin, StandardCharsets.UTF_8).trim();
-					if (!dep.contains(criteres[4])) {
-						indexMatch.remove(dep);
-					}
-				}
-			}else {
-				raf.seek(0);
-				while (raf.getFilePointer()<taillefichier) {
-					raf.seek(92*pointeur+73);//chaque etudiant fait 92 octets
-					raf.read(depBin);
-					String prenom = new String(depBin, StandardCharsets.UTF_8).trim();
-					if (prenom.contains(criteres[4])) {
-						indexMatch.add(pointeur);
-					}
-					pointeur++;//chaque etudiant fait 92 octet
-				}
-			}
-
-
+			//pointeur à la ligne suivante
+			raf.seek(raf.getFilePointer()+structure[8]);
 		}
 
+		return resultats;
 
 
-
-
-		
-		for (Integer integer : indexMatch) {
-
-			System.out.println("resultat à la position = "+(Integer.toHexString(integer*93)));
-		}
-		return null;
-
-	}
-	public File getFileArbre() {
-		return fileArbre;
-	}
-	public void setFileArbre(File fileArbre) {
-		this.fileArbre = fileArbre;
 	}
 
 

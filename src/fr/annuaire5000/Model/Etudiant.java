@@ -122,40 +122,59 @@ public class Etudiant implements Comparable<Etudiant>{
 
 	@Override
 	public int compareTo(Etudiant o) {
-		
+
 		return this.getNom().compareToIgnoreCase(o.getNom());
 	}
 
 	public String toLargeurFixe() {
-       
-       String esp1="";
-       String esp2="";
-       String esp3="";
-       String esp4="";
-       String esp5="";
-       
-     for (int i = 0; i < 30 -nom.length(); i++) {
-		
-	       esp1 = esp1+" ";
+
+		String esp1="";
+		String esp2="";
+		String esp3="";
+		String esp4="";
+		String esp5="";
+
+		for (int i = 0; i < 30 -nom.length(); i++) {
+
+			esp1 = esp1+" ";
 		}
-     
-     for (int i = 0; i < 30 -prenom.length(); i++) {
- 		
-	       esp2 = esp2+" ";
+
+		for (int i = 0; i < 30 -prenom.length(); i++) {
+
+			esp2 = esp2+" ";
 		}
-     for (int i = 0; i < 3 -departement.length(); i++) {
- 		
-	       esp3 = esp3+" ";
+		for (int i = 0; i < 3 -departement.length(); i++) {
+
+			esp3 = esp3+" ";
 		}
-     for (int i = 0; i < 10 -promotion.length(); i++) {
- 		
-	       esp4 = esp4+" ";
+		for (int i = 0; i < 10 -promotion.length(); i++) {
+
+			esp4 = esp4+" ";
 		}
-     for (int i = 0; i < 4 -annee.length(); i++) {
- 		
-	       esp5 = esp5+" ";
+		for (int i = 0; i < 4 -annee.length(); i++) {
+
+			esp5 = esp5+" ";
 		}
 		return  nom + esp1 + prenom +esp2 + departement+esp3 + promotion +esp4 + annee + esp5;
+	}
+
+	public String getField(int i) {
+		switch (i) {
+		case 0:
+			return nom;
+		case 1:
+			return prenom;
+		case 2:
+			return departement;
+		case 3:
+			return promotion;
+		case 4:
+			return annee;
+
+		default:
+			break;
+		}
+		return null;
 	}
 
 

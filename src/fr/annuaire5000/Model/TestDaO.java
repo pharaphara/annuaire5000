@@ -43,13 +43,14 @@ public class TestDaO {
 			for (Etudiant etudiant : etudiants) {
 				NoeudDao.insererBin(etudiant, 0l, raf);
 			}
+//			NoeudDao.affichageOrdreBin(0l, raf);
+//			System.out.println();
+//			NoeudDao.supprimerNomBin("ABDENNEBI", 0l, raf);
+//			NoeudDao.supprimerNomBin("ABENDOH", 0l, raf);
+//			
 			NoeudDao.affichageOrdreBin(0l, raf);
-			System.out.println();
-			NoeudDao.supprimerNomBin("ABDENNEBI", 0l, raf);
 			
-			NoeudDao.affichageOrdreBin(0l, raf);
-			
-			String[] criteres = new String[] {"NGUY",null,null,null,null};
+			String[] criteres = new String[] {null,"Al","75","ai",null};
 			System.out.println();
 			
 			NoeudDao.recherche(criteres, raf);
