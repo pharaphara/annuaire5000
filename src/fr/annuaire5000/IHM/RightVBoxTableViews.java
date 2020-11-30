@@ -22,10 +22,14 @@ public class RightVBoxTableViews extends VBox {
 	private ObservableList<Etudiant> observableEtudiants;
 	private TableView<Etudiant> tableEtudiants;
 	private Label lbl2;
-	private TextField tf2;
+	private ObservableList<Etudiant> observableRecherche;
+	private TableView<Etudiant> tableRecherche;
+
 	
 	public RightVBoxTableViews() {
 		super();
+
+		lbl1 = new Label("Liste de stagiaire :");
 		
 		observableEtudiants = FXCollections.observableArrayList(dao.importExtern(new File("./stagiaires.txt")));
 		
@@ -50,33 +54,56 @@ public class RightVBoxTableViews extends VBox {
 		//tableEtudiants.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		
-		lbl1 = new Label("Liste de stagiaire :");
-		
 		
 		lbl2 = new Label("Résultat :");
 	
-		tf2 = new TextField();
-		tf2.setAlignment(Pos.CENTER);
-		tf2.setPrefSize(150, 400);
+		observableRecherche = FXCollections.observableArrayList();
+		
+		tableRecherche = new TableView<>(observableRecherche);
+		
+		TableColumn<Etudiant, String> colNomR = new TableColumn<>("Nom");
+		colNomR.setCellValueFactory(new PropertyValueFactory<>("nom"));
+		
+		TableColumn<Etudiant, String> colPrenomR = new TableColumn<>("Prénom");
+		colPrenomR.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+		
+		TableColumn<Etudiant, String> colDepartementR = new TableColumn<>("Département");
+		colDepartementR.setCellValueFactory(new PropertyValueFactory<>("departement"));
+		
+		TableColumn<Etudiant, String> colPromotionR = new TableColumn<>("Promotion");
+		colPromotionR.setCellValueFactory(new PropertyValueFactory<>("promotion"));
+		
+		TableColumn<Etudiant, String> colAnneeR = new TableColumn<>("Année");
+		colAnneeR.setCellValueFactory(new PropertyValueFactory<>("annee"));
+		
+		tableRecherche.getColumns().addAll(colNomR, colPrenomR, colDepartementR, colPromotionR, colAnneeR);
+		//tableEtudiants.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		setPadding(new Insets(20));
-		getChildren().addAll(lbl1, tableEtudiants, lbl2, tf2);
+		getChildren().addAll(lbl1, tableEtudiants, lbl2, tableRecherche);
 		setAlignment(Pos.TOP_CENTER);
 		setPrefSize(600, 300);
 	
 		
+		
+		
+		
 	}
 
+
 	public RightVBoxTableViews(Label lbl1, EtudiantDAO dao, ObservableList<Etudiant> observableEtudiants,
-			TableView<Etudiant> tableEtudiants, Label lbl2, TextField tf2) {
+			TableView<Etudiant> tableEtudiants, Label lbl2, ObservableList<Etudiant> observableRecherche,
+			TableView<Etudiant> tableRecherche) {
 		super();
 		this.lbl1 = lbl1;
 		this.dao = dao;
 		this.observableEtudiants = observableEtudiants;
 		this.tableEtudiants = tableEtudiants;
 		this.lbl2 = lbl2;
-		this.tf2 = tf2;
+		this.observableRecherche = observableRecherche;
+		this.tableRecherche = tableRecherche;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -86,10 +113,12 @@ public class RightVBoxTableViews extends VBox {
 		result = prime * result + ((lbl1 == null) ? 0 : lbl1.hashCode());
 		result = prime * result + ((lbl2 == null) ? 0 : lbl2.hashCode());
 		result = prime * result + ((observableEtudiants == null) ? 0 : observableEtudiants.hashCode());
+		result = prime * result + ((observableRecherche == null) ? 0 : observableRecherche.hashCode());
 		result = prime * result + ((tableEtudiants == null) ? 0 : tableEtudiants.hashCode());
-		result = prime * result + ((tf2 == null) ? 0 : tf2.hashCode());
+		result = prime * result + ((tableRecherche == null) ? 0 : tableRecherche.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -120,71 +149,100 @@ public class RightVBoxTableViews extends VBox {
 				return false;
 		} else if (!observableEtudiants.equals(other.observableEtudiants))
 			return false;
+		if (observableRecherche == null) {
+			if (other.observableRecherche != null)
+				return false;
+		} else if (!observableRecherche.equals(other.observableRecherche))
+			return false;
 		if (tableEtudiants == null) {
 			if (other.tableEtudiants != null)
 				return false;
 		} else if (!tableEtudiants.equals(other.tableEtudiants))
 			return false;
-		if (tf2 == null) {
-			if (other.tf2 != null)
+		if (tableRecherche == null) {
+			if (other.tableRecherche != null)
 				return false;
-		} else if (!tf2.equals(other.tf2))
+		} else if (!tableRecherche.equals(other.tableRecherche))
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "RightVBoxTableViews [lbl1=" + lbl1 + ", dao=" + dao + ", observableEtudiants=" + observableEtudiants
+				+ ", tableEtudiants=" + tableEtudiants + ", lbl2=" + lbl2 + ", observableRecherche="
+				+ observableRecherche + ", tableRecherche=" + tableRecherche + "]";
+	}
+
 
 	public Label getLbl1() {
 		return lbl1;
 	}
 
+
 	public void setLbl1(Label lbl1) {
 		this.lbl1 = lbl1;
 	}
+
 
 	public EtudiantDAO getDao() {
 		return dao;
 	}
 
+
 	public void setDao(EtudiantDAO dao) {
 		this.dao = dao;
 	}
+
 
 	public ObservableList<Etudiant> getObservableEtudiants() {
 		return observableEtudiants;
 	}
 
+
 	public void setObservableEtudiants(ObservableList<Etudiant> observableEtudiants) {
 		this.observableEtudiants = observableEtudiants;
 	}
+
 
 	public TableView<Etudiant> getTableEtudiants() {
 		return tableEtudiants;
 	}
 
+
 	public void setTableEtudiants(TableView<Etudiant> tableEtudiants) {
 		this.tableEtudiants = tableEtudiants;
 	}
+
 
 	public Label getLbl2() {
 		return lbl2;
 	}
 
+
 	public void setLbl2(Label lbl2) {
 		this.lbl2 = lbl2;
 	}
 
-	public TextField getTf2() {
-		return tf2;
+
+	public ObservableList<Etudiant> getObservableRecherche() {
+		return observableRecherche;
 	}
 
-	public void setTf2(TextField tf2) {
-		this.tf2 = tf2;
+
+	public void setObservableRecherche(ObservableList<Etudiant> observableRecherche) {
+		this.observableRecherche = observableRecherche;
 	}
 
-	@Override
-	public String toString() {
-		return "RightVBoxTableViews [lbl1=" + lbl1 + ", dao=" + dao + ", observableEtudiants=" + observableEtudiants
-				+ ", tableEtudiants=" + tableEtudiants + ", lbl2=" + lbl2 + ", tf2=" + tf2 + "]";
+
+	public TableView<Etudiant> getTableRecherche() {
+		return tableRecherche;
+	}
+
+
+	public void setTableRecherche(TableView<Etudiant> tableRecherche) {
+		this.tableRecherche = tableRecherche;
 	}
 	
 	
