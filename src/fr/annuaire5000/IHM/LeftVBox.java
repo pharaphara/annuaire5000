@@ -10,12 +10,12 @@ import javafx.scene.layout.VBox;
 
 public class LeftVBox extends VBox {
 	
-	private HBox btnBox = new HBox();
-	private HBox hbNom= new HBox();
-	private HBox hbPrenom= new HBox();
-	private HBox hbDep= new HBox();
-	private HBox hbPromo= new HBox();
-	private HBox hbAnnee= new HBox();
+	private HBox btnBox = new HBox(20);
+	private HBox hbNom= new HBox(20);
+	private HBox hbPrenom= new HBox(20);
+	private HBox hbDep= new HBox(20);
+	private HBox hbPromo= new HBox(20);
+	private HBox hbAnnee= new HBox(20);
 	private Label lblNom = new Label("Nom : ");
 	private TextField tfNom = new TextField();
 	private Label lblPrenom = new Label("Prénom : ");
@@ -31,18 +31,69 @@ public class LeftVBox extends VBox {
 	private Button btnRechercher= new Button("Rechercher");
 	private Button btnModifier = new Button("Modifier");
 	private Button btnSupprimer= new Button("Supprimer");
+	private Label lblTailleMax0 = new Label("Maximum 30 caractères");
+	private Label lblTailleMax1 = new Label("Maximum 30 caractères");
+	private Label lblTailleMax2 = new Label("Maximum 3 caractères");
+	private Label lblTailleMax3 = new Label("Maximum 10 caractères");
+	private Label lblTailleMax4 = new Label("Maximum 4 caractères");
+	
 
 	public LeftVBox() {
 		
-		hbNom.getChildren().addAll(lblNom,tfNom);
-		hbPrenom.getChildren().addAll(lblPrenom,tfPrenom);
-		hbDep.getChildren().addAll(lblDepartement,tfDepartement);
-		hbPromo.getChildren().addAll(lblPromotion,tfPromotion);
-		hbAnnee.getChildren().addAll(lblAnnee,tfAnnee);
-		btnBox.getChildren().addAll(btnAjouter,btnRechercher,btnModifier,btnSupprimer);
-		getChildren().addAll(hbNom,hbPrenom,hbDep,hbPromo,hbAnnee,lblErreur,btnBox);
+		hbNom.getChildren().addAll(lblNom,tfNom, lblTailleMax0);
+		lblNom.setPrefSize(200, 40);
+		lblNom.setStyle("-fx-font-size:15");
+		lblTailleMax0.setStyle("-fx-font-size:15");
+		lblTailleMax0.setVisible(false);
+		hbNom.setAlignment(Pos.CENTER);
 		
-		tfNom.getLength();
+		hbPrenom.getChildren().addAll(lblPrenom,tfPrenom, lblTailleMax1);
+		lblPrenom.setPrefSize(200, 40);
+		lblPrenom.setStyle("-fx-font-size:15");
+		lblTailleMax1.setStyle("-fx-font-size:15");
+		lblTailleMax1.setVisible(false);
+		hbPrenom.setAlignment(Pos.CENTER);
+		
+		hbDep.getChildren().addAll(lblDepartement,tfDepartement, lblTailleMax2);
+		lblDepartement.setPrefSize(200, 40);
+		lblDepartement.setStyle("-fx-font-size:15");
+		lblTailleMax2.setStyle("-fx-font-size:15");
+		lblTailleMax2.setVisible(false);
+		hbDep.setAlignment(Pos.CENTER);
+		
+		hbPromo.getChildren().addAll(lblPromotion,tfPromotion, lblTailleMax3);
+		lblPromotion.setPrefSize(200, 40);
+		lblPromotion.setStyle("-fx-font-size:15");
+		lblTailleMax3.setStyle("-fx-font-size:15");
+		lblTailleMax3.setVisible(false);
+		hbPromo.setAlignment(Pos.CENTER);
+		
+		hbAnnee.getChildren().addAll(lblAnnee,tfAnnee, lblTailleMax4);
+		lblAnnee.setPrefSize(200, 40);
+		lblAnnee.setStyle("-fx-font-size:15");
+		lblTailleMax4.setStyle("-fx-font-size:15");
+		lblTailleMax4.setVisible(false);
+		hbAnnee.setAlignment(Pos.CENTER);
+		
+		btnBox.getChildren().addAll(btnAjouter,btnRechercher,btnModifier,btnSupprimer);
+		
+		btnBox.setPadding(new Insets(20));
+		btnBox.setAlignment(Pos.CENTER);
+		btnAjouter.setStyle("-fx-font-size:15");
+		btnRechercher.setStyle("-fx-font-size:15");
+		btnModifier.setStyle("-fx-font-size:15");
+		btnSupprimer.setStyle("-fx-font-size:15");
+		
+		lblErreur.setStyle("-fx-font-size:15");
+		lblErreur.setVisible(false);
+		
+		getChildren().addAll(hbNom,hbPrenom,hbDep,hbPromo,hbAnnee,lblErreur,btnBox);
+
+		setAlignment(Pos.CENTER);
+		setPrefSize(600, 800);
+		setSpacing(20);
+		
+
 	}
 
 	public HBox getBtnBox() {
@@ -211,6 +262,46 @@ public class LeftVBox extends VBox {
 
 	public void setBtnSupprimer(Button btnSupprimer) {
 		this.btnSupprimer = btnSupprimer;
+	}
+
+	public Label getLblTailleMax0() {
+		return lblTailleMax0;
+	}
+
+	public void setLblTailleMax0(Label lblTailleMax0) {
+		this.lblTailleMax0 = lblTailleMax0;
+	}
+
+	public Label getLblTailleMax1() {
+		return lblTailleMax1;
+	}
+
+	public void setLblTailleMax1(Label lblTailleMax1) {
+		this.lblTailleMax1 = lblTailleMax1;
+	}
+
+	public Label getLblTailleMax2() {
+		return lblTailleMax2;
+	}
+
+	public void setLblTailleMax2(Label lblTailleMax2) {
+		this.lblTailleMax2 = lblTailleMax2;
+	}
+
+	public Label getLblTailleMax3() {
+		return lblTailleMax3;
+	}
+
+	public void setLblTailleMax3(Label lblTailleMax3) {
+		this.lblTailleMax3 = lblTailleMax3;
+	}
+
+	public Label getLblTailleMax4() {
+		return lblTailleMax4;
+	}
+
+	public void setLblTailleMax4(Label lblTailleMax4) {
+		this.lblTailleMax4 = lblTailleMax4;
 	}
 
 }

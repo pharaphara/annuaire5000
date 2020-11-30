@@ -21,11 +21,15 @@ public class HBoxEnTete extends HBox {
 		super();
 
 		btn1 = new Button("Importer");
+		btn1.setStyle("-fx-font-size:15");
 		btn2 = new Button("Exporter");
+		btn2.setStyle("-fx-font-size:15");
+		btn3.setStyle("-fx-font-size:15");
 		btn4 = new Button("Help");
+		btn4.setStyle("-fx-font-size:15");
 		setSpacing(50);
 		setAlignment(Pos.CENTER);
-		setPrefSize(1200, 100);
+		setPrefSize(1200, 50);
 		getChildren().addAll(btn1, btn2, btn3, btn4);
 
 	}
