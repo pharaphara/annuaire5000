@@ -2,6 +2,11 @@ package fr.annuaire5000.IHM;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.annuaire5000.Model.Etudiant;
+import fr.annuaire5000.Model.NoeudDao;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -23,7 +28,16 @@ public class MainPanel extends BorderPane {
 		setTop(hboxEnTete);
 		setRight(rightVBox);
 
+		if (NoeudDao.fileArbre.exists()) {
+			
+		List<Etudiant>	etudiants= new ArrayList<Etudiant>();
+			etudiants = NoeudDao.getAllOrdre();
+
+			for (Etudiant etudiant : etudiants) {
+				rightVBox.getObservableEtudiants().add(etudiant);
+			}
 		
+		}
 		
 		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftVBox));
 		//leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));
