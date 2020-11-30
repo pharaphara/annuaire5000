@@ -31,22 +31,25 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent event) {
 
-		//System.out.println(event.getSource());
 		String eventString = event.getSource().toString();
-		//System.out.println(eventString);
-
 		if (eventString.contains("Ajouter")) {
 			ajouter();
-		}else if (eventString.contains("Importer")) {
+		}
+		if (eventString.contains("Importer")) {
 			importer();
 		}
-
-
-
+		if (eventString.contains("Rechercher")) {
+			recherche();
+		}
+//		if (eventString.contains("Supprimer")) {
+//			supprimer();
+//		}
+		if (eventString.contains("Modifier")) {
+			modifier();
+		}
 	}
 	private void ajouter() {
-		System.out.println("dans la méthode ajouter");
-		File file = new File("./arbreTest.bin");
+	
 		String nom = root.getLeftVBox().getTfNom().getText();
 		String prenom = root.getLeftVBox().getTfPrenom().getText();
 		String departement = root.getLeftVBox().getTfDepartement().getText();
@@ -89,15 +92,65 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			for (Etudiant etudiant : etudiants) {
 				root.getRightVBox().getObservableEtudiants().add(etudiant);
 			}
-
-
-
-
-
-
-
-
 		}
 	} 
+
+	private void recherche() {
+		boolean troplong = false;
+		String[] criteres = new String[5];	
+		criteres[0]=root.getLeftVBox().getTfNom().getText();
+		criteres[1]=root.getLeftVBox().getTfPrenom().toString();
+		criteres[2]=root.getLeftVBox().getTfDepartement().getText()	;	
+		criteres[3]=root.getLeftVBox().getTfPromotion().getText();
+		criteres[4]=root.getLeftVBox().getTfAnnee().getText();
+		verificationLongeur(criteres, troplong);
+		if(troplong) {
+			return;
+		}
+		root.getLeftVBox().getLblTailleMax0.setVisible(false);
+		root.getLeftVBox().getLblTailleMax1.setVisible(false);
+		root.getLeftVBox().getLblTailleMax2.setVisible(false);
+		root.getLeftVBox().getLblTailleMax3.setVisible(false);
+		root.getLeftVBox().getLblTailleMax4.setVisible(false);
+
+		NoeudDao.recherche(criteres);		
+
+
+	}
+
+	private void verificationLongeur(String [] tab, boolean troplong) {
+
+		if(tab[0].length()>NoeudDao.structure[0]) {
+			root.getLeftVBox().getLblTailleMax0.setVisible(true);
+			troplong = true;
+		}
+		if(tab[1].length()>NoeudDao.structure[1]) {
+			root.getLeftVBox().getLblTailleMax1.setVisible(true);
+			troplong = true;
+		}
+		if(tab[2].length()>NoeudDao.structure[2]) {
+			root.getLeftVBox().getLblTailleMax2.setVisible(true);
+			troplong = true;
+		}
+		if(tab[3].length()>NoeudDao.structure[3]) {
+			root.getLeftVBox().getLblTailleMax3.setVisible(true);
+			troplong = true;
+		}
+		if(tab[4].length()>NoeudDao.structure[4]) {
+			root.getLeftVBox().getLblTailleMax4.setVisible(true);
+			troplong = true;
+		}
+
+	}
+
+
+	private void modifier () {
+
+	}
+
+//	private void supprimer() {
+//		String nom=root.getLeftVBox().getTfNom().getText().toUpperCase();
+//		NoeudDao.supprimer(nom);
+//	}
 }
 

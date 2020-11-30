@@ -17,19 +17,19 @@ public class LeftVBox extends VBox {
 	private HBox hbPromo= new HBox();
 	private HBox hbAnnee= new HBox();
 	private Label lblNom = new Label("Nom : ");
-	private TextField tfNom = new TextField();;
-	private Label lblPrenom = new Label("Prénom : ");;
-	private TextField tfPrenom= new TextField();;
-	private Label lblDepartement= new Label("Département : ");;
-	private TextField tfDepartement= new TextField();;
-	private Label lblPromotion = new Label("Numéro de promotion : ");;
-	private TextField tfPromotion = new TextField();;
-	private Label lblAnnee =new Label("Année : ");;
-	private TextField tfAnnee= new TextField();;
+	private TextField tfNom = new TextField();
+	private Label lblPrenom = new Label("Prénom : ");
+	private TextField tfPrenom= new TextField();
+	private Label lblDepartement= new Label("Département : ");
+	private TextField tfDepartement= new TextField();
+	private Label lblPromotion = new Label("Numéro de promotion : ");
+	private TextField tfPromotion = new TextField();
+	private Label lblAnnee =new Label("Année : ");
+	private TextField tfAnnee= new TextField();
 	private Label lblErreur = new Label("Veuillez saisir les champs");
 	private Button btnAjouter= new Button("Ajouter");
 	private Button btnRechercher= new Button("Rechercher");
-	private Button btnModifier = new Button("Modifier");;
+	private Button btnModifier = new Button("Modifier");
 	private Button btnSupprimer= new Button("Supprimer");
 
 	public LeftVBox() {
@@ -41,6 +41,8 @@ public class LeftVBox extends VBox {
 		hbAnnee.getChildren().addAll(lblAnnee,tfAnnee);
 		btnBox.getChildren().addAll(btnAjouter,btnRechercher,btnModifier,btnSupprimer);
 		getChildren().addAll(hbNom,hbPrenom,hbDep,hbPromo,hbAnnee,lblErreur,btnBox);
+		
+		tfNom.getLength();
 	}
 
 	public HBox getBtnBox() {

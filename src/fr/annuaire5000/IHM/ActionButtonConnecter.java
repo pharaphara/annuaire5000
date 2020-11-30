@@ -1,6 +1,10 @@
 package fr.annuaire5000.IHM;
 
+import fr.annuaire5000.Model.Etudiant;
+import fr.annuaire5000.Model.NoeudDao;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +18,7 @@ import javafx.stage.Stage;
 
 public class ActionButtonConnecter {
 
-	public static void modeAdmin(LeftVBox leftvbox)
+	public static void modeAdmin(MainPanel root)
 	{
 		Stage popupwindow=new Stage();
 
@@ -23,30 +27,30 @@ public class ActionButtonConnecter {
 
 		try {
 
-			GridPane root = new GridPane();
+			GridPane gridpane = new GridPane();
 
-			root.setPadding(new Insets(20));
-			root.setHgap(25);
-			root.setVgap(15);
+			gridpane.setPadding(new Insets(20));
+			gridpane.setHgap(25);
+			gridpane.setVgap(15);
 
 			Label userName = new Label("UserName: ");
-			root.add(userName, 0,0);
+			gridpane.add(userName, 0,0);
 
 			TextField userNametf = new TextField();
-			root.add(userNametf, 1,0);
+			gridpane.add(userNametf, 1,0);
 
 			Label password = new Label("Password: ");
-			root.add(password, 0, 1);
+			gridpane.add(password, 0, 1);
 
 			PasswordField passwordField = new PasswordField();
-			root.add(passwordField, 1, 1);
+			gridpane.add(passwordField, 1, 1);
 
 			TextField pass_text = new TextField();
 			pass_text.setVisible(false);
-			root.add(pass_text, 1, 1);
+			gridpane.add(pass_text, 1, 1);
 
 			CheckBox pass_Toggle = new CheckBox("Show Password");
-			root.add(pass_Toggle, 2, 1);
+			gridpane.add(pass_Toggle, 2, 1);
 
 			pass_Toggle.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_Val)->{
 
@@ -64,14 +68,14 @@ public class ActionButtonConnecter {
 			});
 
 			Label label = new Label("");
-			root.add(label, 0, 3);
+			gridpane.add(label, 0, 3);
 			GridPane.setColumnSpan(label,2);
 
 			Button  login = new Button ("Login");
-			root.add(login, 1, 2);
+			gridpane.add(login, 1, 2);
 
 			Button  btnQuitter = new Button ("Exit");
-			root.add(btnQuitter, 2, 2);
+			gridpane.add(btnQuitter, 2, 2);
 
 			login.setOnAction(e->{
 				if((userName.getText() !=null && !passwordField.getText().isEmpty() ))
@@ -86,8 +90,35 @@ public class ActionButtonConnecter {
 					{
 						label.setText("Parfait !!  merci pour votre connection");
 
-						leftvbox.getBtnModifier().setOnAction(m-> System.out.println("là tu peux modifier oui"));
-						leftvbox.getBtnSupprimer().setOnAction(s-> System.out.println("là tu peux supprimer oui"));
+						//modifier mode admin
+						root.getLeftVBox().getBtnModifier().setOnAction(d->{
+
+							String nomSupr=root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem().getNom();
+							NoeudDao.supprimer(nomSupr);
+
+							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedIndex());
+
+							String nom = root.getLeftVBox().getTfNom().getText();
+							String prenom = root.getLeftVBox().getTfPrenom().getText();
+							String departement = root.getLeftVBox().getTfDepartement().getText();
+							String promotion = root.getLeftVBox().getTfPromotion().getText();
+							String annee = root.getLeftVBox().getTfAnnee().getText();
+
+							Etudiant etudiant = new Etudiant(nom, prenom, departement, promotion, annee);
+							NoeudDao.ajouterEtudiant(etudiant);
+							root.getRightVBox().getObservableEtudiants().add(0, etudiant);
+
+						} );
+
+						//Supprimer mode admin
+						root.getLeftVBox().getBtnSupprimer().setOnAction(d-> {
+
+							String nom=root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem().getNom();
+
+							NoeudDao.supprimer(nom);
+							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedIndex());
+
+						});
 
 						popupwindow.close();
 
@@ -99,7 +130,7 @@ public class ActionButtonConnecter {
 				}
 			});
 			btnQuitter.setOnAction(e->popupwindow.close());
-			Scene scene1= new Scene(root, 650, 450);
+			Scene scene1= new Scene(gridpane, 650, 450);
 			popupwindow.setScene(scene1);
 			popupwindow.showAndWait();	
 
