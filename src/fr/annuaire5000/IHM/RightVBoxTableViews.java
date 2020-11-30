@@ -31,6 +31,7 @@ public class RightVBoxTableViews extends VBox {
 		super();
 
 		lbl1 = new Label("Liste de stagiaire :");
+		lbl1.setStyle("-fx-font-size:15");
 		
 		
 		observableEtudiants=FXCollections.observableArrayList(new ArrayList<Etudiant>());
@@ -52,11 +53,12 @@ public class RightVBoxTableViews extends VBox {
 		colAnnee.setCellValueFactory(new PropertyValueFactory<>("annee"));
 		
 		tableEtudiants.getColumns().addAll(colNom, colPrenom, colDepartement, colPromotion, colAnnee);
-		//tableEtudiants.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		tableEtudiants.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		
 		
 		lbl2 = new Label("Résultat :");
+		lbl2.setStyle("-fx-font-size:15");
 	
 		observableRecherche = FXCollections.observableArrayList();
 		
@@ -78,12 +80,12 @@ public class RightVBoxTableViews extends VBox {
 		colAnneeR.setCellValueFactory(new PropertyValueFactory<>("annee"));
 		
 		tableRecherche.getColumns().addAll(colNomR, colPrenomR, colDepartementR, colPromotionR, colAnneeR);
-		//tableEtudiants.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		tableRecherche.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		setPadding(new Insets(20));
 		getChildren().addAll(lbl1, tableEtudiants, lbl2, tableRecherche);
 		setAlignment(Pos.TOP_CENTER);
-		setPrefSize(600, 300);
+		setPrefSize(600, 800);
 	
 		
 		
