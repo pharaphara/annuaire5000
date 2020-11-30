@@ -50,7 +50,7 @@ public class TestDaO {
 //			
 			NoeudDao.affichageOrdreBin(0l, raf);
 			
-			String[] criteres = new String[] {null,"Al","75","ai",null};
+			String[] criteres = new String[] {null,null,"75",null,null};
 			System.out.println();
 			
 			NoeudDao.recherche(criteres, raf);
