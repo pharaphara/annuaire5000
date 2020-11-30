@@ -19,7 +19,7 @@ public class MainPanel extends BorderPane {
 	private HBoxEnTete hboxEnTete = new HBoxEnTete();
 	private RightVBoxTableViews rightVBox = new RightVBoxTableViews();
 	private LeftVBox leftVBox = new LeftVBox();
-	private int numBtn=0;
+
 
 	public MainPanel() {
 		super();
@@ -45,6 +45,7 @@ public class MainPanel extends BorderPane {
 		leftVBox.getBtnAjouter().setOnAction(handler);
 		hboxEnTete.getBtn1().setOnAction(handler);
 		
+		hboxEnTete.getBtn4().setOnAction(handler);
 	}
 
 	

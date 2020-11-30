@@ -275,7 +275,7 @@ public class LeftVBox extends VBox {
 	public Label getLblTailleMax1() {
 		return lblTailleMax1;
 	}
-
+	
 	public void setLblTailleMax1(Label lblTailleMax1) {
 		this.lblTailleMax1 = lblTailleMax1;
 	}

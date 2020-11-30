@@ -13,8 +13,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ButtonHandler implements EventHandler<ActionEvent>{
 
@@ -41,15 +49,13 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		if (eventString.contains("Rechercher")) {
 			recherche();
 		}
-//		if (eventString.contains("Supprimer")) {
-//			supprimer();
-//		}
-		if (eventString.contains("Modifier")) {
-			modifier();
+
+		if (eventString.contains("Help")) {
+			help();
 		}
 	}
 	private void ajouter() {
-	
+
 		String nom = root.getLeftVBox().getTfNom().getText();
 		String prenom = root.getLeftVBox().getTfPrenom().getText();
 		String departement = root.getLeftVBox().getTfDepartement().getText();
@@ -107,11 +113,11 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		if(troplong) {
 			return;
 		}
-		root.getLeftVBox().getLblTailleMax0.setVisible(false);
-		root.getLeftVBox().getLblTailleMax1.setVisible(false);
-		root.getLeftVBox().getLblTailleMax2.setVisible(false);
-		root.getLeftVBox().getLblTailleMax3.setVisible(false);
-		root.getLeftVBox().getLblTailleMax4.setVisible(false);
+		root.getLeftVBox().getLblTailleMax0().setVisible(false);
+		root.getLeftVBox().getLblTailleMax1().setVisible(false);
+		root.getLeftVBox().getLblTailleMax2().setVisible(false);
+		root.getLeftVBox().getLblTailleMax3().setVisible(false);
+		root.getLeftVBox().getLblTailleMax4().setVisible(false);
 
 		NoeudDao.recherche(criteres);		
 
@@ -121,36 +127,72 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	private void verificationLongeur(String [] tab, boolean troplong) {
 
 		if(tab[0].length()>NoeudDao.structure[0]) {
-			root.getLeftVBox().getLblTailleMax0.setVisible(true);
+			root.getLeftVBox().getLblTailleMax0().setVisible(true);
 			troplong = true;
 		}
 		if(tab[1].length()>NoeudDao.structure[1]) {
-			root.getLeftVBox().getLblTailleMax1.setVisible(true);
+			root.getLeftVBox().getLblTailleMax1().setVisible(true);
 			troplong = true;
 		}
 		if(tab[2].length()>NoeudDao.structure[2]) {
-			root.getLeftVBox().getLblTailleMax2.setVisible(true);
+			root.getLeftVBox().getLblTailleMax2().setVisible(true);
 			troplong = true;
 		}
 		if(tab[3].length()>NoeudDao.structure[3]) {
-			root.getLeftVBox().getLblTailleMax3.setVisible(true);
+			root.getLeftVBox().getLblTailleMax3().setVisible(true);
 			troplong = true;
 		}
 		if(tab[4].length()>NoeudDao.structure[4]) {
-			root.getLeftVBox().getLblTailleMax4.setVisible(true);
+			root.getLeftVBox().getLblTailleMax4().setVisible(true);
 			troplong = true;
 		}
 
 	}
 
+	private void help() {
 
-	private void modifier () {
+		Stage popupwindow=new Stage();
+
+		popupwindow.initModality(Modality.APPLICATION_MODAL);
+		popupwindow.setTitle("Votre guide");
+
+
+		VBox layout= new VBox(10);
+		
+		Label lblmessage1 = new Label("Bienvenue dans notre liste des stagiaires chez EQL.");
+		lblmessage1.setAlignment(Pos.CENTER);
+		lblmessage1.setPrefSize(500, 100);
+		Label lblmessage2 = new Label("En tant qu'utilisateur vous pouvez créer un annuaire à partir du fichier stagiaires.txt\r\n"
+				+ "\r\n"
+				+ "En tant qu'utilisateur vous pouvez visualiser la liste des stagiaires par ordre alphabétique\r\n"
+				+ "\r\n"
+				+ "En tant qu'utilisateur vous pouvez ajouter un stagiaire à l'annuaire\r\n"
+				+ "\r\n"
+				+ "En tant qu'utilisateur vous pouvez rechercher des stagiaires à partir d'un ou plusieurs critères\r\n"
+				+ "\r\n"
+				+ "En tant qu'utilisateur vous pouvez exporter l'annuaire, ou un extrait issu de ma recherche, au format pdf\r\n"
+				+ "\r\n"
+				+ "En tant qu'utilisateur vous pouvez accéder à une documentation utilisateur\r\n"
+				+ "\r\n"
+				+ "En tant qu'administrateur vous pouvez accéder à toutes les fonctionnalités de l'utilisateur\r\n"
+				+ "\r\n"
+				+ "En tant qu'administrateur vous pouvez mettre à jour un stagiaire enregistré dans l'annuaire\r\n"
+				+ "\r\n"
+				+ "En tant qu'administrateur vous pouvez supprimer un stagiaire enregistré dans l'annuaire ");
+
+		layout.setPadding(new Insets (10));
+
+		layout.getChildren().addAll(lblmessage1,lblmessage2);
+		
+		Scene scene1= new Scene(layout, 500, 500);
+
+		popupwindow.setScene(scene1);
+
+		popupwindow.showAndWait();
 
 	}
 
-//	private void supprimer() {
-//		String nom=root.getLeftVBox().getTfNom().getText().toUpperCase();
-//		NoeudDao.supprimer(nom);
-//	}
+
+
 }
 

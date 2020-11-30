@@ -33,12 +33,6 @@ public class ActionButtonConnecter {
 			gridpane.setHgap(25);
 			gridpane.setVgap(15);
 
-			Label userName = new Label("UserName: ");
-			gridpane.add(userName, 0,0);
-
-			TextField userNametf = new TextField();
-			gridpane.add(userNametf, 1,0);
-
 			Label password = new Label("Password: ");
 			gridpane.add(password, 0, 1);
 
@@ -78,7 +72,7 @@ public class ActionButtonConnecter {
 			gridpane.add(btnQuitter, 2, 2);
 
 			login.setOnAction(e->{
-				if((userName.getText() !=null && !passwordField.getText().isEmpty() ))
+				if((!passwordField.getText().isEmpty() ))
 				{
 					if(!passwordField.getText().equals("@fromage")) 
 					{
@@ -130,7 +124,9 @@ public class ActionButtonConnecter {
 				}
 			});
 			btnQuitter.setOnAction(e->popupwindow.close());
-			Scene scene1= new Scene(gridpane, 650, 450);
+			Scene scene1= new Scene(gridpane, 400, 150);
+			
+			
 			popupwindow.setScene(scene1);
 			popupwindow.showAndWait();	
 
