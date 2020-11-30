@@ -25,12 +25,12 @@ public class MainPanel extends BorderPane {
 
 		
 		
-		//hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftGridPane));
+		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(leftVBox));
 		//leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));
 		ButtonHandler handler = new ButtonHandler(this);
 		leftVBox.getBtnAjouter().setOnAction(handler);
+		hboxEnTete.getBtn1().setOnAction(handler);
 		
-	
 	}
 
 	

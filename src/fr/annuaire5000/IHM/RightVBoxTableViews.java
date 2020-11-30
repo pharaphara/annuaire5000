@@ -1,6 +1,7 @@
 package fr.annuaire5000.IHM;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.EtudiantDAO;
@@ -19,7 +20,7 @@ public class RightVBoxTableViews extends VBox {
 	
 	private Label lbl1;
 	private EtudiantDAO dao = new EtudiantDAO();
-	private ObservableList<Etudiant> observableEtudiants;
+	private ObservableList<Etudiant> observableEtudiants ;
 	private TableView<Etudiant> tableEtudiants;
 	private Label lbl2;
 	private ObservableList<Etudiant> observableRecherche;
@@ -31,8 +32,8 @@ public class RightVBoxTableViews extends VBox {
 
 		lbl1 = new Label("Liste de stagiaire :");
 		
-		observableEtudiants = FXCollections.observableArrayList(dao.importExtern(new File("./stagiaires.txt")));
 		
+		observableEtudiants=FXCollections.observableArrayList(new ArrayList<Etudiant>());
 		tableEtudiants = new TableView<>(observableEtudiants);
 		
 		TableColumn<Etudiant, String> colNom = new TableColumn<>("Nom");

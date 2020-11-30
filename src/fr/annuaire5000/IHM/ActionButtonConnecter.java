@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class ActionButtonConnecter {
 
-	public static void modeAdmin(LeftGridPane leftGridPane)
+	public static void modeAdmin(LeftVBox leftvbox)
 	{
 		Stage popupwindow=new Stage();
 
@@ -86,8 +86,8 @@ public class ActionButtonConnecter {
 					{
 						label.setText("Parfait !!  merci pour votre connection");
 
-						leftGridPane.getBtnModifier().setOnAction(m-> System.out.println("là tu peux modifier oui"));
-						leftGridPane.getBtnSupprimer().setOnAction(s-> System.out.println("là tu peux supprimer oui"));
+						leftvbox.getBtnModifier().setOnAction(m-> System.out.println("là tu peux modifier oui"));
+						leftvbox.getBtnSupprimer().setOnAction(s-> System.out.println("là tu peux supprimer oui"));
 
 						popupwindow.close();
 

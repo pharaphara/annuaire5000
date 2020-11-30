@@ -7,6 +7,7 @@ import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class NoeudDao {
@@ -25,39 +26,83 @@ public class NoeudDao {
 		return fileArbre;
 	}
 	public void setFileArbre(File fileArbre) {
-		this.fileArbre = fileArbre;
+		NoeudDao.fileArbre = fileArbre;
 	}
 
-	public static void inserer(Etudiant etudiant) 
-	{
-		System.out.println("dans inserer");
+
+	public static void ajouterListEtudiant (List<Etudiant> etudiants) {
+
+		boolean isArbre =fileArbre.exists();
+
+
+		RandomAccessFile raf = null;
 		try {
-			RandomAccessFile raf = new RandomAccessFile(fileArbre, "rw");
-			insererBin(etudiant, 0l, raf);
+			raf = new RandomAccessFile(fileArbre, "rw");
+
+			//permet d'initialiser mon fichier à null et évite erreur de lecture dans insererBin
+			if (!isArbre) {
+
+				for (int i = 0; i <structure[8]; i++) {
+					raf.writeBytes("*");
+				}
+			}
+			for (Etudiant etudiant : etudiants) {
+				insererBin(etudiant, 0l, raf);
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				raf.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
-		
 
-	}
-	static void initialisation (RandomAccessFile raf) throws IOException {
 
-		raf.writeBytes(new Etudiant("/racine", "1", "2", "3", "4").toLargeurFixe());
-		raf.writeLong(Long.MAX_VALUE);
-		raf.writeLong(Long.MAX_VALUE);
-		raf.seek(0);
-		byte[] init = new byte[93];
-		raf.readFully(init);
 
 
 
 
 	}
 
+	public static void ajouterEtudiant (Etudiant etudiant) {
+		boolean isArbre =fileArbre.exists();
 
-	public static Long insererBin(Etudiant etudiant, Long index, RandomAccessFile raf) throws IOException 
+
+		RandomAccessFile raf = null;
+		try {
+			raf = new RandomAccessFile(fileArbre, "rw");
+
+			//permet d'initialiser mon fichier à null et évite erreur de lecture dans insererBin
+			if (!isArbre) {
+System.out.println("dans le if");
+				for (int i = 0; i <structure[8]; i++) {
+					raf.writeBytes("*");
+				}
+			}
+			insererBin(etudiant, 0l, raf);
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				raf.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+
+	}
+
+	private static Long insererBin(Etudiant etudiant, Long index, RandomAccessFile raf) throws IOException 
 	{
 		raf.seek(index);
 		byte[] nom = new byte[30];
@@ -119,31 +164,67 @@ public class NoeudDao {
 		return index;
 	}
 
-	static void affichageOrdreBin(Long noeud, RandomAccessFile raf) throws IOException {
+	public static List<Etudiant> getAllOrdre(){
+		List<Etudiant> etudiantsOrdre = new ArrayList<Etudiant>();
+		RandomAccessFile raf = null;
+		try {
+			raf = new RandomAccessFile(fileArbre, "rw");
+
+			
+			etudiantsOrdre=getAllOrdreBin(0l, raf);
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				raf.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+
+		
+		
+		
+		return etudiantsOrdre;
+	}
+	private static List<Etudiant> getAllOrdreBin(Long noeud, RandomAccessFile raf) throws IOException {
 
 		raf.seek(noeud);
+		List<Etudiant> etudiantsOrdre = new ArrayList<Etudiant>();
 
-		byte[] nom = new byte[30];
-		raf.read(nom);
-		raf.seek(raf.getFilePointer()+47);
+		String[] etudiant =new String[5];
+		for (int i = 0; i < etudiant.length; i++) {
+			byte[] temp = new byte[structure[i]];
+			raf.read(temp);
+			etudiant[i]=new String (temp, StandardCharsets.UTF_8).trim();
+		}
+		Etudiant etudiantduNoeud = new Etudiant(etudiant[0], etudiant[1], etudiant[2], etudiant[3], etudiant[4]);	
+		
 		Long gauche = raf.readLong();
 		Long droite = raf.readLong();
 
 
-		String lenom= new String(nom, StandardCharsets.UTF_8);
+		
 
 		if (gauche!=Long.MAX_VALUE) {
-			affichageOrdreBin(gauche,raf);
+			etudiantsOrdre.addAll(getAllOrdreBin(gauche,raf));
 		}
 
-		System.out.print(lenom.trim()+" - ");
+		etudiantsOrdre.add(etudiantduNoeud);
 
 		if (droite!=Long.MAX_VALUE) {
-			affichageOrdreBin(droite,raf);
+			etudiantsOrdre.addAll(getAllOrdreBin(droite,raf));
 		}
+		
+		return etudiantsOrdre;
 	}
 
-	static Long dernierDescendantBin(Long noeud, RandomAccessFile raf) throws IOException 
+	private static Long dernierDescendantBin(Long noeud, RandomAccessFile raf) throws IOException 
 	{
 		System.out.println("dans dernier desandant");
 
@@ -155,7 +236,7 @@ public class NoeudDao {
 	}
 
 
-	static Long supprimerNomBin(String nom, Long noeud, RandomAccessFile raf) throws IOException
+	private static Long supprimerNomBin(String nom, Long noeud, RandomAccessFile raf) throws IOException
 	{
 
 		System.out.println("dans supprimer nom");
@@ -194,7 +275,7 @@ public class NoeudDao {
 
 
 
-	static Long supprimerRacineNomBin( Long noeud, RandomAccessFile raf) throws IOException 
+	private static Long supprimerRacineNomBin( Long noeud, RandomAccessFile raf) throws IOException 
 	{
 		System.out.println("dans supprimer racine noeud = "+noeud);
 		raf.seek(noeud);
@@ -223,7 +304,32 @@ public class NoeudDao {
 		return noeud; // attention a ce retour f ou null
 	}
 
-	static List<Etudiant> recherche (String[] criteres, RandomAccessFile raf) throws IOException{
+	public static List<Etudiant> recherche(String[] criteres){
+		RandomAccessFile raf = null;
+		try {
+			raf = new RandomAccessFile(fileArbre, "rw");
+
+			
+			rechercheBin(criteres, raf);
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				raf.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+
+		return null;
+		
+	}
+	private static List<Etudiant> rechercheBin (String[] criteres, RandomAccessFile raf) throws IOException{
 
 		List<Etudiant> resultats = new ArrayList<Etudiant>();
 		int i=0;
@@ -299,36 +405,36 @@ public class NoeudDao {
 				break;
 			case 1:
 				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]));
-				
+
 				break;
 			case 2:
 				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]+structure[2]));
-				
+
 				break;
 			case 3:
 				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]+structure[2]+structure[3]));
-				
+
 				break;
 			case 4:
 				raf.seek(raf.getFilePointer()-(structure[0]+structure[1]+structure[2]+structure[3]+structure[4]));
-				
+
 				break;
 			case 5:
 				raf.seek(raf.getFilePointer()-structure[7]);
-				
+
 				break;
 			default : 
 				break;
 			}
 			String colonne = new String(colBin, StandardCharsets.UTF_8).trim();
-			
+
 			System.out.print(colonne);
 
 			if (colonne.contains(critere)) {
 				System.out.println("si comp ok col = "+colonne);
 				String[] etudiant =new String[5];
 				//switch permétant le retour en début de ligne en fonction de la collone dans laqullle on recherche
-				
+
 				for (int i = 0; i < etudiant.length; i++) {
 					byte[] temp = new byte[structure[i]];
 					raf.read(temp);
