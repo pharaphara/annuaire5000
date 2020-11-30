@@ -3,6 +3,7 @@ package fr.annuaire5000.IHM;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.annuaire5000.Model.Etudiant;
@@ -30,9 +31,9 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent event) {
 
-		System.out.println(event.getSource());
+		//System.out.println(event.getSource());
 		String eventString = event.getSource().toString();
-		System.out.println(eventString);
+		//System.out.println(eventString);
 
 		if (eventString.contains("Ajouter")) {
 			ajouter();
@@ -80,12 +81,11 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		File f = fileChooser.showOpenDialog(null);
 		if(f != null) {
 			EtudiantDAO importation = new EtudiantDAO();
-
 			List<Etudiant> etudiants = importation.importExtern(f);
 			NoeudDao.ajouterListEtudiant(etudiants); 
+			etudiants= new ArrayList<Etudiant>();
+			etudiants = NoeudDao.getAllOrdre();
 
-			ObservableList<Etudiant> observableEtud;
-			observableEtud= FXCollections.observableArrayList(NoeudDao.getAllOrdre());
 			for (Etudiant etudiant : etudiants) {
 				root.getRightVBox().getObservableEtudiants().add(etudiant);
 			}

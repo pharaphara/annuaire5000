@@ -12,7 +12,7 @@ import java.util.List;
 
 public class NoeudDao {
 
-	public static File fileArbre = new File("./arbreTest.bin");
+	public static File fileArbre = new File("./arbre.bin");
 
 
 
