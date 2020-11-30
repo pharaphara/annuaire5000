@@ -79,7 +79,6 @@ public class NoeudDao {
 
 			//permet d'initialiser mon fichier à null et évite erreur de lecture dans insererBin
 			if (!isArbre) {
-System.out.println("dans le if");
 				for (int i = 0; i <structure[8]; i++) {
 					raf.writeBytes("*");
 				}
@@ -170,7 +169,7 @@ System.out.println("dans le if");
 		try {
 			raf = new RandomAccessFile(fileArbre, "rw");
 
-			
+
 			etudiantsOrdre=getAllOrdreBin(0l, raf);
 
 
@@ -187,9 +186,9 @@ System.out.println("dans le if");
 		}
 
 
-		
-		
-		
+
+
+
 		return etudiantsOrdre;
 	}
 	private static List<Etudiant> getAllOrdreBin(Long noeud, RandomAccessFile raf) throws IOException {
@@ -204,12 +203,12 @@ System.out.println("dans le if");
 			etudiant[i]=new String (temp, StandardCharsets.UTF_8).trim();
 		}
 		Etudiant etudiantduNoeud = new Etudiant(etudiant[0], etudiant[1], etudiant[2], etudiant[3], etudiant[4]);	
-		
+
 		Long gauche = raf.readLong();
 		Long droite = raf.readLong();
 
 
-		
+
 
 		if (gauche!=Long.MAX_VALUE) {
 			etudiantsOrdre.addAll(getAllOrdreBin(gauche,raf));
@@ -220,7 +219,7 @@ System.out.println("dans le if");
 		if (droite!=Long.MAX_VALUE) {
 			etudiantsOrdre.addAll(getAllOrdreBin(droite,raf));
 		}
-		
+
 		return etudiantsOrdre;
 	}
 
@@ -235,6 +234,29 @@ System.out.println("dans le if");
 		return dernierDescendantBin(droite,raf);
 	}
 
+	public static void supprimer (String nom) {
+		RandomAccessFile raf = null;
+		try {
+			raf = new RandomAccessFile(fileArbre, "rw");
+
+
+			supprimerNomBin(nom, 0l, raf);
+
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				raf.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+
+	}
 
 	private static Long supprimerNomBin(String nom, Long noeud, RandomAccessFile raf) throws IOException
 	{
@@ -309,7 +331,7 @@ System.out.println("dans le if");
 		try {
 			raf = new RandomAccessFile(fileArbre, "rw");
 
-			
+
 			rechercheBin(criteres, raf);
 
 
@@ -327,7 +349,7 @@ System.out.println("dans le if");
 
 
 		return null;
-		
+
 	}
 	private static List<Etudiant> rechercheBin (String[] criteres, RandomAccessFile raf) throws IOException{
 
