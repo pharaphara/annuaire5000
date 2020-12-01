@@ -52,11 +52,11 @@ public class ActionButtonConnecter {
 
 					pass_text.setText(passwordField.getText());
 					pass_text.setVisible(true);
-					passwordField.setVisible(false);
+					//passwordField.setVisible(false);
 					return;
 				}
 				passwordField.setText(pass_text.getText());
-				passwordField.setVisible(true);
+			passwordField.setVisible(true);
 				pass_text.setVisible(false);
 
 			});
@@ -122,7 +122,7 @@ public class ActionButtonConnecter {
 
 				}else
 				{
-					label.setText("Veuillez entrer votre nom et password");
+					label.setText("Veuillez entrer votre password");
 				}
 			});
 			btnQuitter.setOnAction(e->popupwindow.close());
