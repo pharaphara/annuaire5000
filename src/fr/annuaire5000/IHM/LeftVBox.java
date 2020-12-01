@@ -33,51 +33,51 @@ public class LeftVBox extends VBox {
 	private Button btnSupprimer= new Button("Supprimer");
 	private Label lblTailleMax0 = new Label("Maximum 30 caractères");
 	private Label lblTailleMax1 = new Label("Maximum 30 caractères");
-	private Label lblTailleMax2 = new Label("Maximum 3 caractères");
+	private Label lblTailleMax2 = new Label("Maximum  3 caractères");
 	private Label lblTailleMax3 = new Label("Maximum 10 caractères");
-	private Label lblTailleMax4 = new Label("Maximum 4 caractères");
+	private Label lblTailleMax4 = new Label("Maximum  4 caractères");
 	
 
 	public LeftVBox() {
 		
 		hbNom.getChildren().addAll(lblNom,tfNom, lblTailleMax0);
-		lblNom.setPrefSize(200, 40);
+		tfNom.setPrefSize(300, 15);
+		lblNom.setPrefSize(300, 15);
 		lblNom.setStyle("-fx-font-size:15");
 		lblTailleMax0.setStyle("-fx-font-size:15");
 		lblTailleMax0.setVisible(false);
-		hbNom.setAlignment(Pos.CENTER);
 		
 		hbPrenom.getChildren().addAll(lblPrenom,tfPrenom, lblTailleMax1);
-		lblPrenom.setPrefSize(200, 40);
+		tfPrenom.setPrefSize(300, 15);
+		lblPrenom.setPrefSize(300, 15);
 		lblPrenom.setStyle("-fx-font-size:15");
 		lblTailleMax1.setStyle("-fx-font-size:15");
 		lblTailleMax1.setVisible(false);
-		hbPrenom.setAlignment(Pos.CENTER);
 		
 		hbDep.getChildren().addAll(lblDepartement,tfDepartement, lblTailleMax2);
-		lblDepartement.setPrefSize(200, 40);
+		tfDepartement.setPrefSize(300, 15);
+		lblDepartement.setPrefSize(300, 15);
 		lblDepartement.setStyle("-fx-font-size:15");
 		lblTailleMax2.setStyle("-fx-font-size:15");
 		lblTailleMax2.setVisible(false);
-		hbDep.setAlignment(Pos.CENTER);
 		
-		hbPromo.getChildren().addAll(lblPromotion,tfPromotion, lblTailleMax3);
-		lblPromotion.setPrefSize(200, 40);
+		hbPromo.getChildren().addAll(lblPromotion, tfPromotion, lblTailleMax3);
+		tfPromotion.setPrefSize(300, 15);
+		lblPromotion.setPrefSize(300, 15);
 		lblPromotion.setStyle("-fx-font-size:15");
 		lblTailleMax3.setStyle("-fx-font-size:15");
 		lblTailleMax3.setVisible(false);
-		hbPromo.setAlignment(Pos.CENTER);
 		
-		hbAnnee.getChildren().addAll(lblAnnee,tfAnnee, lblTailleMax4);
-		lblAnnee.setPrefSize(200, 40);
+		hbAnnee.getChildren().addAll(lblAnnee, tfAnnee, lblTailleMax4);
+		tfAnnee.setPrefSize(300, 15);
+		lblAnnee.setPrefSize(300, 15);
 		lblAnnee.setStyle("-fx-font-size:15");
 		lblTailleMax4.setStyle("-fx-font-size:15");
 		lblTailleMax4.setVisible(false);
-		hbAnnee.setAlignment(Pos.CENTER);
+
 		
 		btnBox.getChildren().addAll(btnAjouter,btnRechercher,btnModifier,btnSupprimer);
 		
-		btnBox.setPadding(new Insets(20));
 		btnBox.setAlignment(Pos.CENTER);
 		btnAjouter.setStyle("-fx-font-size:15");
 		btnRechercher.setStyle("-fx-font-size:15");
@@ -92,6 +92,7 @@ public class LeftVBox extends VBox {
 		setAlignment(Pos.CENTER);
 		setPrefSize(600, 800);
 		setSpacing(20);
+		setPadding(new Insets(20));
 		
 
 	}
