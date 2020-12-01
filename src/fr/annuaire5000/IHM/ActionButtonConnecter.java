@@ -83,14 +83,16 @@ public class ActionButtonConnecter {
 					}else
 					{
 						label.setText("Parfait !!  merci pour votre connection");
-
+						root.getLeftVBox().getBtnModifier().setDisable(false);
+						root.getLeftVBox().getBtnSupprimer().setDisable(false);
+						
 						//modifier mode admin
 						root.getLeftVBox().getBtnModifier().setOnAction(d->{
 
 							String nomSupr=root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem().getNom();
 							NoeudDao.supprimer(nomSupr);
 
-							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedIndex());
+							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem());
 
 							String nom = root.getLeftVBox().getTfNom().getText();
 							String prenom = root.getLeftVBox().getTfPrenom().getText();

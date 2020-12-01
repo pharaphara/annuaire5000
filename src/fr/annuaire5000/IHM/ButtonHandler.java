@@ -1,5 +1,6 @@
 package fr.annuaire5000.IHM;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,7 +9,24 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.corba.se.spi.orb.ParserDataFactory;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.pdfjet.Letter;
+import com.pdfjet.PDF;
+import com.pdfjet.Page;
 
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.EtudiantDAO;
@@ -24,16 +42,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
 
 
 public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	private MainPanel root;
+	String[] textFields = new String[5];
+	
 
 	public ButtonHandler() {
 		super();
@@ -62,34 +86,18 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		}
 		if (eventString.contains("Exporter")) {
 			exporter();
-			
+
 		}
 	}
 	private void ajouter() {
-		boolean tropLong=false;
-		
-		
-		String[] textFields = new String[5];	
-		textFields[0]=root.getLeftVBox().getTfNom().getText();
-		textFields[1]=root.getLeftVBox().getTfPrenom().getText();
-		textFields[2]=root.getLeftVBox().getTfDepartement().getText()	;	
-		textFields[3]=root.getLeftVBox().getTfPromotion().getText();
-		textFields[4]=root.getLeftVBox().getTfAnnee().getText();
-		tropLong=verificationLongeur(textFields);
-		if(tropLong) {
+		root.getLeftVBox().getLblErreur().setVisible(false);
+		if (!lireTf())
 			return;
-		}
-		System.out.println(tropLong);
-		root.getLeftVBox().getLblTailleMax0().setVisible(false);
-		root.getLeftVBox().getLblTailleMax1().setVisible(false);
-		root.getLeftVBox().getLblTailleMax2().setVisible(false);
-		root.getLeftVBox().getLblTailleMax3().setVisible(false);
-		root.getLeftVBox().getLblTailleMax4().setVisible(false);
 
 		
 		
-		if( !textFields[0].isEmpty() && !textFields[1].isEmpty() && !textFields[2].isEmpty()&& !textFields[3].isEmpty()
-				&& !textFields[4].isEmpty()) {
+		if( textFields[0]!=null && textFields[1]!=null && textFields[2]!=null&& textFields[3]!=null
+				&& textFields[4]!=null) {
 			root.getLeftVBox().getLblErreur().setVisible(false);
 			Etudiant etudiant = new Etudiant(textFields[0], textFields[1], textFields[2], textFields[3], textFields[4]);
 			root.getRightVBox().getObservableEtudiants().add(0, etudiant);//permet d'ajouter l'étudiant en haut du tableau
@@ -127,30 +135,47 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	} 
 
 	private void recherche() {
-		boolean tropLong = false;
-		String[] textFields = new String[5];	
-		textFields[0]=root.getLeftVBox().getTfNom().getText();
-		textFields[1]=root.getLeftVBox().getTfPrenom().toString();
-		textFields[2]=root.getLeftVBox().getTfDepartement().getText()	;	
-		textFields[3]=root.getLeftVBox().getTfPromotion().getText();
-		textFields[4]=root.getLeftVBox().getTfAnnee().getText();
-		tropLong=verificationLongeur(textFields);
+		
+		if (!lireTf())
+		return;
+		
+		List<Etudiant> resultats = new ArrayList<Etudiant>();		
+		resultats=NoeudDao.recherche(textFields);
+		System.out.println("retour dans rechercher");
+		root.getRightVBox().getObservableRecherche().clear();
+		for (Etudiant etudiant : resultats) {
+			System.out.println(etudiant);
+			root.getRightVBox().getObservableRecherche().add(etudiant);
+		}
+		
+
+	}
+
+	private boolean lireTf() {
+		boolean tropLong=false;
+		textFields[0]=root.getLeftVBox().getTfNom().getText().toLowerCase();
+		textFields[1]=root.getLeftVBox().getTfPrenom().getText().toLowerCase();
+		textFields[2]=root.getLeftVBox().getTfDepartement().getText().toLowerCase();	
+		textFields[3]=root.getLeftVBox().getTfPromotion().getText().toLowerCase();
+		textFields[4]=root.getLeftVBox().getTfAnnee().getText().toLowerCase();
+		tropLong=verificationLongeur(textFields, tropLong);
 		if(tropLong) {
-			return;
+			return false;
 		}
 		root.getLeftVBox().getLblTailleMax0().setVisible(false);
 		root.getLeftVBox().getLblTailleMax1().setVisible(false);
 		root.getLeftVBox().getLblTailleMax2().setVisible(false);
 		root.getLeftVBox().getLblTailleMax3().setVisible(false);
 		root.getLeftVBox().getLblTailleMax4().setVisible(false);
-
-		NoeudDao.recherche(textFields);		
-
-
+		
+		//pour mettre à null les TF non recherchés
+		for (int i = 0; i < textFields.length; i++) {
+			textFields[i]= (textFields[i].length()<1)? null:textFields[i];
+		}
+		return true;
 	}
-
-	private boolean verificationLongeur(String [] tab) {
-		boolean tropLong=false;
+	private boolean verificationLongeur(String [] tab, boolean tropLong) {
+		
 		
 		if(tab[0].length()>NoeudDao.structure[0]) {
 			root.getLeftVBox().getLblTailleMax0().setVisible(true);
@@ -176,10 +201,93 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	}
 
 	private void exporter() {
-		 
+
+		Document doc =new Document();
+		try {
+
+			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
+			doc.open();
+			doc.add(new Paragraph("Liste Etudiant"));
+			doc.add(new Paragraph("------------------"));
+
+			PdfPTable table = new PdfPTable(5);
+			table.setWidthPercentage(100);
+			PdfPCell cell;
+
+			///////////
+			cell = new PdfPCell(new Phrase("Nom",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("Prenom",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			// cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("departement",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			// cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("promotion",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			// cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("annee ",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			//  cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			////////////////
+
+			String[] col = new String[5];	
+			col[0]="jfdmlc k,sc";
+			col[1]="qszz";
+			col[2]="szzz";
+			col[3]="dde";
+			col[4]="eed";
+
+
+
+			if(table!=null) {
+				for (Etudiant etudiant : root.getRightVBox().getObservableEtudiants()) {
+					
+					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",11)));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+
+					cell = new PdfPCell (new Phrase(etudiant.getPrenom()));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+					
+					
+					cell = new PdfPCell (new Phrase(etudiant.getDepartement()));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+
+					cell = new PdfPCell (new Phrase(etudiant.getPromotion()));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+
+					cell = new PdfPCell (new Phrase(etudiant.getAnnee()));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+				}
+			}
+
+			doc.add(table);
+			doc.close();
+
+			Desktop.getDesktop().open(new File("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 	}
-	
-	
+
+
 	private void help() {
 
 		Stage popupwindow=new Stage();
@@ -189,7 +297,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 
 		VBox layout= new VBox(10);
-		
+
 		ImageView img2 = new ImageView(getClass().getResource("/ressource/image/eqlimg.png").toString());	
 		Label lbl=new Label();
 		lbl.setAlignment(Pos.CENTER);
@@ -197,7 +305,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		lbl.setGraphic(img2);	
 		lbl.setContentDisplay(ContentDisplay.TOP);
 		layout.getChildren().add(lbl);
-		
+
 		Label lblmessage1 = new Label("Bienvenue dans notre liste des stagiaires chez EQL.");
 		lblmessage1.setAlignment(Pos.CENTER);
 		lblmessage1.setPrefSize(500, 100);
@@ -222,7 +330,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		layout.setPadding(new Insets (10));
 
 		layout.getChildren().addAll(lblmessage1,lblmessage2);
-		
+
 		Scene scene1= new Scene(layout, 500, 500);
 
 		popupwindow.setScene(scene1);

@@ -7,6 +7,8 @@ import java.util.List;
 
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.NoeudDao;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -39,16 +41,33 @@ public class MainPanel extends BorderPane {
 		
 		}
 		
+
 		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(this));
-		//leftGridPane.getBtnRechercher().setOnAction(e-> ActionButtonRechercher.Rechercher(leftGridPane, rightVBox));
+		
+
 		ButtonHandler handler = new ButtonHandler(this);
 		leftVBox.getBtnAjouter().setOnAction(handler);
+		leftVBox.getBtnRechercher().setOnAction(handler);
 		hboxEnTete.getBtn1().setOnAction(handler);
-		
-		hboxEnTete.getBtn4().setOnAction(handler);
-	}
 
-	
+		hboxEnTete.getBtn2().setOnAction(handler);
+		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(this));
+
+		hboxEnTete.getBtn4().setOnAction(handler);
+		rightVBox.getTableEtudiants().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Etudiant>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Etudiant> observable, Etudiant oldValue, Etudiant newValue) {
+				leftVBox.getTfNom().setText(newValue.getNom());
+				leftVBox.getTfPrenom().setText(newValue.getPrenom());
+				leftVBox.getTfDepartement().setText(newValue.getDepartement());
+				leftVBox.getTfPromotion().setText(newValue.getPromotion());
+				leftVBox.getTfAnnee().setText(newValue.getAnnee());
+				
+			}
+		});
+		
+	}
 
 	public HBoxEnTete getHboxEnTete() {
 		return hboxEnTete;

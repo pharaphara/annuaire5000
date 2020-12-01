@@ -83,6 +83,8 @@ public class LeftVBox extends VBox {
 		btnRechercher.setStyle("-fx-font-size:15");
 		btnModifier.setStyle("-fx-font-size:15");
 		btnSupprimer.setStyle("-fx-font-size:15");
+		btnSupprimer.setDisable(true);
+		btnModifier.setDisable(true);
 		
 		lblErreur.setStyle("-fx-font-size:15");
 		lblErreur.setVisible(false);
