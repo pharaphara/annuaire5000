@@ -200,7 +200,7 @@ public class NoeudDao {
 		for (int i = 0; i < etudiant.length; i++) {
 			byte[] temp = new byte[structure[i]];
 			raf.read(temp);
-			etudiant[i]=new String (temp, StandardCharsets.UTF_8).trim();
+			etudiant[i]=new String (temp, StandardCharsets.ISO_8859_1).trim();
 		}
 		Etudiant etudiantduNoeud = new Etudiant(etudiant[0], etudiant[1], etudiant[2], etudiant[3], etudiant[4]);	
 
