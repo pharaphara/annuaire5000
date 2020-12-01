@@ -92,7 +92,7 @@ public class ActionButtonConnecter {
 							String nomSupr=root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem().getNom();
 							NoeudDao.supprimer(nomSupr);
 
-							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedIndex());
+							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem());
 
 							String nom = root.getLeftVBox().getTfNom().getText();
 							String prenom = root.getLeftVBox().getTfPrenom().getText();
