@@ -56,6 +56,8 @@ import javafx.stage.Window;
 public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	private MainPanel root;
+	String[] textFields = new String[5];
+	
 
 	public ButtonHandler() {
 		super();
@@ -88,18 +90,16 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		}
 	}
 	private void ajouter() {
+		root.getLeftVBox().getLblErreur().setVisible(false);
+		if (!lireTf())
+			return;
 
-		String nom = root.getLeftVBox().getTfNom().getText();
-		String prenom = root.getLeftVBox().getTfPrenom().getText();
-		String departement = root.getLeftVBox().getTfDepartement().getText();
-		String promotion = root.getLeftVBox().getTfPromotion().getText();
-		String annee = root.getLeftVBox().getTfAnnee().getText();
-
-		Etudiant etudiant = new Etudiant(nom, prenom, departement, promotion, annee);
-
-		if( !nom.isEmpty() && !prenom.isEmpty() && !departement.isEmpty()&& !promotion.isEmpty()
-				&& !annee.isEmpty()) {
+		
+		
+		if( textFields[0]!=null && textFields[1]!=null && textFields[2]!=null&& textFields[3]!=null
+				&& textFields[4]!=null) {
 			root.getLeftVBox().getLblErreur().setVisible(false);
+			Etudiant etudiant = new Etudiant(textFields[0], textFields[1], textFields[2], textFields[3], textFields[4]);
 			root.getRightVBox().getObservableEtudiants().add(0, etudiant);//permet d'ajouter l'étudiant en haut du tableau
 
 			NoeudDao.ajouterEtudiant(etudiant);	
@@ -135,51 +135,69 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	} 
 
 	private void recherche() {
-		boolean troplong = false;
-		String[] criteres = new String[5];	
-		criteres[0]=root.getLeftVBox().getTfNom().getText();
-		criteres[1]=root.getLeftVBox().getTfPrenom().toString();
-		criteres[2]=root.getLeftVBox().getTfDepartement().getText()	;	
-		criteres[3]=root.getLeftVBox().getTfPromotion().getText();
-		criteres[4]=root.getLeftVBox().getTfAnnee().getText();
-		verificationLongeur(criteres, troplong);
-		if(troplong) {
-			return;
+		
+		if (!lireTf())
+		return;
+		
+		List<Etudiant> resultats = new ArrayList<Etudiant>();		
+		resultats=NoeudDao.recherche(textFields);
+		System.out.println("retour dans rechercher");
+		root.getRightVBox().getObservableRecherche().clear();
+		for (Etudiant etudiant : resultats) {
+			System.out.println(etudiant);
+			root.getRightVBox().getObservableRecherche().add(etudiant);
+		}
+		
+
+	}
+
+	private boolean lireTf() {
+		boolean tropLong=false;
+		textFields[0]=root.getLeftVBox().getTfNom().getText().toLowerCase();
+		textFields[1]=root.getLeftVBox().getTfPrenom().getText().toLowerCase();
+		textFields[2]=root.getLeftVBox().getTfDepartement().getText().toLowerCase();	
+		textFields[3]=root.getLeftVBox().getTfPromotion().getText().toLowerCase();
+		textFields[4]=root.getLeftVBox().getTfAnnee().getText().toLowerCase();
+		tropLong=verificationLongeur(textFields, tropLong);
+		if(tropLong) {
+			return false;
 		}
 		root.getLeftVBox().getLblTailleMax0().setVisible(false);
 		root.getLeftVBox().getLblTailleMax1().setVisible(false);
 		root.getLeftVBox().getLblTailleMax2().setVisible(false);
 		root.getLeftVBox().getLblTailleMax3().setVisible(false);
 		root.getLeftVBox().getLblTailleMax4().setVisible(false);
-
-		NoeudDao.recherche(criteres);		
-
-
+		
+		//pour mettre à null les TF non recherchés
+		for (int i = 0; i < textFields.length; i++) {
+			textFields[i]= (textFields[i].length()<1)? null:textFields[i];
+		}
+		return true;
 	}
-
-	private void verificationLongeur(String [] tab, boolean troplong) {
-
+	private boolean verificationLongeur(String [] tab, boolean tropLong) {
+		
+		
 		if(tab[0].length()>NoeudDao.structure[0]) {
 			root.getLeftVBox().getLblTailleMax0().setVisible(true);
-			troplong = true;
-		}
+			tropLong = true;
+		}else root.getLeftVBox().getLblTailleMax0().setVisible(false);
 		if(tab[1].length()>NoeudDao.structure[1]) {
 			root.getLeftVBox().getLblTailleMax1().setVisible(true);
-			troplong = true;
-		}
+			tropLong = true;
+		}else root.getLeftVBox().getLblTailleMax1().setVisible(false);
 		if(tab[2].length()>NoeudDao.structure[2]) {
 			root.getLeftVBox().getLblTailleMax2().setVisible(true);
-			troplong = true;
-		}
+			tropLong = true;
+		}else root.getLeftVBox().getLblTailleMax2().setVisible(false);
 		if(tab[3].length()>NoeudDao.structure[3]) {
 			root.getLeftVBox().getLblTailleMax3().setVisible(true);
-			troplong = true;
-		}
+			tropLong = true;
+		}else root.getLeftVBox().getLblTailleMax3().setVisible(false);
 		if(tab[4].length()>NoeudDao.structure[4]) {
 			root.getLeftVBox().getLblTailleMax4().setVisible(true);
-			troplong = true;
-		}
-
+			tropLong = true;
+		}else root.getLeftVBox().getLblTailleMax4().setVisible(false);
+		return tropLong;
 	}
 
 	private void exporter() {
