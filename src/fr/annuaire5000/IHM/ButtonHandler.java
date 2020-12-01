@@ -34,6 +34,8 @@ import javafx.stage.Stage;
 public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	private MainPanel root;
+	String[] textFields = new String[5];
+	
 
 	public ButtonHandler() {
 		super();
@@ -66,30 +68,14 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		}
 	}
 	private void ajouter() {
-		boolean tropLong=false;
-		
-		
-		String[] textFields = new String[5];	
-		textFields[0]=root.getLeftVBox().getTfNom().getText();
-		textFields[1]=root.getLeftVBox().getTfPrenom().getText();
-		textFields[2]=root.getLeftVBox().getTfDepartement().getText()	;	
-		textFields[3]=root.getLeftVBox().getTfPromotion().getText();
-		textFields[4]=root.getLeftVBox().getTfAnnee().getText();
-		tropLong=verificationLongeur(textFields);
-		if(tropLong) {
+		root.getLeftVBox().getLblErreur().setVisible(false);
+		if (!lireTf())
 			return;
-		}
-		System.out.println(tropLong);
-		root.getLeftVBox().getLblTailleMax0().setVisible(false);
-		root.getLeftVBox().getLblTailleMax1().setVisible(false);
-		root.getLeftVBox().getLblTailleMax2().setVisible(false);
-		root.getLeftVBox().getLblTailleMax3().setVisible(false);
-		root.getLeftVBox().getLblTailleMax4().setVisible(false);
 
 		
 		
-		if( !textFields[0].isEmpty() && !textFields[1].isEmpty() && !textFields[2].isEmpty()&& !textFields[3].isEmpty()
-				&& !textFields[4].isEmpty()) {
+		if( textFields[0]!=null && textFields[1]!=null && textFields[2]!=null&& textFields[3]!=null
+				&& textFields[4]!=null) {
 			root.getLeftVBox().getLblErreur().setVisible(false);
 			Etudiant etudiant = new Etudiant(textFields[0], textFields[1], textFields[2], textFields[3], textFields[4]);
 			root.getRightVBox().getObservableEtudiants().add(0, etudiant);//permet d'ajouter l'étudiant en haut du tableau
@@ -127,32 +113,10 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	} 
 
 	private void recherche() {
-		boolean tropLong = false;
-		System.out.println("dans rechercher");
-		String[] textFields = new String[5];	
-		textFields[0]=root.getLeftVBox().getTfNom().getText();
-		textFields[1]=root.getLeftVBox().getTfPrenom().getText();
-		textFields[2]=root.getLeftVBox().getTfDepartement().getText()	;	
-		textFields[3]=root.getLeftVBox().getTfPromotion().getText();
-		textFields[4]=root.getLeftVBox().getTfAnnee().getText();
-		tropLong=verificationLongeur(textFields);
-		if(tropLong) {
-			return;
-		}
-		System.out.println("apres le if");
-		root.getLeftVBox().getLblTailleMax0().setVisible(false);
-		root.getLeftVBox().getLblTailleMax1().setVisible(false);
-		root.getLeftVBox().getLblTailleMax2().setVisible(false);
-		root.getLeftVBox().getLblTailleMax3().setVisible(false);
-		root.getLeftVBox().getLblTailleMax4().setVisible(false);
 		
-		//pour mettre à null les TF non recherchés
-		for (int i = 0; i < textFields.length; i++) {
-			textFields[i]= (textFields[i].length()<1)? null:textFields[i];
-		}
-		for (String string : textFields) {
-			System.out.println(string);
-		}
+		if (!lireTf())
+		return;
+		
 		List<Etudiant> resultats = new ArrayList<Etudiant>();		
 		resultats=NoeudDao.recherche(textFields);
 		System.out.println("retour dans rechercher");
@@ -165,8 +129,31 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	}
 
-	private boolean verificationLongeur(String [] tab) {
+	private boolean lireTf() {
 		boolean tropLong=false;
+		textFields[0]=root.getLeftVBox().getTfNom().getText().toLowerCase();
+		textFields[1]=root.getLeftVBox().getTfPrenom().getText().toLowerCase();
+		textFields[2]=root.getLeftVBox().getTfDepartement().getText().toLowerCase();	
+		textFields[3]=root.getLeftVBox().getTfPromotion().getText().toLowerCase();
+		textFields[4]=root.getLeftVBox().getTfAnnee().getText().toLowerCase();
+		tropLong=verificationLongeur(textFields, tropLong);
+		if(tropLong) {
+			return false;
+		}
+		root.getLeftVBox().getLblTailleMax0().setVisible(false);
+		root.getLeftVBox().getLblTailleMax1().setVisible(false);
+		root.getLeftVBox().getLblTailleMax2().setVisible(false);
+		root.getLeftVBox().getLblTailleMax3().setVisible(false);
+		root.getLeftVBox().getLblTailleMax4().setVisible(false);
+		
+		//pour mettre à null les TF non recherchés
+		for (int i = 0; i < textFields.length; i++) {
+			textFields[i]= (textFields[i].length()<1)? null:textFields[i];
+		}
+		return true;
+	}
+	private boolean verificationLongeur(String [] tab, boolean tropLong) {
+		
 		
 		if(tab[0].length()>NoeudDao.structure[0]) {
 			root.getLeftVBox().getLblTailleMax0().setVisible(true);

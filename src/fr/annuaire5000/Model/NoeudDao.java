@@ -354,32 +354,40 @@ public class NoeudDao {
 	}
 	private static List<Etudiant> rechercheBin (String[] criteres, RandomAccessFile raf) throws IOException{
 
-		List<Etudiant> resultats = new ArrayList<Etudiant>();
+		List<Etudiant> resultatsIntermediaires = new ArrayList<Etudiant>();
+		List<Etudiant> resultatsFinaux = new ArrayList<Etudiant>();
+		
 		int i=0;
 
 		while (criteres[i]==null) {
 			i++;	
 		}
 		System.out.println("après le while i= "+i);
-		resultats = rechercheCol(criteres[i], i, raf);
-
+		resultatsIntermediaires = rechercheCol(criteres[i], i, raf);
+		System.out.println("nb de resultat = "+resultatsIntermediaires.size());
+		for (Etudiant etudiant : resultatsIntermediaires) {
+			System.out.println(etudiant);
+		}
 		for (i=i+1 ; i < criteres.length; i++) {
 			System.out.println("après le for i= "+i);
 			if (criteres[i]!=null) {
-				for (int j = 0; j < resultats.size(); j++) {
-					if (!resultats.get(j).getField(i).contains(criteres[i])) {
-						resultats.remove(j);
+				resultatsFinaux.clear();
+				for (Etudiant etudiant : resultatsIntermediaires) {
+					if (etudiant.getField(i).toLowerCase().contains(criteres[i])){
+						resultatsFinaux.add(etudiant);
 					}
 				}
+				resultatsIntermediaires.clear();
+				resultatsIntermediaires.addAll(resultatsFinaux);
 			}
 		}
 
-		System.out.println("nb de resultat = "+resultats.size());
-		for (Etudiant etudiant : resultats) {
+		System.out.println("nb de resultat = "+resultatsIntermediaires.size());
+		for (Etudiant etudiant : resultatsIntermediaires) {
 			System.out.println(etudiant);
 		}
 
-		return resultats;
+		return resultatsIntermediaires;
 
 	}
 
@@ -442,7 +450,7 @@ public class NoeudDao {
 			default : 
 				break;
 			}
-			String colonne = new String(colBin, StandardCharsets.UTF_8).trim();
+			String colonne = new String(colBin, StandardCharsets.UTF_8).trim().toLowerCase();
 
 			if (colonne.contains(critere)) {
 				
