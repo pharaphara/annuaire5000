@@ -1,10 +1,14 @@
 package fr.annuaire5000.IHM;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.corba.se.spi.orb.ParserDataFactory;
 
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.EtudiantDAO;
@@ -16,13 +20,16 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 public class ButtonHandler implements EventHandler<ActionEvent>{
 
@@ -52,6 +59,10 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 		if (eventString.contains("Help")) {
 			help();
+		}
+		if (eventString.contains("Exporter")) {
+			exporter();
+			
 		}
 	}
 	private void ajouter() {
@@ -149,6 +160,11 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	}
 
+	private void exporter() {
+		 
+	}
+	
+	
 	private void help() {
 
 		Stage popupwindow=new Stage();
@@ -158,6 +174,14 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 
 		VBox layout= new VBox(10);
+		
+		ImageView img2 = new ImageView(getClass().getResource("/ressource/image/eqlimg.png").toString());	
+		Label lbl=new Label();
+		lbl.setAlignment(Pos.CENTER);
+		lbl.setPrefSize(500, 100);
+		lbl.setGraphic(img2);	
+		lbl.setContentDisplay(ContentDisplay.TOP);
+		layout.getChildren().add(lbl);
 		
 		Label lblmessage1 = new Label("Bienvenue dans notre liste des stagiaires chez EQL.");
 		lblmessage1.setAlignment(Pos.CENTER);
