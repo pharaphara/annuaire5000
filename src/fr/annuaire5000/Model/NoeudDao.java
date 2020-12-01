@@ -389,31 +389,24 @@ public class NoeudDao {
 		byte[] colBin = new byte[structure[numCol]];
 		raf.seek(0);
 
-		System.out.println("dans rechCol");
-		System.out.println("recherche = "+critere );
 		while (raf.getFilePointer()<raf.length()) {
 			//premier switch pour placer le pointeur sur la colonne choisie
 			switch (numCol) {
 
 			case 1:
 				raf.seek(raf.getFilePointer()+structure[0]);
-				System.out.println("1pointeur = "+raf.getFilePointer());
 				break;
 			case 2:
 				raf.seek(raf.getFilePointer()+structure[0]+structure[1]);
-				System.out.println("2pointeur = "+raf.getFilePointer());
 				break;
 			case 3:
 				raf.seek(raf.getFilePointer()+structure[0]+structure[1]+structure[2]);
-				System.out.println("3pointeur = "+raf.getFilePointer());
 				break;
 			case 4:
 				raf.seek(raf.getFilePointer()+structure[0]+structure[1]+structure[2]+structure[3]);
-				System.out.println("4pointeur = "+raf.getFilePointer());
 				break;
 			case 5:
 				raf.seek(raf.getFilePointer()+structure[0]+structure[1]+structure[2]+structure[3]+structure[4]);
-				System.out.println("5pointeur = "+raf.getFilePointer());
 				break;
 			default : 
 				break;
@@ -451,20 +444,16 @@ public class NoeudDao {
 			}
 			String colonne = new String(colBin, StandardCharsets.UTF_8).trim();
 
-			System.out.print(colonne);
-
 			if (colonne.contains(critere)) {
-				System.out.println("si comp ok col = "+colonne);
+				
 				String[] etudiant =new String[5];
 				//switch permétant le retour en début de ligne en fonction de la collone dans laqullle on recherche
 
 				for (int i = 0; i < etudiant.length; i++) {
 					byte[] temp = new byte[structure[i]];
 					raf.read(temp);
-					System.out.println();
 					etudiant[i]=new String (temp, StandardCharsets.UTF_8).trim();
-					System.out.println(etudiant[i]);
-
+					
 				}//déplacement du poiteur en début de ligne 
 				raf.seek(raf.getFilePointer()-structure[7]);
 				Etudiant match = new Etudiant(etudiant[0], etudiant[1], etudiant[2], etudiant[3], etudiant[4]);
