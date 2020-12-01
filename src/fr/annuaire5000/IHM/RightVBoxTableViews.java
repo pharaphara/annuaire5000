@@ -1,6 +1,5 @@
 package fr.annuaire5000.IHM;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import fr.annuaire5000.Model.Etudiant;
@@ -13,8 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class RightVBoxTableViews extends VBox {
@@ -28,6 +27,8 @@ public class RightVBoxTableViews extends VBox {
 	private TableView<Etudiant> tableRecherche;
 	private Button btnExporterListe;
 	private Button btnExporterRecherche;
+	private HBox hBoxLblStagiaireEtExport;
+	private HBox hBoxLblRechercheEtExport;
 
 	
 	public RightVBoxTableViews() {
@@ -35,8 +36,10 @@ public class RightVBoxTableViews extends VBox {
 
 		lbl1 = new Label("Liste de stagiaire :");
 		lbl1.setStyle("-fx-font-size:15");
-		
 		btnExporterListe = new Button("Exporter");
+		hBoxLblStagiaireEtExport = new HBox(30);
+		hBoxLblStagiaireEtExport.getChildren().addAll(btnExporterListe, lbl1);
+		hBoxLblStagiaireEtExport.setAlignment(Pos.CENTER);
 		
 		observableEtudiants=FXCollections.observableArrayList(new ArrayList<Etudiant>());
 		tableEtudiants = new TableView<>(observableEtudiants);
@@ -63,8 +66,10 @@ public class RightVBoxTableViews extends VBox {
 		
 		lbl2 = new Label("Résultat :");
 		lbl2.setStyle("-fx-font-size:15");
-		
 		btnExporterRecherche = new Button("Exporter");
+		hBoxLblRechercheEtExport = new HBox(30);
+		hBoxLblRechercheEtExport.getChildren().addAll(btnExporterRecherche, lbl2);
+		hBoxLblRechercheEtExport.setAlignment(Pos.CENTER);
 	
 		observableRecherche = FXCollections.observableArrayList();
 		
@@ -89,13 +94,11 @@ public class RightVBoxTableViews extends VBox {
 		tableRecherche.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		setPadding(new Insets(20));
-		getChildren().addAll(lbl1, btnExporterListe, tableEtudiants, lbl2, btnExporterRecherche, tableRecherche);
+		getChildren().addAll(hBoxLblStagiaireEtExport, tableEtudiants, hBoxLblRechercheEtExport, tableRecherche);
 		setAlignment(Pos.TOP_CENTER);
+		setSpacing(20);
 		setPrefSize(600, 800);
 	
-		
-		
-		
 		
 	}
 
