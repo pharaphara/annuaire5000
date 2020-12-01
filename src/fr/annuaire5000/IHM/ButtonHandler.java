@@ -128,9 +128,10 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	private void recherche() {
 		boolean tropLong = false;
+		System.out.println("dans rechercher");
 		String[] textFields = new String[5];	
 		textFields[0]=root.getLeftVBox().getTfNom().getText();
-		textFields[1]=root.getLeftVBox().getTfPrenom().toString();
+		textFields[1]=root.getLeftVBox().getTfPrenom().getText();
 		textFields[2]=root.getLeftVBox().getTfDepartement().getText()	;	
 		textFields[3]=root.getLeftVBox().getTfPromotion().getText();
 		textFields[4]=root.getLeftVBox().getTfAnnee().getText();
@@ -138,14 +139,29 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		if(tropLong) {
 			return;
 		}
+		System.out.println("apres le if");
 		root.getLeftVBox().getLblTailleMax0().setVisible(false);
 		root.getLeftVBox().getLblTailleMax1().setVisible(false);
 		root.getLeftVBox().getLblTailleMax2().setVisible(false);
 		root.getLeftVBox().getLblTailleMax3().setVisible(false);
 		root.getLeftVBox().getLblTailleMax4().setVisible(false);
-
-		NoeudDao.recherche(textFields);		
-
+		
+		//pour mettre à null les TF non recherchés
+		for (int i = 0; i < textFields.length; i++) {
+			textFields[i]= (textFields[i].length()<1)? null:textFields[i];
+		}
+		for (String string : textFields) {
+			System.out.println(string);
+		}
+		List<Etudiant> resultats = new ArrayList<Etudiant>();		
+		resultats=NoeudDao.recherche(textFields);
+		System.out.println("retour dans rechercher");
+		root.getRightVBox().getObservableRecherche().clear();
+		for (Etudiant etudiant : resultats) {
+			System.out.println(etudiant);
+			root.getRightVBox().getObservableRecherche().add(etudiant);
+		}
+		
 
 	}
 

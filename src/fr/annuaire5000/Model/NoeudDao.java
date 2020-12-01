@@ -327,12 +327,13 @@ public class NoeudDao {
 	}
 
 	public static List<Etudiant> recherche(String[] criteres){
+		List<Etudiant> resultats = new ArrayList<Etudiant>();
 		RandomAccessFile raf = null;
 		try {
 			raf = new RandomAccessFile(fileArbre, "rw");
 
 
-			rechercheBin(criteres, raf);
+			resultats=rechercheBin(criteres, raf);
 
 
 		} catch (IOException e) {
@@ -348,7 +349,7 @@ public class NoeudDao {
 		}
 
 
-		return null;
+		return resultats;
 
 	}
 	private static List<Etudiant> rechercheBin (String[] criteres, RandomAccessFile raf) throws IOException{
