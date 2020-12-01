@@ -42,35 +42,35 @@ public class LeftVBox extends VBox {
 		
 		hbNom.getChildren().addAll(lblNom,tfNom, lblTailleMax0);
 		tfNom.setPrefSize(300, 15);
-		lblNom.setPrefSize(300, 15);
+		lblNom.setPrefSize(200, 15);
 		lblNom.setStyle("-fx-font-size:15");
 		lblTailleMax0.setStyle("-fx-font-size:15");
 		lblTailleMax0.setVisible(false);
 		
 		hbPrenom.getChildren().addAll(lblPrenom,tfPrenom, lblTailleMax1);
 		tfPrenom.setPrefSize(300, 15);
-		lblPrenom.setPrefSize(300, 15);
+		lblPrenom.setPrefSize(200, 15);
 		lblPrenom.setStyle("-fx-font-size:15");
 		lblTailleMax1.setStyle("-fx-font-size:15");
 		lblTailleMax1.setVisible(false);
 		
 		hbDep.getChildren().addAll(lblDepartement,tfDepartement, lblTailleMax2);
 		tfDepartement.setPrefSize(300, 15);
-		lblDepartement.setPrefSize(300, 15);
+		lblDepartement.setPrefSize(200, 15);
 		lblDepartement.setStyle("-fx-font-size:15");
 		lblTailleMax2.setStyle("-fx-font-size:15");
 		lblTailleMax2.setVisible(false);
 		
 		hbPromo.getChildren().addAll(lblPromotion, tfPromotion, lblTailleMax3);
 		tfPromotion.setPrefSize(300, 15);
-		lblPromotion.setPrefSize(300, 15);
+		lblPromotion.setPrefSize(200, 15);
 		lblPromotion.setStyle("-fx-font-size:15");
 		lblTailleMax3.setStyle("-fx-font-size:15");
 		lblTailleMax3.setVisible(false);
 		
 		hbAnnee.getChildren().addAll(lblAnnee, tfAnnee, lblTailleMax4);
 		tfAnnee.setPrefSize(300, 15);
-		lblAnnee.setPrefSize(300, 15);
+		lblAnnee.setPrefSize(200, 15);
 		lblAnnee.setStyle("-fx-font-size:15");
 		lblTailleMax4.setStyle("-fx-font-size:15");
 		lblTailleMax4.setVisible(false);
@@ -90,7 +90,7 @@ public class LeftVBox extends VBox {
 		getChildren().addAll(hbNom,hbPrenom,hbDep,hbPromo,hbAnnee,lblErreur,btnBox);
 
 		setAlignment(Pos.CENTER);
-		setPrefSize(600, 800);
+		setPrefSize(800, 800);
 		setSpacing(20);
 		setPadding(new Insets(20));
 		

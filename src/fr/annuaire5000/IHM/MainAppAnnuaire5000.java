@@ -11,7 +11,7 @@ public class MainAppAnnuaire5000 extends Application {
 		
 		MainPanel root = new MainPanel();
 		
-		Scene scene = new Scene(root, 1200, 800);
+		Scene scene = new Scene(root, 1400, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Annuaire5000");
 		primaryStage.sizeToScene();
