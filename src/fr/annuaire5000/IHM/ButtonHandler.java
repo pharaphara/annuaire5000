@@ -21,6 +21,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.TabStop.Alignment;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -85,7 +86,11 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			help();
 		}
 		if (eventString.contains("Exporter")) {
-			exporter();
+			exporterListe();
+
+		}
+		if (eventString.contains("ExporterResultat")) {
+			exporterResultat();
 
 		}
 	}
@@ -200,16 +205,24 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		return tropLong;
 	}
 
-	private void exporter() {
+	private void exporterListe() {
 
 		Document doc =new Document();
 		try {
 
 			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
 			doc.open();
-			doc.add(new Paragraph("Liste Etudiant"));
-			doc.add(new Paragraph("------------------"));
-
+			Image img = Image.getInstance("C:\\Users\\formation\\Desktop\\PDF\\eqlimg.png");
+			img.scaleAbsoluteWidth(120);
+			img.scaleAbsoluteHeight(80);
+			img.setAlignment(Image.ALIGN_CENTER);
+			doc.add(img);
+			doc.add(new Paragraph("     "));
+			Paragraph P1=new Paragraph("Liste des Etudiants : ");
+			P1.setAlignment(Element.ALIGN_CENTER);
+			doc.add(P1);
+			doc.add(new Paragraph("         "));
+			doc.add(new Paragraph("         "));
 			PdfPTable table = new PdfPTable(5);
 			table.setWidthPercentage(100);
 			PdfPCell cell;
@@ -222,37 +235,111 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			cell = new PdfPCell(new Phrase("Prenom",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			// cell.setBackgroundColor(BaseColor.GRAY);
+			 cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("departement",FontFactory.getFont("Comic SansMs",12)));
+			cell = new PdfPCell(new Phrase("Departement",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			// cell.setBackgroundColor(BaseColor.GRAY);
+			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("promotion",FontFactory.getFont("Comic SansMs",12)));
+			cell = new PdfPCell(new Phrase("Promotion",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			// cell.setBackgroundColor(BaseColor.GRAY);
+		 cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
-			cell = new PdfPCell(new Phrase("annee ",FontFactory.getFont("Comic SansMs",12)));
+			cell = new PdfPCell(new Phrase("Année ",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			//  cell.setBackgroundColor(BaseColor.GRAY);
+			 cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
 			////////////////
 
-			String[] col = new String[5];	
-			col[0]="jfdmlc k,sc";
-			col[1]="qszz";
-			col[2]="szzz";
-			col[3]="dde";
-			col[4]="eed";
-
-
 
 			if(table!=null) {
 				for (Etudiant etudiant : root.getRightVBox().getObservableEtudiants()) {
+					
+					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",11)));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+
+					cell = new PdfPCell (new Phrase(etudiant.getPrenom(), FontFactory.getFont("Arial",11)));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+					
+					
+					cell = new PdfPCell (new Phrase(etudiant.getDepartement(), FontFactory.getFont("Arial",11)));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+
+					cell = new PdfPCell (new Phrase(etudiant.getPromotion(), FontFactory.getFont("Arial",11)));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+
+					cell = new PdfPCell (new Phrase(etudiant.getAnnee(), FontFactory.getFont("Arial",11)));
+					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					table.addCell(cell);
+				}
+			}
+
+			doc.add(table);
+			doc.close();
+
+			Desktop.getDesktop().open(new File("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
+
+	
+	
+
+	private void exporterResultat() {
+
+		Document doc =new Document();
+		try {
+
+			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
+			doc.open();
+			doc.add(new Paragraph("Liste Etudiant"));
+			doc.add(new Paragraph("------------------"));
+
+			PdfPTable table = new PdfPTable(5);
+			table.setWidthPercentage(200);
+			PdfPCell cell;
+
+			///////////
+			cell = new PdfPCell(new Phrase("Nom",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("Prenom",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			 cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("departement",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			 cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("promotion",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			cell = new PdfPCell(new Phrase("annee ",FontFactory.getFont("Comic SansMs",12)));
+			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
+			 cell.setBackgroundColor(BaseColor.GRAY);
+			table.addCell(cell);
+
+			////////////////
+
+			if(table!=null) {
+				for (Etudiant etudiant : root.getRightVBox().getObservableRecherche()) {
 					
 					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",11)));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -286,8 +373,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			e.printStackTrace();
 		}
 	}
-
-
+	
 	private void help() {
 
 		Stage popupwindow=new Stage();
