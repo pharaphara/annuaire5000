@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 public class HBoxEnTete extends HBox {
 	private Label lbl0;
 	private Button btn1;
-	private Button btn2;
 	private Button btn4;
 	private ImageView img2;
 
@@ -24,8 +23,6 @@ public class HBoxEnTete extends HBox {
 
 		btn1 = new Button("Importer");
 		btn1.setStyle("-fx-font-size:15");
-		btn2 = new Button("Exporter");
-		btn2.setStyle("-fx-font-size:15");
 		btn3.setStyle("-fx-font-size:15");
 		btn4 = new Button("Help");
 		btn4.setStyle("-fx-font-size:15");
@@ -41,15 +38,14 @@ public class HBoxEnTete extends HBox {
 		lbl0.setGraphic(img2);	
 		lbl0.setContentDisplay(ContentDisplay.TOP);
 		imgplacer.getChildren().add(lbl0);
-		getChildren().addAll(imgplacer,btn1, btn2, btn3, btn4);
+		getChildren().addAll(imgplacer,btn1, btn3, btn4);
 	}
 
 
-	public HBoxEnTete(Label lbl0, Button btn1, Button btn2, Button btn4, ImageView img2, Button btn3) {
+	public HBoxEnTete(Label lbl0, Button btn1, Button btn4, ImageView img2, Button btn3) {
 		super();
 		this.lbl0 = lbl0;
 		this.btn1 = btn1;
-		this.btn2 = btn2;
 		this.btn4 = btn4;
 		
 		this.img2 = img2;
@@ -64,16 +60,6 @@ public class HBoxEnTete extends HBox {
 
 	public void setBtn1(Button btn1) {
 		this.btn1 = btn1;
-	}
-
-
-	public Button getBtn2() {
-		return btn2;
-	}
-
-
-	public void setBtn2(Button btn2) {
-		this.btn2 = btn2;
 	}
 
 
@@ -112,7 +98,6 @@ public class HBoxEnTete extends HBox {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((btn1 == null) ? 0 : btn1.hashCode());
-		result = prime * result + ((btn2 == null) ? 0 : btn2.hashCode());
 		result = prime * result + ((btn3 == null) ? 0 : btn3.hashCode());
 		result = prime * result + ((btn4 == null) ? 0 : btn4.hashCode());
 		result = prime * result + ((img2 == null) ? 0 : img2.hashCode());
@@ -133,11 +118,6 @@ public class HBoxEnTete extends HBox {
 			if (other.btn1 != null)
 				return false;
 		} else if (!btn1.equals(other.btn1))
-			return false;
-		if (btn2 == null) {
-			if (other.btn2 != null)
-				return false;
-		} else if (!btn2.equals(other.btn2))
 			return false;
 		if (btn3 == null) {
 			if (other.btn3 != null)
@@ -160,7 +140,7 @@ public class HBoxEnTete extends HBox {
 
 	@Override
 	public String toString() {
-		return "HBoxEnTete [btn1=" + btn1 + ", btn2=" + btn2 + ", btn3=" + btn3 + ", btn4=" + btn4 + ", img2=" + img2 + "]";
+		return "HBoxEnTete [btn1=" + btn1 + ", btn3=" + btn3 + ", btn4=" + btn4 + ", img2=" + img2 + "]";
 	}
 
 

@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,6 +26,8 @@ public class RightVBoxTableViews extends VBox {
 	private Label lbl2;
 	private ObservableList<Etudiant> observableRecherche;
 	private TableView<Etudiant> tableRecherche;
+	private Button btnExporterListe;
+	private Button btnExporterRecherche;
 
 	
 	public RightVBoxTableViews() {
@@ -33,6 +36,7 @@ public class RightVBoxTableViews extends VBox {
 		lbl1 = new Label("Liste de stagiaire :");
 		lbl1.setStyle("-fx-font-size:15");
 		
+		btnExporterListe = new Button("Exporter");
 		
 		observableEtudiants=FXCollections.observableArrayList(new ArrayList<Etudiant>());
 		tableEtudiants = new TableView<>(observableEtudiants);
@@ -59,6 +63,8 @@ public class RightVBoxTableViews extends VBox {
 		
 		lbl2 = new Label("Résultat :");
 		lbl2.setStyle("-fx-font-size:15");
+		
+		btnExporterRecherche = new Button("Exporter");
 	
 		observableRecherche = FXCollections.observableArrayList();
 		
@@ -83,7 +89,7 @@ public class RightVBoxTableViews extends VBox {
 		tableRecherche.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
 		setPadding(new Insets(20));
-		getChildren().addAll(lbl1, tableEtudiants, lbl2, tableRecherche);
+		getChildren().addAll(lbl1, btnExporterListe, tableEtudiants, lbl2, btnExporterRecherche, tableRecherche);
 		setAlignment(Pos.TOP_CENTER);
 		setPrefSize(600, 800);
 	
@@ -246,6 +252,26 @@ public class RightVBoxTableViews extends VBox {
 
 	public void setTableRecherche(TableView<Etudiant> tableRecherche) {
 		this.tableRecherche = tableRecherche;
+	}
+
+
+	public Button getBtnExporterListe() {
+		return btnExporterListe;
+	}
+
+
+	public void setBtnExporterListe(Button btnExporterListe) {
+		this.btnExporterListe = btnExporterListe;
+	}
+
+
+	public Button getBtnExporterRecherche() {
+		return btnExporterRecherche;
+	}
+
+
+	public void setBtnExporterRecherche(Button btnExporterRecherche) {
+		this.btnExporterRecherche = btnExporterRecherche;
 	}
 	
 	

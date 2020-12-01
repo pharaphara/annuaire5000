@@ -1,17 +1,11 @@
 package fr.annuaire5000.IHM;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.NoeudDao;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 
@@ -50,7 +44,6 @@ public class MainPanel extends BorderPane {
 		leftVBox.getBtnRechercher().setOnAction(handler);
 		hboxEnTete.getBtn1().setOnAction(handler);
 
-		hboxEnTete.getBtn2().setOnAction(handler);
 		hboxEnTete.getBtn3().setOnAction(e->ActionButtonConnecter.modeAdmin(this));
 
 		hboxEnTete.getBtn4().setOnAction(handler);
