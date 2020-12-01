@@ -36,7 +36,7 @@ public class RightVBoxTableViews extends VBox {
 		lbl1 = new Label("Liste de stagiaire :");
 		lbl1.setStyle("-fx-font-size:15");
 		
-		btnExporterListe = new Button("Exporter");
+		btnExporterListe = new Button("Exporter Liste");
 		
 		observableEtudiants=FXCollections.observableArrayList(new ArrayList<Etudiant>());
 		tableEtudiants = new TableView<>(observableEtudiants);
@@ -64,7 +64,7 @@ public class RightVBoxTableViews extends VBox {
 		lbl2 = new Label("Résultat :");
 		lbl2.setStyle("-fx-font-size:15");
 		
-		btnExporterRecherche = new Button("Exporter");
+		btnExporterRecherche = new Button("Exporter Recherche");
 	
 		observableRecherche = FXCollections.observableArrayList();
 		

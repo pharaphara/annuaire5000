@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -58,7 +59,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	private MainPanel root;
 	String[] textFields = new String[5];
-	
+
 
 	public ButtonHandler() {
 		super();
@@ -85,11 +86,11 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		if (eventString.contains("Help")) {
 			help();
 		}
-		if (eventString.contains("Exporter")) {
+		if (eventString.contains("Exporter Liste")) {
 			exporterListe();
 
 		}
-		if (eventString.contains("ExporterResultat")) {
+		if (eventString.contains("Exporter Recherche")) {
 			exporterResultat();
 
 		}
@@ -99,8 +100,8 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		if (!lireTf())
 			return;
 
-		
-		
+
+
 		if( textFields[0]!=null && textFields[1]!=null && textFields[2]!=null&& textFields[3]!=null
 				&& textFields[4]!=null) {
 			root.getLeftVBox().getLblErreur().setVisible(false);
@@ -140,10 +141,10 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	} 
 
 	private void recherche() {
-		
+
 		if (!lireTf())
-		return;
-		
+			return;
+
 		List<Etudiant> resultats = new ArrayList<Etudiant>();		
 		resultats=NoeudDao.recherche(textFields);
 		System.out.println("retour dans rechercher");
@@ -152,7 +153,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			System.out.println(etudiant);
 			root.getRightVBox().getObservableRecherche().add(etudiant);
 		}
-		
+
 
 	}
 
@@ -172,7 +173,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		root.getLeftVBox().getLblTailleMax2().setVisible(false);
 		root.getLeftVBox().getLblTailleMax3().setVisible(false);
 		root.getLeftVBox().getLblTailleMax4().setVisible(false);
-		
+
 		//pour mettre à null les TF non recherchés
 		for (int i = 0; i < textFields.length; i++) {
 			textFields[i]= (textFields[i].length()<1)? null:textFields[i];
@@ -180,8 +181,8 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		return true;
 	}
 	private boolean verificationLongeur(String [] tab, boolean tropLong) {
-		
-		
+
+
 		if(tab[0].length()>NoeudDao.structure[0]) {
 			root.getLeftVBox().getLblTailleMax0().setVisible(true);
 			tropLong = true;
@@ -206,11 +207,15 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	}
 
 	private void exporterListe() {
-
+		FileChooser f = new FileChooser();
+		f.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+		f.setTitle("Save to PDF");
+		f.setInitialFileName("untitled.pdf");
+		File file = f.showSaveDialog(null);
 		Document doc =new Document();
 		try {
 
-			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
+			PdfWriter.getInstance(doc, new FileOutputStream(file.getAbsolutePath()));
 			doc.open();
 			Image img = Image.getInstance("C:\\Users\\formation\\Desktop\\PDF\\eqlimg.png");
 			img.scaleAbsoluteWidth(120);
@@ -235,7 +240,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			cell = new PdfPCell(new Phrase("Prenom",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			 cell.setBackgroundColor(BaseColor.GRAY);
+			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
 			cell = new PdfPCell(new Phrase("Departement",FontFactory.getFont("Comic SansMs",12)));
@@ -245,12 +250,12 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			cell = new PdfPCell(new Phrase("Promotion",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-		 cell.setBackgroundColor(BaseColor.GRAY);
+			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
 			cell = new PdfPCell(new Phrase("Année ",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			 cell.setBackgroundColor(BaseColor.GRAY);
+			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
 			////////////////
@@ -258,7 +263,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			if(table!=null) {
 				for (Etudiant etudiant : root.getRightVBox().getObservableEtudiants()) {
-					
+
 					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",11)));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
@@ -266,8 +271,8 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 					cell = new PdfPCell (new Phrase(etudiant.getPrenom(), FontFactory.getFont("Arial",11)));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
-					
-					
+
+
 					cell = new PdfPCell (new Phrase(etudiant.getDepartement(), FontFactory.getFont("Arial",11)));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
@@ -285,7 +290,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			doc.add(table);
 			doc.close();
 
-			Desktop.getDesktop().open(new File("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -293,21 +298,30 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 	}
 
 
-	
-	
-
 	private void exporterResultat() {
-
+		FileChooser f = new FileChooser();
+		f.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+		f.setTitle("Save to PDF");
+		f.setInitialFileName("untitled.pdf");
+		File file = f.showSaveDialog(null);
 		Document doc =new Document();
 		try {
 
-			PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
+			PdfWriter.getInstance(doc, new FileOutputStream(file.getAbsolutePath()));
 			doc.open();
-			doc.add(new Paragraph("Liste Etudiant"));
-			doc.add(new Paragraph("------------------"));
-
+			Image img = Image.getInstance("C:\\Users\\formation\\Desktop\\PDF\\eqlimg.png");
+			img.scaleAbsoluteWidth(120);
+			img.scaleAbsoluteHeight(80);
+			img.setAlignment(Image.ALIGN_CENTER);
+			doc.add(img);
+			doc.add(new Paragraph("     "));
+			Paragraph P1=new Paragraph("Liste des Etudiants : ");
+			P1.setAlignment(Element.ALIGN_CENTER);
+			doc.add(P1);
+			doc.add(new Paragraph("         "));
+			doc.add(new Paragraph("         "));
 			PdfPTable table = new PdfPTable(5);
-			table.setWidthPercentage(200);
+			table.setWidthPercentage(100);
 			PdfPCell cell;
 
 			///////////
@@ -318,12 +332,12 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			cell = new PdfPCell(new Phrase("Prenom",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			 cell.setBackgroundColor(BaseColor.GRAY);
+			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
 			cell = new PdfPCell(new Phrase("departement",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			 cell.setBackgroundColor(BaseColor.GRAY);
+			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
 			cell = new PdfPCell(new Phrase("promotion",FontFactory.getFont("Comic SansMs",12)));
@@ -333,14 +347,14 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			cell = new PdfPCell(new Phrase("annee ",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
-			 cell.setBackgroundColor(BaseColor.GRAY);
+			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
 			////////////////
 
 			if(table!=null) {
 				for (Etudiant etudiant : root.getRightVBox().getObservableRecherche()) {
-					
+
 					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",11)));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
@@ -348,8 +362,8 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 					cell = new PdfPCell (new Phrase(etudiant.getPrenom()));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
-					
-					
+
+
 					cell = new PdfPCell (new Phrase(etudiant.getDepartement()));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
@@ -367,13 +381,13 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			doc.add(table);
 			doc.close();
 
-			Desktop.getDesktop().open(new File("C:\\Users\\formation\\Desktop\\PDF\\Etudiant.pdf"));
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 	}
-	
+
+
 	private void help() {
 
 		Stage popupwindow=new Stage();
