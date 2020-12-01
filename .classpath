@@ -3,7 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path=".settings"/>
-	<classpathentry kind="lib" path="C:/Users/formation/Desktop/PDF/pdfjet/PDFjet.jar"/>
-	<classpathentry kind="lib" path="C:/Users/formation/Desktop/PDF/jar_files/itextpdf-5.5.8.jar"/>
+	<classpathentry kind="lib" path="libs/itextpdf-5.5.8.jar"/>
+	<classpathentry kind="lib" path="libs/PDFjet.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
