@@ -1,7 +1,6 @@
 package fr.annuaire5000.Model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -39,11 +38,6 @@ public class EtudiantDAO {
 				etudiants.add(etudiant);
 
 			}
-
-
-
-
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
