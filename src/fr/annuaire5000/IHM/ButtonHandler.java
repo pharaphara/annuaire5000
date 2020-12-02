@@ -127,10 +127,8 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 		List<Etudiant> resultats = new ArrayList<Etudiant>();		
 		resultats=NoeudDao.recherche(textFields);
-		System.out.println("retour dans rechercher");
 		root.getRightVBox().getObservableRecherche().clear();
 		for (Etudiant etudiant : resultats) {
-			System.out.println(etudiant);
 			root.getRightVBox().getObservableRecherche().add(etudiant);
 		}
 
