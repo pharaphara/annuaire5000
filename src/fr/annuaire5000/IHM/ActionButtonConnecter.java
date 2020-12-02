@@ -2,13 +2,9 @@ package fr.annuaire5000.IHM;
 
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.NoeudDao;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -102,12 +98,9 @@ public class ActionButtonConnecter {
 
 						popupwindow.close();
 
-
 					}else
 					{
 						label.setText("Oups désolé votre mot de passe est incorrect !!");
-
-
 					}
 
 				}else

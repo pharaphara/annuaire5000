@@ -1,66 +1,42 @@
 package fr.annuaire5000.IHM;
 
-import java.awt.Desktop;
+
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.TabStop.Alignment;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.pdfjet.Letter;
-import com.pdfjet.PDF;
-import com.pdfjet.Page;
-
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.EtudiantDAO;
 import fr.annuaire5000.Model.NoeudDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
-
 
 public class ButtonHandler implements EventHandler<ActionEvent>{
 
 	private MainPanel root;
 	String[] textFields = new String[5];
-
-
 	public ButtonHandler() {
 		super();
 	}
@@ -68,7 +44,6 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		super();
 		this.root = root;
 	} 
-
 	@Override
 	public void handle(ActionEvent event) {
 
@@ -92,22 +67,17 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		}
 		if (eventString.contains("Exporter Recherche")) {
 			exporterResultat();
-
 		}
 	}
 	private void ajouter() {
 		root.getLeftVBox().getLblErreur().setVisible(false);
 		if (!lireTf())
 			return;
-
-
-
 		if( textFields[0]!=null && textFields[1]!=null && textFields[2]!=null&& textFields[3]!=null
 				&& textFields[4]!=null) {
 			root.getLeftVBox().getLblErreur().setVisible(false);
 			Etudiant etudiant = new Etudiant(textFields[0], textFields[1], textFields[2], textFields[3], textFields[4]);
-			root.getRightVBox().getObservableEtudiants().add(0, etudiant);//permet d'ajouter l'étudiant en haut du tableau
-
+			root.getRightVBox().getObservableEtudiants().add(0, etudiant);
 			NoeudDao.ajouterEtudiant(etudiant);	
 			root.getLeftVBox().getTfNom().setText("");
 			root.getLeftVBox().getTfPrenom().setText("");
@@ -119,13 +89,10 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			root.getLeftVBox().getLblErreur().setVisible(true);
 		}
 	}
-
-
 	private void importer () {
 		FileChooser fileChooser = new FileChooser();
 		File initDir = new File("C:/Users/formation/desktop");
 		fileChooser.setInitialDirectory(initDir);
-
 		File f = fileChooser.showOpenDialog(null);
 		if(f != null) {
 			EtudiantDAO importation = new EtudiantDAO();
@@ -133,18 +100,14 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			NoeudDao.ajouterListEtudiant(etudiants); 
 			etudiants= new ArrayList<Etudiant>();
 			etudiants = NoeudDao.getAllOrdre();
-
 			for (Etudiant etudiant : etudiants) {
 				root.getRightVBox().getObservableEtudiants().add(etudiant);
 			}
 		}
 	} 
-
 	private void recherche() {
-
 		if (!lireTf())
 			return;
-
 		List<Etudiant> resultats = new ArrayList<Etudiant>();		
 		resultats=NoeudDao.recherche(textFields);
 		System.out.println("retour dans rechercher");
@@ -153,10 +116,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			System.out.println(etudiant);
 			root.getRightVBox().getObservableRecherche().add(etudiant);
 		}
-
-
 	}
-
 	private boolean lireTf() {
 		boolean tropLong=false;
 		textFields[0]=root.getLeftVBox().getTfNom().getText().toLowerCase();
@@ -181,8 +141,6 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		return true;
 	}
 	private boolean verificationLongeur(String [] tab, boolean tropLong) {
-
-
 		if(tab[0].length()>NoeudDao.structure[0]) {
 			root.getLeftVBox().getLblTailleMax0().setVisible(true);
 			tropLong = true;
@@ -205,7 +163,6 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		}else root.getLeftVBox().getLblTailleMax4().setVisible(false);
 		return tropLong;
 	}
-
 	private void exporterListe() {
 		FileChooser f = new FileChooser();
 		f.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
@@ -223,7 +180,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			img.setAlignment(Image.ALIGN_CENTER);
 			doc.add(img);
 			doc.add(new Paragraph("     "));
-			Paragraph P1=new Paragraph("Liste des Etudiants : "+ " Le" + new Date());
+			Paragraph P1=new Paragraph("Liste des Etudiants : "+ " Le " + new Date());
 			P1.setAlignment(Element.ALIGN_CENTER);
 			doc.add(P1);
 			doc.add(new Paragraph("         "));
@@ -258,14 +215,12 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
-			////////////////
-
 
 			if(table!=null) {
 				for (Etudiant etudiant : root.getRightVBox().getObservableEtudiants()) {
 
-					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",11)));
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",10)));
+					cell.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
 					table.addCell(cell);
 
 					cell = new PdfPCell (new Phrase(etudiant.getPrenom(), FontFactory.getFont("Arial",11)));
@@ -290,14 +245,12 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			doc.add(table);
 			doc.close();
 
-			
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 	}
-
-
 	private void exporterResultat() {
 		FileChooser f = new FileChooser();
 		f.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
@@ -315,7 +268,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			img.setAlignment(Image.ALIGN_CENTER);
 			doc.add(img);
 			doc.add(new Paragraph("     "));
-			Paragraph P1=new Paragraph("Liste des Etudiants : "+" Le " + new Date());
+			Paragraph P1=new Paragraph("Liste des Etudiants : "+ " Le " + new Date());
 			P1.setAlignment(Element.ALIGN_CENTER);
 			doc.add(P1);
 			doc.add(new Paragraph("         "));
@@ -324,7 +277,6 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			table.setWidthPercentage(100);
 			PdfPCell cell;
 
-			///////////
 			cell = new PdfPCell(new Phrase("Nom",FontFactory.getFont("Comic SansMs",12)));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);           
 			cell.setBackgroundColor(BaseColor.GRAY);
@@ -350,15 +302,14 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			cell.setBackgroundColor(BaseColor.GRAY);
 			table.addCell(cell);
 
-			////////////////
 
 			if(table!=null) {
 				for (Etudiant etudiant : root.getRightVBox().getObservableRecherche()) {
 
-					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",11)));
-					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+					cell = new PdfPCell (new Phrase(etudiant.getNom(), FontFactory.getFont("Arial",10)));
+					cell.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
 					table.addCell(cell);
-
+					
 					cell = new PdfPCell (new Phrase(etudiant.getPrenom()));
 					cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 					table.addCell(cell);
@@ -386,8 +337,6 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			e.printStackTrace();
 		}
 	}
-
-
 	private void help() {
 
 		Stage popupwindow=new Stage();
@@ -438,8 +387,5 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		popupwindow.showAndWait();
 
 	}
-
-
-
 }
 
