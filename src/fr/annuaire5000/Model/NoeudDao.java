@@ -428,7 +428,7 @@ public class NoeudDao {
 			default : 
 				break;
 			}
-			String colonne = new String (colBin, StandardCharsets.ISO_8859_1).trim().toLowerCase();;
+			String colonne = new String (colBin, StandardCharsets.ISO_8859_1).trim().toLowerCase();
 
 			if (colonne.contains(critere)) {
 
@@ -438,7 +438,7 @@ public class NoeudDao {
 				for (int i = 0; i < etudiant.length; i++) {
 					byte[] temp = new byte[structure[i]];
 					raf.read(temp);
-					etudiant[i]=new String (temp).trim();
+					etudiant[i]=new String (temp, StandardCharsets.ISO_8859_1).trim();
 
 				}//déplacement du poiteur en début de ligne 
 				raf.seek(raf.getFilePointer()-structure[7]);
