@@ -37,6 +37,7 @@ public class HBoxEnTete extends HBox {
 		lbl0=new Label();
 		lbl0.setGraphic(img2);	
 		lbl0.setContentDisplay(ContentDisplay.TOP);
+		lbl0.setStyle("-fx-background-radius: 15");
 		imgplacer.getChildren().add(lbl0);
 		getChildren().addAll(imgplacer,btn1, btn3, btn4);
 	}
