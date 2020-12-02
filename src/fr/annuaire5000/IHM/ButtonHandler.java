@@ -1,8 +1,6 @@
 package fr.annuaire5000.IHM;
 
-
 import java.io.File;
-
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -110,10 +108,8 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			return;
 		List<Etudiant> resultats = new ArrayList<Etudiant>();		
 		resultats=NoeudDao.recherche(textFields);
-		System.out.println("retour dans rechercher");
 		root.getRightVBox().getObservableRecherche().clear();
 		for (Etudiant etudiant : resultats) {
-			System.out.println(etudiant);
 			root.getRightVBox().getObservableRecherche().add(etudiant);
 		}
 	}
@@ -350,37 +346,51 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 		ImageView img2 = new ImageView(getClass().getResource("/ressource/image/eqlimg.png").toString());	
 		Label lbl=new Label();
 		lbl.setAlignment(Pos.CENTER);
-		lbl.setPrefSize(500, 100);
+		lbl.setPrefSize(650, 50);
 		lbl.setGraphic(img2);	
 		lbl.setContentDisplay(ContentDisplay.TOP);
 		layout.getChildren().add(lbl);
 
-		Label lblmessage1 = new Label("Bienvenue dans notre liste des stagiaires chez EQL.");
+		Label lblmessage1 = new Label("Bienvenue dans l'Annuaire 5000 d'EQL");
+		lblmessage1.setStyle("-fx-font-weight : bold ; -fx-font-size : 15");
 		lblmessage1.setAlignment(Pos.CENTER);
-		lblmessage1.setPrefSize(500, 100);
-		Label lblmessage2 = new Label("En tant qu'utilisateur vous pouvez créer un annuaire à partir du fichier stagiaires.txt\r\n"
+		lblmessage1.setPrefSize(650, 50);
+		Label lblmessage2 = new Label("En tant qu'utilisateur vous pouvez : \r\n"
 				+ "\r\n"
-				+ "En tant qu'utilisateur vous pouvez visualiser la liste des stagiaires par ordre alphabétique\r\n"
+				+ "- créer un annuaire à partir du fichier stagiaires.txt, en allant le récupérer à l'aide  du bouton \r\n"
+				+ "'Importer' parmi vos fichiers\r\n"
 				+ "\r\n"
-				+ "En tant qu'utilisateur vous pouvez ajouter un stagiaire à l'annuaire\r\n"
+				+ "- visualiser la liste des stagiaires par ordre alphabétique des noms par défaut ou selon l'ordre que vous \r\n"
+				+ "voulez en cliquant sur les en-têtes de colonne des tableaux\r\n"
 				+ "\r\n"
-				+ "En tant qu'utilisateur vous pouvez rechercher des stagiaires à partir d'un ou plusieurs critères\r\n"
+				+ "- ajouter un stagiaire à l'annuaire en remplissant chacun des champs correspondant et en cliquant \r\n"
+				+ "ensuite sur le bouton 'Ajouter'. Il faut respecter la limite de caractères maximum \r\n"
 				+ "\r\n"
-				+ "En tant qu'utilisateur vous pouvez exporter l'annuaire, ou un extrait issu de ma recherche, au format pdf\r\n"
+				+ "- lancer une rechercher sur un ou plusieurs critères s'affichant dans le tableau Résultat . Pour cela, compléter\r\n"
+				+ "les champs que vous souhaitez utiliser pour la recherche puis cliquer sur le bouton 'Rechercher'\r\n"
 				+ "\r\n"
-				+ "En tant qu'utilisateur vous pouvez accéder à une documentation utilisateur\r\n"
+				+ "- exporter l'annuaire en cliquant sur le bouton 'Exporter Liste', ou un extrait issu de ma recherche, \r\n"
+				+ "en cliquant sur le bouton 'Exporter Recherche', au format pdf \r\n"
 				+ "\r\n"
-				+ "En tant qu'administrateur vous pouvez accéder à toutes les fonctionnalités de l'utilisateur\r\n"
 				+ "\r\n"
-				+ "En tant qu'administrateur vous pouvez mettre à jour un stagiaire enregistré dans l'annuaire\r\n"
+				+ "Vous pouvez vous connecter en tant qu'administrateur en cliquant sur le bouton 'Connecter', renseigner votre\r\n"
+				+ "mot de passe dans le champs vide de la fenêtre qui apparait, puis cliquer sur 'Login'. \r\n"
+				+ "Vous pouvez désormais : \r\n"
 				+ "\r\n"
-				+ "En tant qu'administrateur vous pouvez supprimer un stagiaire enregistré dans l'annuaire ");
+				+ "- accéder à toutes les fonctionnalités de l'utilisateur \r\n"
+				+ "\r\n"
+				+ "- mettre à jour un stagiaire enregistré dans l'annuaire, en sélectionnant dans le tableau le stagiaire à modifier,\r\n"
+				+ "les champs vont se remplir, puis modifier les champs souhaités en cliquant sur le bouton 'Modifier'\r\n"
+				+ "\r\n"
+				+ "- supprimer un stagiaire enregistré dans l'annuaire, en le sélectionnant dans la tableau \r\n"
+				+ "puis en cliquant sur le bouton 'Supprimer' \r\n"
+				);
 
 		layout.setPadding(new Insets (10));
 
 		layout.getChildren().addAll(lblmessage1,lblmessage2);
 
-		Scene scene1= new Scene(layout, 500, 500);
+		Scene scene1= new Scene(layout, 650, 750);
 
 		popupwindow.setScene(scene1);
 
