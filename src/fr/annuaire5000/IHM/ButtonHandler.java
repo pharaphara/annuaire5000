@@ -1,40 +1,24 @@
 package fr.annuaire5000.IHM;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.TabStop.Alignment;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.pdfjet.Letter;
-import com.pdfjet.PDF;
-import com.pdfjet.Page;
-
 import fr.annuaire5000.Model.Etudiant;
 import fr.annuaire5000.Model.EtudiantDAO;
 import fr.annuaire5000.Model.NoeudDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -43,15 +27,11 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 
 
@@ -147,10 +127,8 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 		List<Etudiant> resultats = new ArrayList<Etudiant>();		
 		resultats=NoeudDao.recherche(textFields);
-		System.out.println("retour dans rechercher");
 		root.getRightVBox().getObservableRecherche().clear();
 		for (Etudiant etudiant : resultats) {
-			System.out.println(etudiant);
 			root.getRightVBox().getObservableRecherche().add(etudiant);
 		}
 

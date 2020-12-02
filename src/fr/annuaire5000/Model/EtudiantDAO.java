@@ -1,7 +1,6 @@
 package fr.annuaire5000.Model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -28,8 +27,8 @@ public class EtudiantDAO {
 					lecture = lecture+raf.readLine()+";";
 				}
 				raf.readLine();//pour sauter la ligne de l'étoile
-				String strUtf8 = new String(lecture.getBytes("ISO-8859-1"), "UTF-8");
-				liststringEtudiants.add(strUtf8);
+				String strIso = new String(lecture.getBytes("ISO-8859-1"), "UTF-8");
+				liststringEtudiants.add(strIso);
 				lecture="";
 			}
 
@@ -39,11 +38,6 @@ public class EtudiantDAO {
 				etudiants.add(etudiant);
 
 			}
-
-
-
-
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

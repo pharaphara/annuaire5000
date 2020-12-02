@@ -31,6 +31,7 @@ public class RightVBoxTableViews extends VBox {
 	private HBox hBoxLblRechercheEtExport;
 
 	
+	@SuppressWarnings("unchecked")
 	public RightVBoxTableViews() {
 		super();
 

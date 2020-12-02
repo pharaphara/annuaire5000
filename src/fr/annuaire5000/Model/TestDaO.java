@@ -14,7 +14,8 @@ public class TestDaO {
 		File file = new File("./stagiaires.txt");
 
 		EtudiantDAO dao = new EtudiantDAO();
-		List<Etudiant> etudiants = dao.importExtern(file);
+		
+		
 
  
 

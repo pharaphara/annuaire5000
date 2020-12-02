@@ -1,6 +1,6 @@
 package fr.annuaire5000.IHM;
 
-import fr.annuaire5000.Model.NoeudDao;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
