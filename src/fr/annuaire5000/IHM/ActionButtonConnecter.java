@@ -42,24 +42,13 @@ public class ActionButtonConnecter {
 			TextField pass_text = new TextField();
 			pass_text.setVisible(false);
 			gridpane.add(pass_text, 1, 1);
-
-		//	CheckBox pass_Toggle = new CheckBox("Show Password");
-			//gridpane.add(pass_Toggle, 2, 1);
-
-		//	pass_Toggle.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_Val)->{
-
-				//if(pass_Toggle.isSelected()) {
-
-					pass_text.setText(passwordField.getText());
-					pass_text.setVisible(true);
-					passwordField.setVisible(false);
-					//return;
-				//}
-				passwordField.setText(pass_text.getText());
+			pass_text.setText(passwordField.getText());
+			pass_text.setVisible(true);
+			passwordField.setVisible(false);
+			passwordField.setText(pass_text.getText());
 			passwordField.setVisible(true);
-				pass_text.setVisible(false);
+			pass_text.setVisible(false);
 
-			//});
 
 			Label label = new Label("");
 			gridpane.add(label, 0, 3);
@@ -80,7 +69,7 @@ public class ActionButtonConnecter {
 						label.setText("Parfait !!  merci pour votre connection");
 						root.getLeftVBox().getBtnModifier().setDisable(false);
 						root.getLeftVBox().getBtnSupprimer().setDisable(false);
-						
+
 						//modifier mode admin
 						root.getLeftVBox().getBtnModifier().setOnAction(d->{
 
@@ -116,8 +105,8 @@ public class ActionButtonConnecter {
 
 					}else
 					{
-							label.setText("Oups désolé votre mot de passe est incorrect !!");
-						
+						label.setText("Oups désolé votre mot de passe est incorrect !!");
+
 
 					}
 
@@ -128,8 +117,8 @@ public class ActionButtonConnecter {
 			});
 			btnQuitter.setOnAction(e->popupwindow.close());
 			Scene scene1= new Scene(gridpane, 400, 150);
-			
-			
+
+
 			popupwindow.setScene(scene1);
 			popupwindow.showAndWait();	
 

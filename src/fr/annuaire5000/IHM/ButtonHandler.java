@@ -223,7 +223,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			img.setAlignment(Image.ALIGN_CENTER);
 			doc.add(img);
 			doc.add(new Paragraph("     "));
-			Paragraph P1=new Paragraph("Liste des Etudiants : ");
+			Paragraph P1=new Paragraph("Liste des Etudiants : "+ " Le" + new Date());
 			P1.setAlignment(Element.ALIGN_CENTER);
 			doc.add(P1);
 			doc.add(new Paragraph("         "));
@@ -315,7 +315,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			img.setAlignment(Image.ALIGN_CENTER);
 			doc.add(img);
 			doc.add(new Paragraph("     "));
-			Paragraph P1=new Paragraph("Liste des Etudiants : ");
+			Paragraph P1=new Paragraph("Liste des Etudiants : "+" Le " + new Date());
 			P1.setAlignment(Element.ALIGN_CENTER);
 			doc.add(P1);
 			doc.add(new Paragraph("         "));
