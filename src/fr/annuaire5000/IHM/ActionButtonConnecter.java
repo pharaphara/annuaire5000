@@ -98,12 +98,9 @@ public class ActionButtonConnecter {
 
 						popupwindow.close();
 
-
 					}else
 					{
 						label.setText("Oups désolé votre mot de passe est incorrect !!");
-
-
 					}
 
 				}else

@@ -13,6 +13,7 @@ public class MainAppAnnuaire5000 extends Application {
 		
 		Scene scene = new Scene(root, 1400, 800);
 		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
 		primaryStage.setTitle("Annuaire5000");
 		primaryStage.sizeToScene();
 		primaryStage.show();
