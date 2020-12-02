@@ -224,8 +224,6 @@ public class NoeudDao {
 
 	private static Long dernierDescendantBin(Long noeud, RandomAccessFile raf) throws IOException 
 	{
-		System.out.println("dans dernier desandant");
-
 		raf.seek(noeud+85);
 		Long droite = raf.readLong();
 		if (droite == Long.MAX_VALUE)
@@ -430,7 +428,7 @@ public class NoeudDao {
 			default : 
 				break;
 			}
-			String colonne = new String(colBin).trim().toLowerCase();
+			String colonne = new String (colBin, StandardCharsets.ISO_8859_1).trim().toLowerCase();;
 
 			if (colonne.contains(critere)) {
 
