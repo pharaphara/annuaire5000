@@ -104,15 +104,15 @@ public class NoeudDao {
 	private static Long insererBin(Etudiant etudiant, Long index, RandomAccessFile raf) throws IOException 
 	{
 		raf.seek(index);
-		byte[] nom = new byte[30];
+		byte[] nom = new byte[structure[0]];
 		raf.read(nom);
 
-		String lenom= new String(nom, StandardCharsets.UTF_8);
+		String lenom= new String(nom);
 
 
 
-		if (nom[0]==35||nom[0]==42) {
-			raf.seek(raf.getFilePointer()-30);
+		if (nom[0]==35||nom[0]==42) {//35 et 42 sont les codes ascii des caractère # et *
+			raf.seek(raf.getFilePointer()-structure[0]);
 			raf.writeBytes(etudiant.toLargeurFixe());
 			raf.writeLong(Long.MAX_VALUE);
 			raf.writeLong(Long.MAX_VALUE);
@@ -120,11 +120,11 @@ public class NoeudDao {
 
 			return index;
 		}
-
+		//partie gauche
 		if ((etudiant.getNom().compareTo(lenom)<0)) {
-			raf.seek(raf.getFilePointer()+47);
+			raf.seek(raf.getFilePointer()-structure[0]+structure[7]);
 			index=raf.readLong();
-			raf.seek(raf.getFilePointer()-8);
+			raf.seek(raf.getFilePointer()-structure[5]);
 			Long pointer = raf.getFilePointer();
 			Long fin =raf.length();
 
@@ -140,8 +140,10 @@ public class NoeudDao {
 
 			}
 			insererBin(etudiant, index, raf);
+
+			//partie droite
 		} else if ((etudiant.getNom().compareTo(lenom)>0)) {
-			raf.seek(raf.getFilePointer()+55);
+			raf.seek(raf.getFilePointer()+structure[1]+structure[2]+structure[3]+structure[4]+structure[5]);
 			index=raf.readLong();
 			raf.seek(raf.getFilePointer()-8);
 			Long pointer = raf.getFilePointer();
@@ -170,7 +172,7 @@ public class NoeudDao {
 			raf = new RandomAccessFile(fileArbre, "rw");
 
 
-			etudiantsOrdre=getAllOrdreBin(0l, raf);
+			etudiantsOrdre=getAllOrdreBin(0l, raf);// 0 est l'adresse de la racine dans le fichier
 
 
 		} catch (IOException e) {
@@ -266,32 +268,26 @@ public class NoeudDao {
 			return noeud;
 
 		raf.seek(noeud);
-		byte[] nomBin = new byte[30];
+		byte[] nomBin = new byte[structure[0]];
 		raf.read(nomBin);
 		raf.seek(noeud+77);
 		Long gauche = raf.readLong();
 		Long droite = raf.readLong();
-		String nomNoeud= new String(nomBin, StandardCharsets.UTF_8);
-		System.out.println(nom+" compate to "+nomNoeud.trim());
-
+		String nomNoeud= new String(nomBin);
+		
 		if (nom.equals(nomNoeud.trim())) {
-			System.out.println("si égal noeud = "+noeud);
 			return supprimerRacineNomBin(noeud, raf);
 		}
 		if (nom.compareTo(nomNoeud.trim())<0) {
 			gauche=supprimerNomBin(nom, gauche, raf);
 			raf.seek(noeud+77);
 			raf.writeLong(gauche);
-			System.out.println("noeud = "+gauche+" gauche = "+gauche);
-
 		}
 		else {
 			droite=supprimerNomBin(nom, droite, raf);
 			raf.seek(noeud+85);
 			raf.writeLong(droite);
-			System.out.println("noeud = "+droite+" gauche = "+droite);
-
-		}
+			}
 		return noeud;
 	}
 
@@ -299,9 +295,8 @@ public class NoeudDao {
 
 	private static Long supprimerRacineNomBin( Long noeud, RandomAccessFile raf) throws IOException 
 	{
-		System.out.println("dans supprimer racine noeud = "+noeud);
 		raf.seek(noeud);
-		raf.seek(noeud+77);
+		raf.seek(noeud+structure[7]);
 		Long gauche = raf.readLong();
 		Long droite = raf.readLong();
 
@@ -314,15 +309,14 @@ public class NoeudDao {
 		raf.seek(f);
 		byte[] fnomBin = new byte[30];
 		raf.read(fnomBin);
-		raf.seek(noeud+77);
-		String fnomNoeud= new String(fnomBin, StandardCharsets.UTF_8);
+		raf.seek(noeud+structure[7]);
+		String fnomNoeud= new String(fnomBin);
 		raf.seek(noeud);
 		raf.write(fnomBin);
 
 		gauche=supprimerNomBin(fnomNoeud.trim(), gauche, raf);
-		raf.seek(raf.getFilePointer()+47);
+		raf.seek(raf.getFilePointer()-structure[0]+structure[7]);
 		raf.writeLong(gauche);
-		System.out.println("changement descendant noeud = "+noeud+" gauche = "+gauche);
 		return noeud; // attention a ce retour f ou null
 	}
 
@@ -356,20 +350,14 @@ public class NoeudDao {
 
 		List<Etudiant> resultatsIntermediaires = new ArrayList<Etudiant>();
 		List<Etudiant> resultatsFinaux = new ArrayList<Etudiant>();
-		
+
 		int i=0;
 
 		while (criteres[i]==null) {
 			i++;	
 		}
-		System.out.println("après le while i= "+i);
 		resultatsIntermediaires = rechercheCol(criteres[i], i, raf);
-		System.out.println("nb de resultat = "+resultatsIntermediaires.size());
-		for (Etudiant etudiant : resultatsIntermediaires) {
-			System.out.println(etudiant);
-		}
 		for (i=i+1 ; i < criteres.length; i++) {
-			System.out.println("après le for i= "+i);
 			if (criteres[i]!=null) {
 				resultatsFinaux.clear();
 				for (Etudiant etudiant : resultatsIntermediaires) {
@@ -380,11 +368,6 @@ public class NoeudDao {
 				resultatsIntermediaires.clear();
 				resultatsIntermediaires.addAll(resultatsFinaux);
 			}
-		}
-
-		System.out.println("nb de resultat = "+resultatsIntermediaires.size());
-		for (Etudiant etudiant : resultatsIntermediaires) {
-			System.out.println(etudiant);
 		}
 
 		return resultatsIntermediaires;
@@ -450,18 +433,18 @@ public class NoeudDao {
 			default : 
 				break;
 			}
-			String colonne = new String(colBin, StandardCharsets.UTF_8).trim().toLowerCase();
+			String colonne = new String(colBin).trim().toLowerCase();
 
 			if (colonne.contains(critere)) {
-				
+
 				String[] etudiant =new String[5];
 				//switch permétant le retour en début de ligne en fonction de la collone dans laqullle on recherche
 
 				for (int i = 0; i < etudiant.length; i++) {
 					byte[] temp = new byte[structure[i]];
 					raf.read(temp);
-					etudiant[i]=new String (temp, StandardCharsets.UTF_8).trim();
-					
+					etudiant[i]=new String (temp).trim();
+
 				}//déplacement du poiteur en début de ligne 
 				raf.seek(raf.getFilePointer()-structure[7]);
 				Etudiant match = new Etudiant(etudiant[0], etudiant[1], etudiant[2], etudiant[3], etudiant[4]);
