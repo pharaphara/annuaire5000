@@ -171,7 +171,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			PdfWriter.getInstance(doc, new FileOutputStream(file.getAbsolutePath()));
 			doc.open();
-			Image img = Image.getInstance("C:\\Users\\formation\\Desktop\\PDF\\eqlimg.png");
+			Image img = Image.getInstance(getClass().getResource("/ressource/image/eqlimg.png").toString());
 			img.scaleAbsoluteWidth(120);
 			img.scaleAbsoluteHeight(80);
 			img.setAlignment(Image.ALIGN_CENTER);
@@ -259,7 +259,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 
 			PdfWriter.getInstance(doc, new FileOutputStream(file.getAbsolutePath()));
 			doc.open();
-			Image img = Image.getInstance("C:\\Users\\formation\\Desktop\\PDF\\eqlimg.png");
+			Image img = Image.getInstance(getClass().getResource("/ressource/image/eqlimg.png").toString());
 			img.scaleAbsoluteWidth(120);
 			img.scaleAbsoluteHeight(80);
 			img.setAlignment(Image.ALIGN_CENTER);
