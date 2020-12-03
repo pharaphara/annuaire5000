@@ -32,6 +32,7 @@ public class MainPanel extends BorderPane {
 			for (Etudiant etudiant : etudiants) {
 				rightVBox.getObservableEtudiants().add(etudiant);
 			}
+			getRightVBox().getObservableEtudiants().remove(new Etudiant("~/~Racine", "de l'arbre", "ZZZ", "XXXX", "9999"));
 
 		}
 

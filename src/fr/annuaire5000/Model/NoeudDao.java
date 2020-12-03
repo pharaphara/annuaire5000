@@ -36,12 +36,13 @@ public class NoeudDao {
 		try {
 			raf = new RandomAccessFile(fileArbre, "rw");
 
-			//permet d'initialiser mon fichier à null et évite erreur de lecture dans insererBin
+			//permet d'initialiser mon fichier avec un faux etudiant pour mettre la logique de l'arbre en place
 			if (!isArbre) {
-
-				for (int i = 0; i <structure[8]; i++) {
-					raf.writeBytes("*");
-				}
+				Etudiant racine = new Etudiant("~/~Racine", "de l'arbre", "ZZZ", "XXXX", "9999");
+				raf.writeBytes(racine.toLargeurFixe());
+				raf.writeLong(Long.MAX_VALUE);
+				raf.writeLong(Long.MAX_VALUE);
+									
 			}
 			for (Etudiant etudiant : etudiants) {
 				insererBin(etudiant, 0l, raf);
@@ -74,11 +75,13 @@ public class NoeudDao {
 		try {
 			raf = new RandomAccessFile(fileArbre, "rw");
 
-			//permet d'initialiser mon fichier à null et évite erreur de lecture dans insererBin
+			//permet d'initialiser mon fichier avec un faux etudiant pour mettre la logique de l'arbre en place
 			if (!isArbre) {
-				for (int i = 0; i <structure[8]; i++) {
-					raf.writeBytes("*");
-				}
+				Etudiant racine = new Etudiant("~/~Racine", "de l'arbre", "ZZZ", "XXXX", "9999");
+				raf.writeBytes(racine.toLargeurFixe());
+				raf.writeLong(Long.MAX_VALUE);
+				raf.writeLong(Long.MAX_VALUE);
+									
 			}
 			insererBin(etudiant, 0l, raf);
 
@@ -224,7 +227,7 @@ public class NoeudDao {
 
 	private static Long dernierDescendantBin(Long noeud, RandomAccessFile raf) throws IOException 
 	{
-		raf.seek(noeud+85);
+		raf.seek(noeud+structure[7]+structure[5]);
 		Long droite = raf.readLong();
 		if (droite == Long.MAX_VALUE)
 			return noeud;
@@ -258,7 +261,6 @@ public class NoeudDao {
 	private static Long supprimerNomBin(String nom, Long noeud, RandomAccessFile raf) throws IOException
 	{
 
-		System.out.println("dans supprimer nom");
 		if (noeud == Long.MAX_VALUE)
 			return noeud;
 
@@ -275,12 +277,12 @@ public class NoeudDao {
 		}
 		if (nom.compareTo(nomNoeud.trim())<0) {
 			gauche=supprimerNomBin(nom, gauche, raf);
-			raf.seek(noeud+77);
+			raf.seek(noeud+structure[7]);
 			raf.writeLong(gauche);
 		}
 		else {
 			droite=supprimerNomBin(nom, droite, raf);
-			raf.seek(noeud+85);
+			raf.seek(noeud+structure[7]+structure[5]);
 			raf.writeLong(droite);
 			}
 		return noeud;

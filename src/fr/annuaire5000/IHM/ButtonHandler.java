@@ -101,6 +101,7 @@ public class ButtonHandler implements EventHandler<ActionEvent>{
 			for (Etudiant etudiant : etudiants) {
 				root.getRightVBox().getObservableEtudiants().add(etudiant);
 			}
+			root.getRightVBox().getObservableEtudiants().remove(new Etudiant("~/~Racine", "de l'arbre", "ZZZ", "XXXX", "9999"));
 		}
 	} 
 	private void recherche() {
