@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\formation\Desktop\Projet 04_12_2020\annuairefinal.jar</jar>
-  <outfile>C:\Users\formation\Desktop\Projet 04_12_2020\Annuaire.exe</outfile>
+  <jar>C:\Users\formation\Desktop\ProjetVersionFinal\annuairefinal1.jar</jar>
+  <outfile>C:\Users\formation\Desktop\ProjetVersionFinal\Annuaire.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\formation\Desktop\Projet 04_12_2020\eqlimg.ico</icon>
+  <icon>C:\Users\formation\Desktop\ProjetVersionFinal\eqlimg.ico</icon>
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
