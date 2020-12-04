@@ -89,7 +89,7 @@ public class ActionButtonConnecter {
 						//Supprimer mode admin
 						root.getLeftVBox().getBtnSupprimer().setOnAction(d-> {
 
-							String nom=root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem().getNom();
+							String nom=root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem().toLargeurFixe().trim();
 
 							NoeudDao.supprimer(nom);
 							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedIndex());

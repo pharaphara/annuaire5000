@@ -104,14 +104,14 @@ public class NoeudDao {
 	private static Long insererBin(Etudiant etudiant, Long index, RandomAccessFile raf) throws IOException 
 	{
 		raf.seek(index);
-		byte[] nom = new byte[structure[0]];
-		raf.read(nom);
+		byte[] nomPrenom = new byte[structure[0]+structure[1]];
+		raf.read(nomPrenom);
 
-		String lenom= new String(nom);
+		String lenom= new String(nomPrenom);
 
 
 
-		if (nom[0]==35||nom[0]==42) {//35 et 42 sont les codes ascii des caractère # et *
+		if (nomPrenom[0]==35||nomPrenom[0]==42) {//35 et 42 sont les codes ascii des caractère # et *
 			raf.seek(raf.getFilePointer()-structure[0]);
 			raf.writeBytes(etudiant.toLargeurFixe());
 			raf.writeLong(Long.MAX_VALUE);
@@ -121,8 +121,8 @@ public class NoeudDao {
 			return index;
 		}
 		//partie gauche
-		if ((etudiant.getNom().compareTo(lenom)<0)) {
-			raf.seek(raf.getFilePointer()-structure[0]+structure[7]);
+		if (((etudiant.toLargeurFixe().substring(0, 59)).compareTo(lenom)<0)) {
+			raf.seek(raf.getFilePointer()-structure[0]+structure[7]-structure[1]);
 			index=raf.readLong();
 			raf.seek(raf.getFilePointer()-structure[5]);
 			Long pointer = raf.getFilePointer();
@@ -142,8 +142,8 @@ public class NoeudDao {
 			insererBin(etudiant, index, raf);
 
 			//partie droite
-		} else if ((etudiant.getNom().compareTo(lenom)>0)) {
-			raf.seek(raf.getFilePointer()+structure[1]+structure[2]+structure[3]+structure[4]+structure[5]);
+		} else if ((etudiant.toLargeurFixe().substring(0, 59).compareTo(lenom)>0)) {
+			raf.seek(raf.getFilePointer()+structure[2]+structure[3]+structure[4]+structure[5]);
 			index=raf.readLong();
 			raf.seek(raf.getFilePointer()-8);
 			Long pointer = raf.getFilePointer();
@@ -265,12 +265,11 @@ public class NoeudDao {
 			return noeud;
 
 		raf.seek(noeud);
-		byte[] nomBin = new byte[structure[0]];
-		raf.read(nomBin);
-		raf.seek(noeud+77);
+		byte[] ligne = new byte[structure[7]];
+		raf.read(ligne);
 		Long gauche = raf.readLong();
 		Long droite = raf.readLong();
-		String nomNoeud= new String(nomBin);
+		String nomNoeud= new String(ligne);
 		
 		if (nom.equals(nomNoeud.trim())) {
 			return supprimerRacineNomBin(noeud, raf);
