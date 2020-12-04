@@ -72,13 +72,13 @@ public class ActionButtonConnecter {
 							String nomSupr=root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem().getNom();
 							NoeudDao.supprimer(nomSupr);
 
-							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem());
-
+							
 							String nom = root.getLeftVBox().getTfNom().getText();
 							String prenom = root.getLeftVBox().getTfPrenom().getText();
 							String departement = root.getLeftVBox().getTfDepartement().getText();
 							String promotion = root.getLeftVBox().getTfPromotion().getText();
 							String annee = root.getLeftVBox().getTfAnnee().getText();
+							root.getRightVBox().getObservableEtudiants().remove(root.getRightVBox().getTableEtudiants().getSelectionModel().getSelectedItem());
 
 							Etudiant etudiant = new Etudiant(nom, prenom, departement, promotion, annee);
 							NoeudDao.ajouterEtudiant(etudiant);
